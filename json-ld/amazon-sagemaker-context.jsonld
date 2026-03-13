@@ -1,0 +1,73 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sagemaker": "https://docs.aws.amazon.com/sagemaker/latest/APIReference/",
+    "aws": "https://aws.amazon.com/",
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "identifier": "schema:identifier",
+    "dateCreated": "schema:dateCreated",
+    "dateModified": "schema:dateModified",
+    "status": "schema:status",
+    "provider": {
+      "@id": "schema:provider",
+      "@type": "schema:Organization"
+    },
+    "SageMakerModel": {
+      "@id": "sagemaker:API_CreateModel.html",
+      "@context": {
+        "ModelName": "schema:name",
+        "ModelArn": "schema:identifier",
+        "ExecutionRoleArn": "sagemaker:ExecutionRoleArn",
+        "PrimaryContainer": "sagemaker:PrimaryContainer",
+        "CreationTime": "schema:dateCreated"
+      }
+    },
+    "NotebookInstance": {
+      "@id": "sagemaker:API_CreateNotebookInstance.html",
+      "@context": {
+        "NotebookInstanceName": "schema:name",
+        "NotebookInstanceArn": "schema:identifier",
+        "NotebookInstanceStatus": "schema:status",
+        "InstanceType": "sagemaker:InstanceType",
+        "Url": "schema:url",
+        "CreationTime": "schema:dateCreated",
+        "LastModifiedTime": "schema:dateModified"
+      }
+    },
+    "TrainingJob": {
+      "@id": "sagemaker:API_CreateTrainingJob.html",
+      "@context": {
+        "TrainingJobName": "schema:name",
+        "TrainingJobArn": "schema:identifier",
+        "TrainingJobStatus": "schema:status",
+        "AlgorithmSpecification": "sagemaker:AlgorithmSpecification",
+        "HyperParameters": "sagemaker:HyperParameters",
+        "ModelArtifacts": "sagemaker:ModelArtifacts",
+        "CreationTime": "schema:dateCreated",
+        "TrainingStartTime": "schema:startDate",
+        "TrainingEndTime": "schema:endDate"
+      }
+    },
+    "Endpoint": {
+      "@id": "sagemaker:API_CreateEndpoint.html",
+      "@context": {
+        "EndpointName": "schema:name",
+        "EndpointArn": "schema:identifier",
+        "EndpointConfigName": "sagemaker:EndpointConfigName",
+        "EndpointStatus": "schema:status",
+        "ProductionVariants": "sagemaker:ProductionVariants",
+        "CreationTime": "schema:dateCreated",
+        "LastModifiedTime": "schema:dateModified"
+      }
+    },
+    "Tag": {
+      "@id": "sagemaker:Tag",
+      "@context": {
+        "Key": "schema:name",
+        "Value": "schema:value"
+      }
+    }
+  }
+}

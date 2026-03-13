@@ -1,0 +1,916 @@
+openapi: 3.1.0
+info:
+  title: Amazon SageMaker API
+  description: >-
+    Amazon SageMaker is a fully managed machine learning platform that enables
+    developers and data scientists to build, train, and deploy machine learning
+    models at scale. This API provides programmatic access to SageMaker
+    resources including notebook instances, training jobs, models, and endpoints.
+  version: 2017-07-24
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/sagemaker/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+
+servers:
+  - url: https://api.sagemaker.{region}.amazonaws.com
+    variables:
+      region:
+        default: us-east-1
+        description: The AWS region.
+
+paths:
+
+  /#CreateNotebookInstance:
+    post:
+      operationId: CreateNotebookInstance
+      summary: Create a notebook instance
+      description: >-
+        Creates an ML compute instance with a Jupyter notebook for exploring
+        data and developing ML models.
+      tags:
+        - Notebook Instances
+      parameters:
+        - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              required:
+                - NotebookInstanceName
+                - InstanceType
+                - RoleArn
+              properties:
+                NotebookInstanceName:
+                  type: string
+                  description: The name of the notebook instance.
+                InstanceType:
+                  type: string
+                  description: The type of ML compute instance to launch.
+                RoleArn:
+                  type: string
+                  description: The Amazon Resource Name (ARN) of the IAM role.
+                SubnetId:
+                  type: string
+                  description: The ID of the subnet in a VPC.
+                SecurityGroupIds:
+                  type: array
+                  items:
+                    type: string
+                  description: The VPC security group IDs.
+                VolumeSizeInGB:
+                  type: integer
+                  description: The size of the ML storage volume in GB.
+                Tags:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Tag'
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  NotebookInstanceArn:
+                    type: string
+
+  /#DescribeNotebookInstance:
+    post:
+      operationId: DescribeNotebookInstance
+      summary: Describe a notebook instance
+      description: Returns information about a notebook instance.
+      tags:
+        - Notebook Instances
+      parameters:
+        - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              required:
+                - NotebookInstanceName
+              properties:
+                NotebookInstanceName:
+                  type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotebookInstance'
+
+  /#ListNotebookInstances:
+    post:
+      operationId: ListNotebookInstances
+      summary: List notebook instances
+      description: Returns a list of the notebook instances in the requester's account.
+      tags:
+        - Notebook Instances
+      parameters:
+        - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              properties:
+                MaxResults:
+                  type: integer
+                NextToken:
+                  type: string
+                SortBy:
+                  type: string
+                  enum:
+                    - Name
+                    - CreationTime
+                    - Status
+                    - LastModifiedTime
+                SortOrder:
+                  type: string
+                  enum:
+                    - Ascending
+                    - Descending
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  NotebookInstances:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NotebookInstance'
+                  NextToken:
+                    type: string
+
+  /#CreateTrainingJob:
+    post:
+      operationId: CreateTrainingJob
+      summary: Create a training job
+      description: >-
+        Starts a model training job. SageMaker provides the algorithm and
+        compute resources, and you provide the input data and training
+        parameters.
+      tags:
+        - Training Jobs
+      parameters:
+        - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              required:
+                - TrainingJobName
+                - AlgorithmSpecification
+                - RoleArn
+                - OutputDataConfig
+                - ResourceConfig
+                - StoppingCondition
+              properties:
+                TrainingJobName:
+                  type: string
+                AlgorithmSpecification:
+                  type: object
+                  properties:
+                    TrainingImage:
+                      type: string
+                    TrainingInputMode:
+                      type: string
+                      enum:
+                        - Pipe
+                        - File
+                    AlgorithmName:
+                      type: string
+                RoleArn:
+                  type: string
+                InputDataConfig:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      ChannelName:
+                        type: string
+                      DataSource:
+                        type: object
+                        properties:
+                          S3DataSource:
+                            type: object
+                            properties:
+                              S3DataType:
+                                type: string
+                              S3Uri:
+                                type: string
+                              S3DataDistributionType:
+                                type: string
+                OutputDataConfig:
+                  type: object
+                  properties:
+                    S3OutputPath:
+                      type: string
+                    KmsKeyId:
+                      type: string
+                ResourceConfig:
+                  type: object
+                  properties:
+                    InstanceType:
+                      type: string
+                    InstanceCount:
+                      type: integer
+                    VolumeSizeInGB:
+                      type: integer
+                StoppingCondition:
+                  type: object
+                  properties:
+                    MaxRuntimeInSeconds:
+                      type: integer
+                    MaxWaitTimeInSeconds:
+                      type: integer
+                HyperParameters:
+                  type: object
+                  additionalProperties:
+                    type: string
+                Tags:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Tag'
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  TrainingJobArn:
+                    type: string
+
+  /#DescribeTrainingJob:
+    post:
+      operationId: DescribeTrainingJob
+      summary: Describe a training job
+      description: Returns information about a training job.
+      tags:
+        - Training Jobs
+      parameters:
+        - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              required:
+                - TrainingJobName
+              properties:
+                TrainingJobName:
+                  type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainingJob'
+
+  /#ListTrainingJobs:
+    post:
+      operationId: ListTrainingJobs
+      summary: List training jobs
+      description: Lists training jobs.
+      tags:
+        - Training Jobs
+      parameters:
+        - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              properties:
+                MaxResults:
+                  type: integer
+                NextToken:
+                  type: string
+                SortBy:
+                  type: string
+                  enum:
+                    - Name
+                    - CreationTime
+                    - Status
+                SortOrder:
+                  type: string
+                  enum:
+                    - Ascending
+                    - Descending
+                StatusEquals:
+                  type: string
+                  enum:
+                    - InProgress
+                    - Completed
+                    - Failed
+                    - Stopping
+                    - Stopped
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  TrainingJobSummaries:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TrainingJob'
+                  NextToken:
+                    type: string
+
+  /#CreateModel:
+    post:
+      operationId: CreateModel
+      summary: Create a model
+      description: >-
+        Creates a model in SageMaker. In the request, you specify a name for
+        the model and describe a primary container that contains the inference
+        code, model artifacts, and environment variables.
+      tags:
+        - Models
+      parameters:
+        - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              required:
+                - ModelName
+                - ExecutionRoleArn
+              properties:
+                ModelName:
+                  type: string
+                PrimaryContainer:
+                  type: object
+                  properties:
+                    Image:
+                      type: string
+                    ModelDataUrl:
+                      type: string
+                    Environment:
+                      type: object
+                      additionalProperties:
+                        type: string
+                ExecutionRoleArn:
+                  type: string
+                Tags:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Tag'
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ModelArn:
+                    type: string
+
+  /#DescribeModel:
+    post:
+      operationId: DescribeModel
+      summary: Describe a model
+      description: Describes a model that you created using the CreateModel API.
+      tags:
+        - Models
+      parameters:
+        - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              required:
+                - ModelName
+              properties:
+                ModelName:
+                  type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model'
+
+  /#ListModels:
+    post:
+      operationId: ListModels
+      summary: List models
+      description: Lists models created with the CreateModel API.
+      tags:
+        - Models
+      parameters:
+        - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              properties:
+                MaxResults:
+                  type: integer
+                NextToken:
+                  type: string
+                SortBy:
+                  type: string
+                  enum:
+                    - Name
+                    - CreationTime
+                SortOrder:
+                  type: string
+                  enum:
+                    - Ascending
+                    - Descending
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Models:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Model'
+                  NextToken:
+                    type: string
+
+  /#CreateEndpoint:
+    post:
+      operationId: CreateEndpoint
+      summary: Create an endpoint
+      description: >-
+        Creates an endpoint using the endpoint configuration specified in the
+        request. SageMaker uses the endpoint to provision resources and deploy
+        models.
+      tags:
+        - Endpoints
+      parameters:
+        - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              required:
+                - EndpointName
+                - EndpointConfigName
+              properties:
+                EndpointName:
+                  type: string
+                EndpointConfigName:
+                  type: string
+                Tags:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Tag'
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  EndpointArn:
+                    type: string
+
+  /#DescribeEndpoint:
+    post:
+      operationId: DescribeEndpoint
+      summary: Describe an endpoint
+      description: Returns the description of an endpoint.
+      tags:
+        - Endpoints
+      parameters:
+        - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              required:
+                - EndpointName
+              properties:
+                EndpointName:
+                  type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Endpoint'
+
+  /#ListEndpoints:
+    post:
+      operationId: ListEndpoints
+      summary: List endpoints
+      description: Lists endpoints.
+      tags:
+        - Endpoints
+      parameters:
+        - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              properties:
+                MaxResults:
+                  type: integer
+                NextToken:
+                  type: string
+                SortBy:
+                  type: string
+                  enum:
+                    - Name
+                    - CreationTime
+                    - Status
+                SortOrder:
+                  type: string
+                  enum:
+                    - Ascending
+                    - Descending
+                StatusEquals:
+                  type: string
+                  enum:
+                    - OutOfService
+                    - Creating
+                    - Updating
+                    - SystemUpdating
+                    - RollingBack
+                    - InService
+                    - Deleting
+                    - Failed
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Endpoints:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Endpoint'
+                  NextToken:
+                    type: string
+
+  /#CreateEndpointConfig:
+    post:
+      operationId: CreateEndpointConfig
+      summary: Create an endpoint configuration
+      description: >-
+        Creates an endpoint configuration that SageMaker hosting services uses
+        to deploy models. The configuration identifies the ML compute instances
+        and the model variants to deploy.
+      tags:
+        - Endpoints
+      parameters:
+        - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              required:
+                - EndpointConfigName
+                - ProductionVariants
+              properties:
+                EndpointConfigName:
+                  type: string
+                ProductionVariants:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - VariantName
+                      - ModelName
+                      - InitialInstanceCount
+                      - InstanceType
+                    properties:
+                      VariantName:
+                        type: string
+                      ModelName:
+                        type: string
+                      InitialInstanceCount:
+                        type: integer
+                      InstanceType:
+                        type: string
+                      InitialVariantWeight:
+                        type: number
+                Tags:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Tag'
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  EndpointConfigArn:
+                    type: string
+
+components:
+
+  parameters:
+    XAmzTarget:
+      name: X-Amz-Target
+      in: header
+      required: true
+      schema:
+        type: string
+        example: SageMaker.CreateNotebookInstance
+      description: >-
+        The target action for the request, in the format SageMaker.<operation>.
+
+  schemas:
+
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
+
+    NotebookInstance:
+      type: object
+      properties:
+        NotebookInstanceArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the notebook instance.
+        NotebookInstanceName:
+          type: string
+          description: The name of the notebook instance.
+        NotebookInstanceStatus:
+          type: string
+          description: The status of the notebook instance.
+          enum:
+            - Pending
+            - InService
+            - Stopping
+            - Stopped
+            - Failed
+            - Deleting
+            - Updating
+        InstanceType:
+          type: string
+          description: The type of ML compute instance running the notebook.
+        RoleArn:
+          type: string
+          description: The ARN of the IAM role associated with the instance.
+        SubnetId:
+          type: string
+          description: The ID of the VPC subnet.
+        SecurityGroups:
+          type: array
+          items:
+            type: string
+          description: The security groups associated with the instance.
+        Url:
+          type: string
+          description: The URL that you use to connect to the Jupyter notebook.
+        VolumeSizeInGB:
+          type: integer
+          description: The size of the ML storage volume in GB.
+        CreationTime:
+          type: string
+          format: date-time
+          description: A timestamp indicating when the notebook instance was created.
+        LastModifiedTime:
+          type: string
+          format: date-time
+          description: A timestamp indicating when the notebook instance was last modified.
+
+    TrainingJob:
+      type: object
+      properties:
+        TrainingJobName:
+          type: string
+          description: The name of the training job.
+        TrainingJobArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the training job.
+        TrainingJobStatus:
+          type: string
+          description: The status of the training job.
+          enum:
+            - InProgress
+            - Completed
+            - Failed
+            - Stopping
+            - Stopped
+        SecondaryStatus:
+          type: string
+          description: Provides detailed information about the state of the training job.
+        AlgorithmSpecification:
+          type: object
+          properties:
+            TrainingImage:
+              type: string
+            TrainingInputMode:
+              type: string
+            AlgorithmName:
+              type: string
+        RoleArn:
+          type: string
+          description: The ARN of the IAM role.
+        InputDataConfig:
+          type: array
+          items:
+            type: object
+            properties:
+              ChannelName:
+                type: string
+              DataSource:
+                type: object
+        OutputDataConfig:
+          type: object
+          properties:
+            S3OutputPath:
+              type: string
+            KmsKeyId:
+              type: string
+        ResourceConfig:
+          type: object
+          properties:
+            InstanceType:
+              type: string
+            InstanceCount:
+              type: integer
+            VolumeSizeInGB:
+              type: integer
+        StoppingCondition:
+          type: object
+          properties:
+            MaxRuntimeInSeconds:
+              type: integer
+            MaxWaitTimeInSeconds:
+              type: integer
+        HyperParameters:
+          type: object
+          additionalProperties:
+            type: string
+        ModelArtifacts:
+          type: object
+          properties:
+            S3ModelArtifacts:
+              type: string
+        TrainingStartTime:
+          type: string
+          format: date-time
+        TrainingEndTime:
+          type: string
+          format: date-time
+        CreationTime:
+          type: string
+          format: date-time
+        LastModifiedTime:
+          type: string
+          format: date-time
+        BillableTimeInSeconds:
+          type: integer
+        FailureReason:
+          type: string
+
+    Model:
+      type: object
+      properties:
+        ModelName:
+          type: string
+          description: The name of the model.
+        ModelArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the model.
+        PrimaryContainer:
+          type: object
+          properties:
+            Image:
+              type: string
+              description: The inference image URI.
+            ModelDataUrl:
+              type: string
+              description: The S3 path where the model artifacts are stored.
+            Environment:
+              type: object
+              additionalProperties:
+                type: string
+              description: Environment variables to set in the container.
+        ExecutionRoleArn:
+          type: string
+          description: The ARN of the IAM role.
+        CreationTime:
+          type: string
+          format: date-time
+          description: A timestamp indicating when the model was created.
+
+    Endpoint:
+      type: object
+      properties:
+        EndpointName:
+          type: string
+          description: The name of the endpoint.
+        EndpointArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the endpoint.
+        EndpointConfigName:
+          type: string
+          description: The name of the endpoint configuration.
+        EndpointStatus:
+          type: string
+          description: The status of the endpoint.
+          enum:
+            - OutOfService
+            - Creating
+            - Updating
+            - SystemUpdating
+            - RollingBack
+            - InService
+            - Deleting
+            - Failed
+        ProductionVariants:
+          type: array
+          items:
+            type: object
+            properties:
+              VariantName:
+                type: string
+              DeployedImages:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    SpecifiedImage:
+                      type: string
+                    ResolvedImage:
+                      type: string
+              CurrentWeight:
+                type: number
+              DesiredWeight:
+                type: number
+              CurrentInstanceCount:
+                type: integer
+              DesiredInstanceCount:
+                type: integer
+          description: An array of production variants.
+        CreationTime:
+          type: string
+          format: date-time
+          description: A timestamp indicating when the endpoint was created.
+        LastModifiedTime:
+          type: string
+          format: date-time
+          description: A timestamp indicating when the endpoint was last modified.
+        FailureReason:
+          type: string
+          description: If the status is Failed, the reason it failed.
+
+tags:
+  - name: Notebook Instances
+    description: Operations for managing SageMaker notebook instances.
+  - name: Training Jobs
+    description: Operations for managing SageMaker training jobs.
+  - name: Models
+    description: Operations for managing SageMaker models.
+  - name: Endpoints
+    description: Operations for managing SageMaker endpoints.

@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.sagemaker.amazonaws.com/schemas/model",
+  "title": "Amazon SageMaker Model",
+  "description": "Schema representing an Amazon SageMaker machine learning model resource.",
+  "type": "object",
+  "required": [
+    "ModelName",
+    "ExecutionRoleArn"
+  ],
+  "properties": {
+    "ModelName": {
+      "type": "string",
+      "description": "The name of the model.",
+      "maxLength": 63,
+      "pattern": "^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"
+    },
+    "ModelArn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the model.",
+      "pattern": "^arn:aws:sagemaker:.+:.+:model/.+"
+    },
+    "PrimaryContainer": {
+      "$ref": "#/$defs/ContainerDefinition",
+      "description": "The primary container for the model."
+    },
+    "Containers": {
+      "type": "array",
+      "description": "The containers in the inference pipeline.",
+      "items": {
+        "$ref": "#/$defs/ContainerDefinition"
+      },
+      "maxItems": 15
+    },
+    "ExecutionRoleArn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the IAM role that SageMaker can assume to access model artifacts.",
+      "pattern": "^arn:aws:iam::.+:role/.+"
+    },
+    "VpcConfig": {
+      "type": "object",
+      "description": "A VPC configuration for the model.",
+      "required": [
+        "SecurityGroupIds",
+        "Subnets"
+      ],
+      "properties": {
+        "SecurityGroupIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "maxItems": 5,
+          "description": "The VPC security group IDs."
+        },
+        "Subnets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "maxItems": 16,
+          "description": "The ID of the subnets in the VPC."
+        }
+      }
+    },
+    "EnableNetworkIsolation": {
+      "type": "boolean",
+      "description": "Isolates the model container so that no inbound or outbound network calls can be made.",
+      "default": false
+    },
+    "Tags": {
+      "type": "array",
+      "description": "A list of key-value pairs associated with the model.",
+      "items": {
+        "$ref": "#/$defs/Tag"
+      },
+      "maxItems": 50
+    },
+    "CreationTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "A timestamp that indicates when the model was created."
+    }
+  },
+  "$defs": {
+    "ContainerDefinition": {
+      "type": "object",
+      "description": "Describes the container for a model.",
+      "properties": {
+        "ContainerHostname": {
+          "type": "string",
+          "description": "The DNS host name for the container.",
+          "maxLength": 63,
+          "pattern": "^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"
+        },
+        "Image": {
+          "type": "string",
+          "description": "The inference image URI.",
+          "maxLength": 255
+        },
+        "ImageConfig": {
+          "type": "object",
+          "properties": {
+            "RepositoryAccessMode": {
+              "type": "string",
+              "enum": [
+                "Platform",
+                "Vpc"
+              ],
+              "description": "Set this to Vpc to pull the image from a private Docker registry in your VPC."
+            }
+          },
+          "required": [
+            "RepositoryAccessMode"
+          ]
+        },
+        "Mode": {
+          "type": "string",
+          "enum": [
+            "SingleModel",
+            "MultiModel"
+          ],
+          "description": "Whether the container hosts a single model or multiple models."
+        },
+        "ModelDataUrl": {
+          "type": "string",
+          "description": "The S3 path where the model artifacts are stored.",
+          "maxLength": 1024,
+          "pattern": "^(https|s3)://.*$"
+        },
+        "Environment": {
+          "type": "object",
+          "description": "Environment variables to set in the Docker container.",
+          "additionalProperties": {
+            "type": "string",
+            "maxLength": 1024
+          },
+          "maxProperties": 16
+        },
+        "ModelPackageName": {
+          "type": "string",
+          "description": "The name or ARN of the model package to use for inference."
+        }
+      }
+    },
+    "Tag": {
+      "type": "object",
+      "description": "A key-value pair for tagging SageMaker resources.",
+      "required": [
+        "Key",
+        "Value"
+      ],
+      "properties": {
+        "Key": {
+          "type": "string",
+          "description": "The tag key.",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "Value": {
+          "type": "string",
+          "description": "The tag value.",
+          "minLength": 0,
+          "maxLength": 256
+        }
+      }
+    }
+  }
+}
