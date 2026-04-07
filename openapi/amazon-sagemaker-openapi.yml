@@ -26,7 +26,7 @@ paths:
   /#CreateNotebookInstance:
     post:
       operationId: CreateNotebookInstance
-      summary: Create a notebook instance
+      summary: Amazon SageMaker Create a notebook instance
       description: >-
         Creates an ML compute instance with a Jupyter notebook for exploring
         data and developing ML models.
@@ -83,7 +83,7 @@ paths:
   /#DescribeNotebookInstance:
     post:
       operationId: DescribeNotebookInstance
-      summary: Describe a notebook instance
+      summary: Amazon SageMaker Describe a notebook instance
       description: Returns information about a notebook instance.
       tags:
         - Notebook Instances
@@ -111,7 +111,7 @@ paths:
   /#ListNotebookInstances:
     post:
       operationId: ListNotebookInstances
-      summary: List notebook instances
+      summary: Amazon SageMaker List notebook instances
       description: Returns a list of the notebook instances in the requester's account.
       tags:
         - Notebook Instances
@@ -158,7 +158,7 @@ paths:
   /#CreateTrainingJob:
     post:
       operationId: CreateTrainingJob
-      summary: Create a training job
+      summary: Amazon SageMaker Create a training job
       description: >-
         Starts a model training job. SageMaker provides the algorithm and
         compute resources, and you provide the input data and training
@@ -261,7 +261,7 @@ paths:
   /#DescribeTrainingJob:
     post:
       operationId: DescribeTrainingJob
-      summary: Describe a training job
+      summary: Amazon SageMaker Describe a training job
       description: Returns information about a training job.
       tags:
         - Training Jobs
@@ -289,7 +289,7 @@ paths:
   /#ListTrainingJobs:
     post:
       operationId: ListTrainingJobs
-      summary: List training jobs
+      summary: Amazon SageMaker List training jobs
       description: Lists training jobs.
       tags:
         - Training Jobs
@@ -343,7 +343,7 @@ paths:
   /#CreateModel:
     post:
       operationId: CreateModel
-      summary: Create a model
+      summary: Amazon SageMaker Create a model
       description: >-
         Creates a model in SageMaker. In the request, you specify a name for
         the model and describe a primary container that contains the inference
@@ -395,7 +395,7 @@ paths:
   /#DescribeModel:
     post:
       operationId: DescribeModel
-      summary: Describe a model
+      summary: Amazon SageMaker Describe a model
       description: Describes a model that you created using the CreateModel API.
       tags:
         - Models
@@ -423,7 +423,7 @@ paths:
   /#ListModels:
     post:
       operationId: ListModels
-      summary: List models
+      summary: Amazon SageMaker List models
       description: Lists models created with the CreateModel API.
       tags:
         - Models
@@ -468,7 +468,7 @@ paths:
   /#CreateEndpoint:
     post:
       operationId: CreateEndpoint
-      summary: Create an endpoint
+      summary: Amazon SageMaker Create an endpoint
       description: >-
         Creates an endpoint using the endpoint configuration specified in the
         request. SageMaker uses the endpoint to provision resources and deploy
@@ -509,7 +509,7 @@ paths:
   /#DescribeEndpoint:
     post:
       operationId: DescribeEndpoint
-      summary: Describe an endpoint
+      summary: Amazon SageMaker Describe an endpoint
       description: Returns the description of an endpoint.
       tags:
         - Endpoints
@@ -537,7 +537,7 @@ paths:
   /#ListEndpoints:
     post:
       operationId: ListEndpoints
-      summary: List endpoints
+      summary: Amazon SageMaker List endpoints
       description: Lists endpoints.
       tags:
         - Endpoints
@@ -594,7 +594,7 @@ paths:
   /#CreateEndpointConfig:
     post:
       operationId: CreateEndpointConfig
-      summary: Create an endpoint configuration
+      summary: Amazon SageMaker Create an endpoint configuration
       description: >-
         Creates an endpoint configuration that SageMaker hosting services uses
         to deploy models. The configuration identifies the ML compute instances
