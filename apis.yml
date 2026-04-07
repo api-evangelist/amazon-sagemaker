@@ -106,9 +106,9 @@ common:
 maintainer: Kin Lane
 
 tags:
-  - Machine Learning
   - AI
-  - Training
-  - Inference
-  - MLOps
   - AWS
+  - Inference
+  - Machine Learning
+  - MLOps
+  - Training

@@ -906,11 +906,11 @@ components:
           description: If the status is Failed, the reason it failed.
 
 tags:
+  - name: Endpoints
+    description: Operations for managing SageMaker endpoints.
+  - name: Models
+    description: Operations for managing SageMaker models.
   - name: Notebook Instances
     description: Operations for managing SageMaker notebook instances.
   - name: Training Jobs
     description: Operations for managing SageMaker training jobs.
-  - name: Models
-    description: Operations for managing SageMaker models.
-  - name: Endpoints
-    description: Operations for managing SageMaker endpoints.
