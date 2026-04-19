@@ -1,7 +1,7 @@
-# Amazon SageMaker (amazon-sagemaker)
+# Amazon SageMaker
 Amazon SageMaker is a fully managed machine learning platform that enables developers and data scientists to build, train, and deploy machine learning models at scale. SageMaker removes the heavy lifting from each step of the machine learning process, providing built-in algorithms, managed Jupyter notebooks, distributed training, automatic model tuning, and one-click deployment to production endpoints with auto-scaling.
 
-**URL:** [Visit Amazon SageMaker](https://aws.amazon.com/sagemaker/)
+**URL:** [Visit APIs.json URL](https://aws.amazon.com/sagemaker/)
 
 **Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
 
@@ -29,12 +29,12 @@ The Amazon SageMaker control plane API for creating and managing SageMaker resou
 
 - [Documentation](https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html)
 - [OpenAPI](openapi/amazon-sagemaker-openapi.yml)
-- [JSONSchema - Notebook Instance](json-schema/amazon-sagemaker-notebook-instance-schema.json)
-- [JSONSchema - Training Job](json-schema/amazon-sagemaker-training-job-schema.json)
-- [JSONSchema - Model](json-schema/amazon-sagemaker-model-schema.json)
-- [JSONSchema - Endpoint](json-schema/amazon-sagemaker-endpoint-schema.json)
-- [Python SDK](https://pypi.org/project/sagemaker/)
-- [Jupyter Notebook Examples](https://github.com/aws/amazon-sagemaker-examples)
+- [JSONSchema](json-schema/amazon-sagemaker-notebook-instance-schema.json)
+- [JSONSchema](json-schema/amazon-sagemaker-training-job-schema.json)
+- [JSONSchema](json-schema/amazon-sagemaker-model-schema.json)
+- [JSONSchema](json-schema/amazon-sagemaker-endpoint-schema.json)
+- [SDK](https://pypi.org/project/sagemaker/)
+- [CodeExamples](https://github.com/aws/amazon-sagemaker-examples)
 
 ### Amazon SageMaker Runtime API
 The Amazon SageMaker AI runtime API for invoking deployed model endpoints to get real-time inference predictions.
@@ -123,8 +123,27 @@ SageMaker Edge Manager dataplane service for communicating with active edge agen
 - [StackOverflow](https://stackoverflow.com/questions/tagged/amazon-sagemaker)
 - [KnowledgeCenter](https://repost.aws/knowledge-center)
 - [CLI](https://docs.aws.amazon.com/cli/latest/reference/sagemaker/)
-- [SageMaker HyperPod CLI](https://github.com/aws/sagemaker-hyperpod-cli)
+- [CLI](https://github.com/aws/sagemaker-hyperpod-cli)
+- [SDK](https://github.com/aws/sagemaker-python-sdk)
+- [GitHubRepository](https://github.com/aws/sagemaker-core)
+- [GitHubRepository](https://github.com/aws/sagemaker-distribution)
+- [SpectralRules](rules/amazon-sagemaker-spectral-rules.yml)
+- [Vocabulary](vocabulary/amazon-sagemaker-vocabulary.yaml)
+- [NaftikoCapability](capabilities/ml-lifecycle-management.yaml)
 - [Training](https://aws.amazon.com/training/)
+- [JSON-LD](json-ld/amazon-sagemaker-context.jsonld)
+- [JSONSchema](json-schema/amazon-sagemaker-tag-schema.json)
+- [JSONStructure](json-structure/amazon-sagemaker-endpoint-structure.json)
+- [JSONStructure](json-structure/amazon-sagemaker-model-structure.json)
+- [JSONStructure](json-structure/amazon-sagemaker-notebook-instance-structure.json)
+- [JSONStructure](json-structure/amazon-sagemaker-tag-structure.json)
+- [JSONStructure](json-structure/amazon-sagemaker-training-job-structure.json)
+- [Example](examples/amazon-sagemaker-endpoint-example.json)
+- [Example](examples/amazon-sagemaker-model-example.json)
+- [Example](examples/amazon-sagemaker-notebook-instance-example.json)
+- [Example](examples/amazon-sagemaker-tag-example.json)
+- [Example](examples/amazon-sagemaker-training-job-example.json)
+- [NaftikoCapability](capabilities/shared/amazon-sagemaker.yaml)
 
 ## Features
 
@@ -178,33 +197,35 @@ Machine-readable API specifications organized by format.
 
 ### OpenAPI
 
-- [Amazon SageMaker API](openapi/amazon-sagemaker-openapi.yml)
+- [amazon-sagemaker-openapi.yml](openapi/amazon-sagemaker-openapi.yml)
 
 ### JSON Schema
 
-- [NotebookInstance](json-schema/amazon-sagemaker-notebook-instance-schema.json)
-- [TrainingJob](json-schema/amazon-sagemaker-training-job-schema.json)
-- [Model](json-schema/amazon-sagemaker-model-schema.json)
-- [Endpoint](json-schema/amazon-sagemaker-endpoint-schema.json)
-- [Tag](json-schema/amazon-sagemaker-tag-schema.json)
+- [amazon-sagemaker-endpoint-schema.json](json-schema/amazon-sagemaker-endpoint-schema.json)
+- [amazon-sagemaker-model-schema.json](json-schema/amazon-sagemaker-model-schema.json)
+- [amazon-sagemaker-notebook-instance-schema.json](json-schema/amazon-sagemaker-notebook-instance-schema.json)
+- [amazon-sagemaker-tag-schema.json](json-schema/amazon-sagemaker-tag-schema.json)
+- [amazon-sagemaker-training-job-schema.json](json-schema/amazon-sagemaker-training-job-schema.json)
 
 ### JSON Structure
 
-- [NotebookInstance](json-structure/amazon-sagemaker-notebook-instance-structure.json)
-- [TrainingJob](json-structure/amazon-sagemaker-training-job-structure.json)
-- [Model](json-structure/amazon-sagemaker-model-structure.json)
-- [Endpoint](json-structure/amazon-sagemaker-endpoint-structure.json)
+- [amazon-sagemaker-endpoint-structure.json](json-structure/amazon-sagemaker-endpoint-structure.json)
+- [amazon-sagemaker-model-structure.json](json-structure/amazon-sagemaker-model-structure.json)
+- [amazon-sagemaker-notebook-instance-structure.json](json-structure/amazon-sagemaker-notebook-instance-structure.json)
+- [amazon-sagemaker-tag-structure.json](json-structure/amazon-sagemaker-tag-structure.json)
+- [amazon-sagemaker-training-job-structure.json](json-structure/amazon-sagemaker-training-job-structure.json)
 
 ### JSON-LD
 
-- [Amazon SageMaker Context](json-ld/amazon-sagemaker-context.jsonld)
+- [amazon-sagemaker-context.jsonld](json-ld/amazon-sagemaker-context.jsonld)
 
 ### Examples
 
-- [NotebookInstance Example](examples/amazon-sagemaker-notebook-instance-example.json)
-- [TrainingJob Example](examples/amazon-sagemaker-training-job-example.json)
-- [Model Example](examples/amazon-sagemaker-model-example.json)
-- [Endpoint Example](examples/amazon-sagemaker-endpoint-example.json)
+- [amazon-sagemaker-endpoint-example.json](examples/amazon-sagemaker-endpoint-example.json)
+- [amazon-sagemaker-model-example.json](examples/amazon-sagemaker-model-example.json)
+- [amazon-sagemaker-notebook-instance-example.json](examples/amazon-sagemaker-notebook-instance-example.json)
+- [amazon-sagemaker-tag-example.json](examples/amazon-sagemaker-tag-example.json)
+- [amazon-sagemaker-training-job-example.json](examples/amazon-sagemaker-training-job-example.json)
 
 ## Capabilities
 
@@ -212,22 +233,17 @@ Naftiko capabilities organized as shared per-API definitions composed into custo
 
 ### Shared Per-API Definitions
 
-- [Amazon SageMaker API](capabilities/shared/amazon-sagemaker.yaml) — 13 operations for notebook, training, model, and endpoint management
+- [amazon-sagemaker.yaml](capabilities/shared/amazon-sagemaker.yaml)
 
 ### Workflow Capabilities
 
-| Workflow | APIs Combined | Tools | Persona |
-|----------|--------------|-------|---------|
-| [ML Lifecycle Management](capabilities/ml-lifecycle-management.yaml) | Amazon SageMaker | 10 | ML Engineer, Data Scientist |
+- [ml-lifecycle-management.yaml](capabilities/ml-lifecycle-management.yaml)
 
 ## Vocabulary
 
-- [Amazon SageMaker Vocabulary](vocabulary/amazon-sagemaker-vocabulary.yaml) — Unified taxonomy mapping 8 resources, 8 actions, 1 workflow, and 2 personas across operational (OpenAPI) and capability (Naftiko) dimensions
+- [amazon-sagemaker-vocabulary.yaml](vocabulary/amazon-sagemaker-vocabulary.yaml)
 
 ## Rules
 
-- [Amazon SageMaker Spectral Rules](rules/amazon-sagemaker-spectral-rules.yml) — 22 rules across 9 categories enforcing Amazon SageMaker API conventions
+- [amazon-sagemaker-spectral-rules.yml](rules/amazon-sagemaker-spectral-rules.yml)
 
-## Maintainers
-
-**FN:** Kin Lane
