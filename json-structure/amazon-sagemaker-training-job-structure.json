@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-sagemaker/refs/heads/main/json-structure/amazon-sagemaker-training-job-structure.json",
+  "name": "TrainingJob",
+  "description": "TrainingJob schema from Amazon SageMaker API",
+  "type": "object",
+  "properties": {
+    "TrainingJobName": {
+      "type": "string",
+      "description": "The name of the training job."
+    },
+    "TrainingJobArn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the training job."
+    },
+    "TrainingJobStatus": {
+      "type": "string",
+      "description": "The status of the training job.",
+      "enum": [
+        "InProgress",
+        "Completed",
+        "Failed",
+        "Stopping",
+        "Stopped"
+      ]
+    },
+    "SecondaryStatus": {
+      "type": "string",
+      "description": "Provides detailed information about the state of the training job."
+    },
+    "AlgorithmSpecification": {
+      "type": "object",
+      "properties": {
+        "TrainingImage": {
+          "type": "string"
+        },
+        "TrainingInputMode": {
+          "type": "string"
+        },
+        "AlgorithmName": {
+          "type": "string"
+        }
+      }
+    },
+    "RoleArn": {
+      "type": "string",
+      "description": "The ARN of the IAM role."
+    },
+    "InputDataConfig": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ChannelName": {
+            "type": "string"
+          },
+          "DataSource": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "OutputDataConfig": {
+      "type": "object",
+      "properties": {
+        "S3OutputPath": {
+          "type": "string"
+        },
+        "KmsKeyId": {
+          "type": "string"
+        }
+      }
+    },
+    "ResourceConfig": {
+      "type": "object",
+      "properties": {
+        "InstanceType": {
+          "type": "string"
+        },
+        "InstanceCount": {
+          "type": "int32"
+        },
+        "VolumeSizeInGB": {
+          "type": "int32"
+        }
+      }
+    },
+    "StoppingCondition": {
+      "type": "object",
+      "properties": {
+        "MaxRuntimeInSeconds": {
+          "type": "int32"
+        },
+        "MaxWaitTimeInSeconds": {
+          "type": "int32"
+        }
+      }
+    },
+    "HyperParameters": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "ModelArtifacts": {
+      "type": "object",
+      "properties": {
+        "S3ModelArtifacts": {
+          "type": "string"
+        }
+      }
+    },
+    "TrainingStartTime": {
+      "type": "datetime"
+    },
+    "TrainingEndTime": {
+      "type": "datetime"
+    },
+    "CreationTime": {
+      "type": "datetime"
+    },
+    "LastModifiedTime": {
+      "type": "datetime"
+    },
+    "BillableTimeInSeconds": {
+      "type": "int32"
+    },
+    "FailureReason": {
+      "type": "string"
+    }
+  }
+}

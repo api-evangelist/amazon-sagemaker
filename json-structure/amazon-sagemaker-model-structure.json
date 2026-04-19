@@ -1,7 +1,7 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-sagemaker/refs/heads/main/json-schema/amazon-sagemaker-model-schema.json",
-  "title": "Model",
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-sagemaker/refs/heads/main/json-structure/amazon-sagemaker-model-structure.json",
+  "name": "Model",
   "description": "Model schema from Amazon SageMaker API",
   "type": "object",
   "properties": {
@@ -38,8 +38,7 @@
       "description": "The ARN of the IAM role."
     },
     "CreationTime": {
-      "type": "string",
-      "format": "date-time",
+      "type": "datetime",
       "description": "A timestamp indicating when the model was created."
     }
   }

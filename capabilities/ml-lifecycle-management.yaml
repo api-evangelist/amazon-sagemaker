@@ -1,0 +1,202 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Amazon SageMaker ML Lifecycle Management"
+  description: "Unified capability for managing the end-to-end machine learning lifecycle including notebook development, training, model management, and endpoint deployment. Used by ML Engineers and Data Scientists."
+  tags:
+    - Amazon SageMaker
+    - Machine Learning
+    - MLOps
+    - Training
+    - Inference
+    - AI
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY
+      AWS_REGION: AWS_REGION
+
+capability:
+  consumes:
+    - import: amazon-sagemaker
+      location: ./shared/amazon-sagemaker.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: ml-lifecycle-api
+      description: "Unified REST API for Amazon SageMaker ML lifecycle management."
+      resources:
+        - path: /v1/notebooks
+          name: notebooks
+          description: "Jupyter notebook instance management for ML development"
+          operations:
+            - method: GET
+              name: list-notebooks
+              description: "List all SageMaker notebook instances"
+              call: "amazon-sagemaker.list-notebook-instances"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-notebook
+              description: "Create a SageMaker notebook instance for ML development"
+              call: "amazon-sagemaker.create-notebook-instance"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/training-jobs
+          name: training-jobs
+          description: "Model training job management"
+          operations:
+            - method: GET
+              name: list-training-jobs
+              description: "List all SageMaker training jobs"
+              call: "amazon-sagemaker.list-training-jobs"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-training-job
+              description: "Submit a new model training job"
+              call: "amazon-sagemaker.create-training-job"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/models
+          name: models
+          description: "Trained model artifact management"
+          operations:
+            - method: GET
+              name: list-models
+              description: "List all registered SageMaker models"
+              call: "amazon-sagemaker.list-models"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: register-model
+              description: "Register a trained model for deployment"
+              call: "amazon-sagemaker.create-model"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/endpoints
+          name: endpoints
+          description: "Model inference endpoint management"
+          operations:
+            - method: GET
+              name: list-endpoints
+              description: "List all SageMaker inference endpoints"
+              call: "amazon-sagemaker.list-endpoints"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: deploy-endpoint
+              description: "Deploy a model to a SageMaker inference endpoint"
+              call: "amazon-sagemaker.create-endpoint"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: ml-lifecycle-mcp
+      transport: http
+      description: "MCP server for AI-assisted Amazon SageMaker ML lifecycle management."
+      tools:
+        - name: list-notebook-instances
+          description: "List SageMaker Jupyter notebook instances for ML development"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "amazon-sagemaker.list-notebook-instances"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-notebook-instance
+          description: "Create a SageMaker Jupyter notebook instance"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "amazon-sagemaker.create-notebook-instance"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-training-jobs
+          description: "List SageMaker model training jobs"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "amazon-sagemaker.list-training-jobs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-training-job
+          description: "Submit a SageMaker model training job"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "amazon-sagemaker.create-training-job"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: describe-training-job
+          description: "Get details about a specific SageMaker training job"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "amazon-sagemaker.describe-training-job"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-models
+          description: "List registered SageMaker ML models"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "amazon-sagemaker.list-models"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-model
+          description: "Register a trained model in SageMaker"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "amazon-sagemaker.create-model"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-endpoints
+          description: "List active SageMaker inference endpoints"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "amazon-sagemaker.list-endpoints"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: deploy-endpoint
+          description: "Deploy a model to a SageMaker inference endpoint"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "amazon-sagemaker.create-endpoint"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: describe-endpoint
+          description: "Get the status and details of a SageMaker inference endpoint"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "amazon-sagemaker.describe-endpoint"
+          outputParameters:
+            - type: object
+              mapping: "$."

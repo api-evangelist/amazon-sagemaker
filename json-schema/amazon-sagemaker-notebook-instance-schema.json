@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-sagemaker/refs/heads/main/json-schema/amazon-sagemaker-notebook-instance-schema.json",
+  "title": "NotebookInstance",
+  "description": "NotebookInstance schema from Amazon SageMaker API",
+  "type": "object",
+  "properties": {
+    "NotebookInstanceArn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the notebook instance."
+    },
+    "NotebookInstanceName": {
+      "type": "string",
+      "description": "The name of the notebook instance."
+    },
+    "NotebookInstanceStatus": {
+      "type": "string",
+      "description": "The status of the notebook instance.",
+      "enum": [
+        "Pending",
+        "InService",
+        "Stopping",
+        "Stopped",
+        "Failed",
+        "Deleting",
+        "Updating"
+      ]
+    },
+    "InstanceType": {
+      "type": "string",
+      "description": "The type of ML compute instance running the notebook."
+    },
+    "RoleArn": {
+      "type": "string",
+      "description": "The ARN of the IAM role associated with the instance."
+    },
+    "SubnetId": {
+      "type": "string",
+      "description": "The ID of the VPC subnet."
+    },
+    "SecurityGroups": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The security groups associated with the instance."
+    },
+    "Url": {
+      "type": "string",
+      "description": "The URL that you use to connect to the Jupyter notebook."
+    },
+    "VolumeSizeInGB": {
+      "type": "integer",
+      "description": "The size of the ML storage volume in GB."
+    },
+    "CreationTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "A timestamp indicating when the notebook instance was created."
+    },
+    "LastModifiedTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "A timestamp indicating when the notebook instance was last modified."
+    }
+  }
+}

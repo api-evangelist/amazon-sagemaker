@@ -1,0 +1,36 @@
+{
+  "TrainingJobName": "my-trainingjob-001",
+  "TrainingJobArn": "arn:aws:sagemaker:us-east-1:123456789012:resource/trainingjobarn",
+  "TrainingJobStatus": "InProgress",
+  "SecondaryStatus": "Active",
+  "AlgorithmSpecification": {
+    "TrainingImage": "example-trainingimage",
+    "TrainingInputMode": "example-traininginputmode",
+    "AlgorithmName": "my-algorithm-001"
+  },
+  "RoleArn": "arn:aws:sagemaker:us-east-1:123456789012:resource/rolearn",
+  "InputDataConfig": [],
+  "OutputDataConfig": {
+    "S3OutputPath": "example-s3outputpath",
+    "KmsKeyId": "example-kmskeyid"
+  },
+  "ResourceConfig": {
+    "InstanceType": "example-instancetype",
+    "InstanceCount": 10,
+    "VolumeSizeInGB": 10
+  },
+  "StoppingCondition": {
+    "MaxRuntimeInSeconds": 1718153645993,
+    "MaxWaitTimeInSeconds": 1718153645993
+  },
+  "HyperParameters": {},
+  "ModelArtifacts": {
+    "S3ModelArtifacts": "example-s3modelartifacts"
+  },
+  "TrainingStartTime": "2025-03-15T14:30:00Z",
+  "TrainingEndTime": "2025-03-15T14:30:00Z",
+  "CreationTime": "2025-03-15T14:30:00Z",
+  "LastModifiedTime": "2025-03-15T14:30:00Z",
+  "BillableTimeInSeconds": 1718153645993,
+  "FailureReason": "example-failurereason"
+}

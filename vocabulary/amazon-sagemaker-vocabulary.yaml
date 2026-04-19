@@ -1,0 +1,209 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "Amazon SageMaker"
+  description: "Unified taxonomy mapping operational and capability dimensions of the Amazon SageMaker machine learning platform APIs."
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+operational:
+  apis:
+    - namespace: amazon-sagemaker
+      version: "2017-07-24"
+      baseUrl: https://api.sagemaker.{region}.amazonaws.com
+      status: active
+    - namespace: amazon-sagemaker-runtime
+      version: "2017-05-13"
+      baseUrl: https://runtime.sagemaker.{region}.amazonaws.com
+      status: active
+    - namespace: amazon-sagemaker-feature-store
+      version: "2020-07-01"
+      baseUrl: https://featurestore-runtime.sagemaker.{region}.amazonaws.com
+      status: active
+    - namespace: amazon-sagemaker-metrics
+      version: "2022-09-30"
+      baseUrl: https://metrics.sagemaker.{region}.amazonaws.com
+      status: active
+
+  resources:
+    - name: NotebookInstances
+      api: amazon-sagemaker
+      actions: [Create, Describe, List, Start, Stop, Delete, Update]
+    - name: TrainingJobs
+      api: amazon-sagemaker
+      actions: [Create, Describe, List, Stop]
+    - name: Models
+      api: amazon-sagemaker
+      actions: [Create, Describe, List, Delete]
+    - name: Endpoints
+      api: amazon-sagemaker
+      actions: [Create, Describe, List, Delete, Update]
+    - name: EndpointConfigs
+      api: amazon-sagemaker
+      actions: [Create, Describe, List, Delete]
+    - name: Experiments
+      api: amazon-sagemaker
+      actions: [Create, Describe, List, Delete, Update]
+    - name: Pipelines
+      api: amazon-sagemaker
+      actions: [Create, Describe, List, Delete, Start, Stop]
+    - name: FeatureGroups
+      api: amazon-sagemaker-feature-store
+      actions: [Create, Describe, List, Delete, GetRecord, PutRecord, DeleteRecord]
+
+  actions:
+    - name: Create
+      httpMethods: [POST]
+      pattern: write
+    - name: Describe
+      httpMethods: [POST]
+      pattern: read
+    - name: List
+      httpMethods: [POST]
+      pattern: read
+    - name: Delete
+      httpMethods: [POST]
+      pattern: destructive
+    - name: Update
+      httpMethods: [POST]
+      pattern: write
+    - name: Start
+      httpMethods: [POST]
+      pattern: write
+    - name: Stop
+      httpMethods: [POST]
+      pattern: write
+    - name: Invoke
+      httpMethods: [POST]
+      pattern: write
+
+  schemas:
+    core:
+      - name: NotebookInstance
+        description: ML compute instance with Jupyter notebook for ML exploration and development
+      - name: TrainingJob
+        description: A managed ML training job that trains a model on specified data
+      - name: Model
+        description: A trained ML model registered in SageMaker model registry
+      - name: Endpoint
+        description: A deployed model inference endpoint that accepts prediction requests
+    data:
+      - name: Tag
+        description: Key-value metadata tag applied to SageMaker resources
+
+  parameters:
+    pagination:
+      - name: NextToken
+        description: Token for paginating through result sets
+      - name: MaxResults
+        description: Maximum number of results to return per page
+    identifiers:
+      - name: NotebookInstanceName
+        description: Unique name identifying a notebook instance
+      - name: TrainingJobName
+        description: Unique name identifying a training job
+      - name: ModelName
+        description: Unique name identifying a model
+      - name: EndpointName
+        description: Unique name identifying an inference endpoint
+
+  enums:
+    notebookStatus:
+      - Pending
+      - InService
+      - Stopping
+      - Stopped
+      - Failed
+      - Deleting
+    trainingStatus:
+      - InProgress
+      - Completed
+      - Failed
+      - Stopping
+      - Stopped
+    endpointStatus:
+      - OutOfService
+      - Creating
+      - Updating
+      - SystemUpdating
+      - RollingBack
+      - InService
+      - Deleting
+      - Failed
+    instanceTypes:
+      - ml.t3.medium
+      - ml.t3.large
+      - ml.m5.xlarge
+      - ml.p3.2xlarge
+      - ml.g4dn.xlarge
+
+  authentication:
+    schemes:
+      - type: AWS Signature V4
+        description: AWS IAM-based request signing using access key and secret key
+        apis: [all]
+
+capability:
+  workflows:
+    - name: ML Lifecycle Management
+      file: capabilities/ml-lifecycle-management.yaml
+      description: End-to-end ML lifecycle from notebook development through training, model registration, and endpoint deployment
+      apisConsumed: [amazon-sagemaker]
+      toolCount: 10
+      personas: [ML Engineer, Data Scientist]
+      domains: [Machine Learning, MLOps]
+
+  personas:
+    - id: ml-engineer
+      name: ML Engineer
+      description: Engineers who build, train, and deploy machine learning models at scale
+      workflows: [ML Lifecycle Management]
+    - id: data-scientist
+      name: Data Scientist
+      description: Scientists who explore data and experiment with ML models using notebooks and experiments
+      workflows: [ML Lifecycle Management]
+
+  domains:
+    - name: Machine Learning
+      description: Core ML activities including model development, training, and inference
+      resources: [NotebookInstances, TrainingJobs, Models, Endpoints]
+    - name: MLOps
+      description: Operational management of ML pipelines, monitoring, and model governance
+      resources: [Pipelines, Experiments, Endpoints]
+    - name: Feature Engineering
+      description: Feature creation, storage, and retrieval for ML models
+      resources: [FeatureGroups]
+
+  namespaces:
+    consumed:
+      - amazon-sagemaker
+    rest:
+      - ml-lifecycle-api (port 8080)
+    mcp:
+      - ml-lifecycle-mcp (port 9090)
+
+  binds:
+    - name: AWS_ACCESS_KEY_ID
+      workflows: [ML Lifecycle Management]
+    - name: AWS_SECRET_ACCESS_KEY
+      workflows: [ML Lifecycle Management]
+    - name: AWS_REGION
+      workflows: [ML Lifecycle Management]
+
+crossReference:
+  - resource: NotebookInstances
+    operations: [CreateNotebookInstance, DescribeNotebookInstance, ListNotebookInstances]
+    workflows: [ML Lifecycle Management]
+    personas: [ML Engineer, Data Scientist]
+  - resource: TrainingJobs
+    operations: [CreateTrainingJob, DescribeTrainingJob, ListTrainingJobs]
+    workflows: [ML Lifecycle Management]
+    personas: [ML Engineer, Data Scientist]
+  - resource: Models
+    operations: [CreateModel, DescribeModel, ListModels]
+    workflows: [ML Lifecycle Management]
+    personas: [ML Engineer]
+  - resource: Endpoints
+    operations: [CreateEndpoint, DescribeEndpoint, ListEndpoints]
+    workflows: [ML Lifecycle Management]
+    personas: [ML Engineer]

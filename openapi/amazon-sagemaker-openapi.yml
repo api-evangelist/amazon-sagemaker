@@ -15,25 +15,25 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0
 
 servers:
-  - url: https://api.sagemaker.{region}.amazonaws.com
-    variables:
-      region:
-        default: us-east-1
-        description: The AWS region.
+- url: https://api.sagemaker.{region}.amazonaws.com
+  variables:
+    region:
+      default: us-east-1
+      description: The AWS region.
 
 paths:
 
   /#CreateNotebookInstance:
     post:
       operationId: CreateNotebookInstance
-      summary: Amazon SageMaker Create a notebook instance
+      summary: Amazon SageMaker Create a Notebook Instance
       description: >-
         Creates an ML compute instance with a Jupyter notebook for exploring
         data and developing ML models.
       tags:
-        - Notebook Instances
+      - Notebook Instances
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
@@ -41,9 +41,9 @@ paths:
             schema:
               type: object
               required:
-                - NotebookInstanceName
-                - InstanceType
-                - RoleArn
+              - NotebookInstanceName
+              - InstanceType
+              - RoleArn
               properties:
                 NotebookInstanceName:
                   type: string
@@ -80,15 +80,26 @@ paths:
                   NotebookInstanceArn:
                     type: string
 
+              examples:
+                CreateNotebookInstance200Example:
+                  summary: Default CreateNotebookInstance 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#DescribeNotebookInstance:
     post:
       operationId: DescribeNotebookInstance
-      summary: Amazon SageMaker Describe a notebook instance
+      summary: Amazon SageMaker Describe a Notebook Instance
       description: Returns information about a notebook instance.
       tags:
-        - Notebook Instances
+      - Notebook Instances
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
@@ -96,7 +107,7 @@ paths:
             schema:
               type: object
               required:
-                - NotebookInstanceName
+              - NotebookInstanceName
               properties:
                 NotebookInstanceName:
                   type: string
@@ -108,15 +119,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotebookInstance'
 
+              examples:
+                DescribeNotebookInstance200Example:
+                  summary: Default DescribeNotebookInstance 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#ListNotebookInstances:
     post:
       operationId: ListNotebookInstances
-      summary: Amazon SageMaker List notebook instances
+      summary: Amazon SageMaker List Notebook Instances
       description: Returns a list of the notebook instances in the requester's account.
       tags:
-        - Notebook Instances
+      - Notebook Instances
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
@@ -131,15 +153,15 @@ paths:
                 SortBy:
                   type: string
                   enum:
-                    - Name
-                    - CreationTime
-                    - Status
-                    - LastModifiedTime
+                  - Name
+                  - CreationTime
+                  - Status
+                  - LastModifiedTime
                 SortOrder:
                   type: string
                   enum:
-                    - Ascending
-                    - Descending
+                  - Ascending
+                  - Descending
       responses:
         '200':
           description: Successful response.
@@ -155,18 +177,29 @@ paths:
                   NextToken:
                     type: string
 
+              examples:
+                ListNotebookInstances200Example:
+                  summary: Default ListNotebookInstances 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#CreateTrainingJob:
     post:
       operationId: CreateTrainingJob
-      summary: Amazon SageMaker Create a training job
+      summary: Amazon SageMaker Create a Training Job
       description: >-
         Starts a model training job. SageMaker provides the algorithm and
         compute resources, and you provide the input data and training
         parameters.
       tags:
-        - Training Jobs
+      - Training Jobs
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
@@ -174,12 +207,12 @@ paths:
             schema:
               type: object
               required:
-                - TrainingJobName
-                - AlgorithmSpecification
-                - RoleArn
-                - OutputDataConfig
-                - ResourceConfig
-                - StoppingCondition
+              - TrainingJobName
+              - AlgorithmSpecification
+              - RoleArn
+              - OutputDataConfig
+              - ResourceConfig
+              - StoppingCondition
               properties:
                 TrainingJobName:
                   type: string
@@ -191,8 +224,8 @@ paths:
                     TrainingInputMode:
                       type: string
                       enum:
-                        - Pipe
-                        - File
+                      - Pipe
+                      - File
                     AlgorithmName:
                       type: string
                 RoleArn:
@@ -258,15 +291,26 @@ paths:
                   TrainingJobArn:
                     type: string
 
+              examples:
+                CreateTrainingJob200Example:
+                  summary: Default CreateTrainingJob 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#DescribeTrainingJob:
     post:
       operationId: DescribeTrainingJob
-      summary: Amazon SageMaker Describe a training job
+      summary: Amazon SageMaker Describe a Training Job
       description: Returns information about a training job.
       tags:
-        - Training Jobs
+      - Training Jobs
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
@@ -274,7 +318,7 @@ paths:
             schema:
               type: object
               required:
-                - TrainingJobName
+              - TrainingJobName
               properties:
                 TrainingJobName:
                   type: string
@@ -286,15 +330,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/TrainingJob'
 
+              examples:
+                DescribeTrainingJob200Example:
+                  summary: Default DescribeTrainingJob 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#ListTrainingJobs:
     post:
       operationId: ListTrainingJobs
-      summary: Amazon SageMaker List training jobs
+      summary: Amazon SageMaker List Training Jobs
       description: Lists training jobs.
       tags:
-        - Training Jobs
+      - Training Jobs
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
@@ -309,22 +364,22 @@ paths:
                 SortBy:
                   type: string
                   enum:
-                    - Name
-                    - CreationTime
-                    - Status
+                  - Name
+                  - CreationTime
+                  - Status
                 SortOrder:
                   type: string
                   enum:
-                    - Ascending
-                    - Descending
+                  - Ascending
+                  - Descending
                 StatusEquals:
                   type: string
                   enum:
-                    - InProgress
-                    - Completed
-                    - Failed
-                    - Stopping
-                    - Stopped
+                  - InProgress
+                  - Completed
+                  - Failed
+                  - Stopping
+                  - Stopped
       responses:
         '200':
           description: Successful response.
@@ -340,18 +395,29 @@ paths:
                   NextToken:
                     type: string
 
+              examples:
+                ListTrainingJobs200Example:
+                  summary: Default ListTrainingJobs 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#CreateModel:
     post:
       operationId: CreateModel
-      summary: Amazon SageMaker Create a model
+      summary: Amazon SageMaker Create a Model
       description: >-
         Creates a model in SageMaker. In the request, you specify a name for
         the model and describe a primary container that contains the inference
         code, model artifacts, and environment variables.
       tags:
-        - Models
+      - Models
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
@@ -359,8 +425,8 @@ paths:
             schema:
               type: object
               required:
-                - ModelName
-                - ExecutionRoleArn
+              - ModelName
+              - ExecutionRoleArn
               properties:
                 ModelName:
                   type: string
@@ -392,15 +458,26 @@ paths:
                   ModelArn:
                     type: string
 
+              examples:
+                CreateModel200Example:
+                  summary: Default CreateModel 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#DescribeModel:
     post:
       operationId: DescribeModel
-      summary: Amazon SageMaker Describe a model
+      summary: Amazon SageMaker Describe a Model
       description: Describes a model that you created using the CreateModel API.
       tags:
-        - Models
+      - Models
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
@@ -408,7 +485,7 @@ paths:
             schema:
               type: object
               required:
-                - ModelName
+              - ModelName
               properties:
                 ModelName:
                   type: string
@@ -420,15 +497,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/Model'
 
+              examples:
+                DescribeModel200Example:
+                  summary: Default DescribeModel 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#ListModels:
     post:
       operationId: ListModels
-      summary: Amazon SageMaker List models
+      summary: Amazon SageMaker List Models
       description: Lists models created with the CreateModel API.
       tags:
-        - Models
+      - Models
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
@@ -443,13 +531,13 @@ paths:
                 SortBy:
                   type: string
                   enum:
-                    - Name
-                    - CreationTime
+                  - Name
+                  - CreationTime
                 SortOrder:
                   type: string
                   enum:
-                    - Ascending
-                    - Descending
+                  - Ascending
+                  - Descending
       responses:
         '200':
           description: Successful response.
@@ -465,18 +553,29 @@ paths:
                   NextToken:
                     type: string
 
+              examples:
+                ListModels200Example:
+                  summary: Default ListModels 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#CreateEndpoint:
     post:
       operationId: CreateEndpoint
-      summary: Amazon SageMaker Create an endpoint
+      summary: Amazon SageMaker Create an Endpoint
       description: >-
         Creates an endpoint using the endpoint configuration specified in the
         request. SageMaker uses the endpoint to provision resources and deploy
         models.
       tags:
-        - Endpoints
+      - Endpoints
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
@@ -484,8 +583,8 @@ paths:
             schema:
               type: object
               required:
-                - EndpointName
-                - EndpointConfigName
+              - EndpointName
+              - EndpointConfigName
               properties:
                 EndpointName:
                   type: string
@@ -506,15 +605,26 @@ paths:
                   EndpointArn:
                     type: string
 
+              examples:
+                CreateEndpoint200Example:
+                  summary: Default CreateEndpoint 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#DescribeEndpoint:
     post:
       operationId: DescribeEndpoint
-      summary: Amazon SageMaker Describe an endpoint
+      summary: Amazon SageMaker Describe an Endpoint
       description: Returns the description of an endpoint.
       tags:
-        - Endpoints
+      - Endpoints
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
@@ -522,7 +632,7 @@ paths:
             schema:
               type: object
               required:
-                - EndpointName
+              - EndpointName
               properties:
                 EndpointName:
                   type: string
@@ -534,15 +644,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/Endpoint'
 
+              examples:
+                DescribeEndpoint200Example:
+                  summary: Default DescribeEndpoint 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#ListEndpoints:
     post:
       operationId: ListEndpoints
-      summary: Amazon SageMaker List endpoints
+      summary: Amazon SageMaker List Endpoints
       description: Lists endpoints.
       tags:
-        - Endpoints
+      - Endpoints
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
@@ -557,25 +678,25 @@ paths:
                 SortBy:
                   type: string
                   enum:
-                    - Name
-                    - CreationTime
-                    - Status
+                  - Name
+                  - CreationTime
+                  - Status
                 SortOrder:
                   type: string
                   enum:
-                    - Ascending
-                    - Descending
+                  - Ascending
+                  - Descending
                 StatusEquals:
                   type: string
                   enum:
-                    - OutOfService
-                    - Creating
-                    - Updating
-                    - SystemUpdating
-                    - RollingBack
-                    - InService
-                    - Deleting
-                    - Failed
+                  - OutOfService
+                  - Creating
+                  - Updating
+                  - SystemUpdating
+                  - RollingBack
+                  - InService
+                  - Deleting
+                  - Failed
       responses:
         '200':
           description: Successful response.
@@ -591,18 +712,29 @@ paths:
                   NextToken:
                     type: string
 
+              examples:
+                ListEndpoints200Example:
+                  summary: Default ListEndpoints 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /#CreateEndpointConfig:
     post:
       operationId: CreateEndpointConfig
-      summary: Amazon SageMaker Create an endpoint configuration
+      summary: Amazon SageMaker Create an Endpoint Configuration
       description: >-
         Creates an endpoint configuration that SageMaker hosting services uses
         to deploy models. The configuration identifies the ML compute instances
         and the model variants to deploy.
       tags:
-        - Endpoints
+      - Endpoints
       parameters:
-        - $ref: '#/components/parameters/XAmzTarget'
+      - $ref: '#/components/parameters/XAmzTarget'
       requestBody:
         required: true
         content:
@@ -610,8 +742,8 @@ paths:
             schema:
               type: object
               required:
-                - EndpointConfigName
-                - ProductionVariants
+              - EndpointConfigName
+              - ProductionVariants
               properties:
                 EndpointConfigName:
                   type: string
@@ -620,10 +752,10 @@ paths:
                   items:
                     type: object
                     required:
-                      - VariantName
-                      - ModelName
-                      - InitialInstanceCount
-                      - InstanceType
+                    - VariantName
+                    - ModelName
+                    - InitialInstanceCount
+                    - InstanceType
                     properties:
                       VariantName:
                         type: string
@@ -650,6 +782,17 @@ paths:
                   EndpointConfigArn:
                     type: string
 
+              examples:
+                CreateEndpointConfig200Example:
+                  summary: Default CreateEndpointConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
 
   parameters:
@@ -686,13 +829,13 @@ components:
           type: string
           description: The status of the notebook instance.
           enum:
-            - Pending
-            - InService
-            - Stopping
-            - Stopped
-            - Failed
-            - Deleting
-            - Updating
+          - Pending
+          - InService
+          - Stopping
+          - Stopped
+          - Failed
+          - Deleting
+          - Updating
         InstanceType:
           type: string
           description: The type of ML compute instance running the notebook.
@@ -735,11 +878,11 @@ components:
           type: string
           description: The status of the training job.
           enum:
-            - InProgress
-            - Completed
-            - Failed
-            - Stopping
-            - Stopped
+          - InProgress
+          - Completed
+          - Failed
+          - Stopping
+          - Stopped
         SecondaryStatus:
           type: string
           description: Provides detailed information about the state of the training job.
@@ -860,14 +1003,14 @@ components:
           type: string
           description: The status of the endpoint.
           enum:
-            - OutOfService
-            - Creating
-            - Updating
-            - SystemUpdating
-            - RollingBack
-            - InService
-            - Deleting
-            - Failed
+          - OutOfService
+          - Creating
+          - Updating
+          - SystemUpdating
+          - RollingBack
+          - InService
+          - Deleting
+          - Failed
         ProductionVariants:
           type: array
           items:
@@ -906,11 +1049,11 @@ components:
           description: If the status is Failed, the reason it failed.
 
 tags:
-  - name: Endpoints
-    description: Operations for managing SageMaker endpoints.
-  - name: Models
-    description: Operations for managing SageMaker models.
-  - name: Notebook Instances
-    description: Operations for managing SageMaker notebook instances.
-  - name: Training Jobs
-    description: Operations for managing SageMaker training jobs.
+- name: Endpoints
+  description: Operations for managing SageMaker endpoints.
+- name: Models
+  description: Operations for managing SageMaker models.
+- name: Notebook Instances
+  description: Operations for managing SageMaker notebook instances.
+- name: Training Jobs
+  description: Operations for managing SageMaker training jobs.

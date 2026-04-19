@@ -1,0 +1,373 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Amazon SageMaker API"
+  description: "Control plane API for creating and managing SageMaker ML resources including notebook instances, training jobs, models, and endpoints."
+  tags:
+    - Amazon SageMaker
+    - Machine Learning
+    - AI
+    - Training
+    - Inference
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY
+      AWS_REGION: AWS_REGION
+
+capability:
+  consumes:
+    - type: http
+      namespace: amazon-sagemaker
+      baseUri: https://api.sagemaker.us-east-1.amazonaws.com
+      description: "Amazon SageMaker control plane API"
+      authentication:
+        type: apikey
+        key: Authorization
+        value: "AWS4-HMAC-SHA256 Credential={{AWS_ACCESS_KEY_ID}}"
+        placement: header
+      resources:
+        - name: notebook-instances
+          path: /
+          description: "Notebook instance management operations"
+          operations:
+            - name: create-notebook-instance
+              method: POST
+              description: "Creates an ML compute instance with Jupyter notebook"
+              inputParameters:
+                - name: X-Amz-Target
+                  in: header
+                  type: string
+                  required: true
+                  description: "SageMaker API action target"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: describe-notebook-instance
+              method: POST
+              description: "Returns information about a notebook instance"
+              inputParameters:
+                - name: X-Amz-Target
+                  in: header
+                  type: string
+                  required: true
+                  description: "SageMaker API action target"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: list-notebook-instances
+              method: POST
+              description: "Returns a list of notebook instances"
+              inputParameters:
+                - name: X-Amz-Target
+                  in: header
+                  type: string
+                  required: true
+                  description: "SageMaker API action target"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: training-jobs
+          path: /
+          description: "Training job management operations"
+          operations:
+            - name: create-training-job
+              method: POST
+              description: "Creates a model training job"
+              inputParameters:
+                - name: X-Amz-Target
+                  in: header
+                  type: string
+                  required: true
+                  description: "SageMaker API action target"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: describe-training-job
+              method: POST
+              description: "Returns information about a training job"
+              inputParameters:
+                - name: X-Amz-Target
+                  in: header
+                  type: string
+                  required: true
+                  description: "SageMaker API action target"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: list-training-jobs
+              method: POST
+              description: "Lists training jobs"
+              inputParameters:
+                - name: X-Amz-Target
+                  in: header
+                  type: string
+                  required: true
+                  description: "SageMaker API action target"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: models
+          path: /
+          description: "Model management operations"
+          operations:
+            - name: create-model
+              method: POST
+              description: "Creates a model that you can host at an Amazon SageMaker endpoint"
+              inputParameters:
+                - name: X-Amz-Target
+                  in: header
+                  type: string
+                  required: true
+                  description: "SageMaker API action target"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: describe-model
+              method: POST
+              description: "Describes a model"
+              inputParameters:
+                - name: X-Amz-Target
+                  in: header
+                  type: string
+                  required: true
+                  description: "SageMaker API action target"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: list-models
+              method: POST
+              description: "Lists models created with CreateModel"
+              inputParameters:
+                - name: X-Amz-Target
+                  in: header
+                  type: string
+                  required: true
+                  description: "SageMaker API action target"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: endpoints
+          path: /
+          description: "Endpoint management operations"
+          operations:
+            - name: create-endpoint
+              method: POST
+              description: "Creates an endpoint using the endpoint configuration specified in the request"
+              inputParameters:
+                - name: X-Amz-Target
+                  in: header
+                  type: string
+                  required: true
+                  description: "SageMaker API action target"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: describe-endpoint
+              method: POST
+              description: "Returns the description of an endpoint"
+              inputParameters:
+                - name: X-Amz-Target
+                  in: header
+                  type: string
+                  required: true
+                  description: "SageMaker API action target"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: list-endpoints
+              method: POST
+              description: "Lists endpoints"
+              inputParameters:
+                - name: X-Amz-Target
+                  in: header
+                  type: string
+                  required: true
+                  description: "SageMaker API action target"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: amazon-sagemaker-rest
+      resources:
+        - path: /v1/notebook-instances
+          name: notebook-instances
+          description: "Notebook instance management"
+          operations:
+            - method: GET
+              name: list-notebook-instances
+              description: "List all notebook instances"
+              call: "amazon-sagemaker.list-notebook-instances"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-notebook-instance
+              description: "Create a notebook instance"
+              call: "amazon-sagemaker.create-notebook-instance"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/training-jobs
+          name: training-jobs
+          description: "Training job management"
+          operations:
+            - method: GET
+              name: list-training-jobs
+              description: "List all training jobs"
+              call: "amazon-sagemaker.list-training-jobs"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-training-job
+              description: "Create a training job"
+              call: "amazon-sagemaker.create-training-job"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/models
+          name: models
+          description: "Model management"
+          operations:
+            - method: GET
+              name: list-models
+              description: "List all models"
+              call: "amazon-sagemaker.list-models"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-model
+              description: "Create a model"
+              call: "amazon-sagemaker.create-model"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/endpoints
+          name: endpoints
+          description: "Endpoint management"
+          operations:
+            - method: GET
+              name: list-endpoints
+              description: "List all endpoints"
+              call: "amazon-sagemaker.list-endpoints"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-endpoint
+              description: "Create an endpoint"
+              call: "amazon-sagemaker.create-endpoint"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: amazon-sagemaker-mcp
+      transport: http
+      tools:
+        - name: list-notebook-instances
+          description: "List Amazon SageMaker notebook instances"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "amazon-sagemaker.list-notebook-instances"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-notebook-instance
+          description: "Create an Amazon SageMaker notebook instance"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "amazon-sagemaker.create-notebook-instance"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-training-jobs
+          description: "List Amazon SageMaker training jobs"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "amazon-sagemaker.list-training-jobs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-training-job
+          description: "Create an Amazon SageMaker training job"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "amazon-sagemaker.create-training-job"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-models
+          description: "List Amazon SageMaker ML models"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "amazon-sagemaker.list-models"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-model
+          description: "Create an Amazon SageMaker ML model"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "amazon-sagemaker.create-model"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-endpoints
+          description: "List Amazon SageMaker inference endpoints"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "amazon-sagemaker.list-endpoints"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-endpoint
+          description: "Create an Amazon SageMaker inference endpoint"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "amazon-sagemaker.create-endpoint"
+          outputParameters:
+            - type: object
+              mapping: "$."

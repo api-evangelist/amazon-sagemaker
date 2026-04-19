@@ -1,0 +1,10 @@
+{
+  "EndpointName": "my-endpoint-001",
+  "EndpointArn": "arn:aws:sagemaker:us-east-1:123456789012:resource/endpointarn",
+  "EndpointConfigName": "my-endpointconfig-001",
+  "EndpointStatus": "OutOfService",
+  "ProductionVariants": [],
+  "CreationTime": "2025-03-15T14:30:00Z",
+  "LastModifiedTime": "2025-03-15T14:30:00Z",
+  "FailureReason": "example-failurereason"
+}

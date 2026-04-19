@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-sagemaker/refs/heads/main/json-schema/amazon-sagemaker-endpoint-schema.json",
+  "title": "Endpoint",
+  "description": "Endpoint schema from Amazon SageMaker API",
+  "type": "object",
+  "properties": {
+    "EndpointName": {
+      "type": "string",
+      "description": "The name of the endpoint."
+    },
+    "EndpointArn": {
+      "type": "string",
+      "description": "The Amazon Resource Name (ARN) of the endpoint."
+    },
+    "EndpointConfigName": {
+      "type": "string",
+      "description": "The name of the endpoint configuration."
+    },
+    "EndpointStatus": {
+      "type": "string",
+      "description": "The status of the endpoint.",
+      "enum": [
+        "OutOfService",
+        "Creating",
+        "Updating",
+        "SystemUpdating",
+        "RollingBack",
+        "InService",
+        "Deleting",
+        "Failed"
+      ]
+    },
+    "ProductionVariants": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "VariantName": {
+            "type": "string"
+          },
+          "DeployedImages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "SpecifiedImage": {
+                  "type": "string"
+                },
+                "ResolvedImage": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "CurrentWeight": {
+            "type": "number"
+          },
+          "DesiredWeight": {
+            "type": "number"
+          },
+          "CurrentInstanceCount": {
+            "type": "integer"
+          },
+          "DesiredInstanceCount": {
+            "type": "integer"
+          }
+        }
+      },
+      "description": "An array of production variants."
+    },
+    "CreationTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "A timestamp indicating when the endpoint was created."
+    },
+    "LastModifiedTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "A timestamp indicating when the endpoint was last modified."
+    },
+    "FailureReason": {
+      "type": "string",
+      "description": "If the status is Failed, the reason it failed."
+    }
+  }
+}

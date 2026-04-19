@@ -1,0 +1,11 @@
+{
+  "ModelName": "my-model-001",
+  "ModelArn": "arn:aws:sagemaker:us-east-1:123456789012:resource/modelarn",
+  "PrimaryContainer": {
+    "Image": "example-image",
+    "ModelDataUrl": "example-modeldataurl",
+    "Environment": {}
+  },
+  "ExecutionRoleArn": "arn:aws:sagemaker:us-east-1:123456789012:resource/executionrolearn",
+  "CreationTime": "2025-03-15T14:30:00Z"
+}

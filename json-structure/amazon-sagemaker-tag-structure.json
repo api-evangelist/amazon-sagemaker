@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-sagemaker/refs/heads/main/json-structure/amazon-sagemaker-tag-structure.json",
+  "name": "Tag",
+  "description": "Tag schema from Amazon SageMaker API",
+  "type": "object",
+  "properties": {
+    "Key": {
+      "type": "string"
+    },
+    "Value": {
+      "type": "string"
+    }
+  }
+}

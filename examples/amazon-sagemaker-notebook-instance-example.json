@@ -1,0 +1,13 @@
+{
+  "NotebookInstanceArn": "arn:aws:sagemaker:us-east-1:123456789012:resource/notebookinstancearn",
+  "NotebookInstanceName": "my-notebookinstance-001",
+  "NotebookInstanceStatus": "Pending",
+  "InstanceType": "example-instancetype",
+  "RoleArn": "arn:aws:sagemaker:us-east-1:123456789012:resource/rolearn",
+  "SubnetId": "example-subnetid",
+  "SecurityGroups": [],
+  "Url": "example-url",
+  "VolumeSizeInGB": 10,
+  "CreationTime": "2025-03-15T14:30:00Z",
+  "LastModifiedTime": "2025-03-15T14:30:00Z"
+}

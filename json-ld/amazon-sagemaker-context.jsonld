@@ -1,73 +1,213 @@
 {
   "@context": {
-    "@vocab": "https://schema.org/",
-    "sagemaker": "https://docs.aws.amazon.com/sagemaker/latest/APIReference/",
-    "aws": "https://aws.amazon.com/",
-    "name": "schema:name",
-    "description": "schema:description",
-    "url": "schema:url",
-    "identifier": "schema:identifier",
-    "dateCreated": "schema:dateCreated",
-    "dateModified": "schema:dateModified",
-    "status": "schema:status",
-    "provider": {
-      "@id": "schema:provider",
-      "@type": "schema:Organization"
+    "@version": 1.1,
+    "aws": "https://aws.amazon.com/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "Tag": "aws:Tag",
+    "Key": {
+      "@id": "aws:Key",
+      "@type": "xsd:string"
     },
-    "SageMakerModel": {
-      "@id": "sagemaker:API_CreateModel.html",
-      "@context": {
-        "ModelName": "schema:name",
-        "ModelArn": "schema:identifier",
-        "ExecutionRoleArn": "sagemaker:ExecutionRoleArn",
-        "PrimaryContainer": "sagemaker:PrimaryContainer",
-        "CreationTime": "schema:dateCreated"
-      }
+    "Value": {
+      "@id": "aws:Value",
+      "@type": "xsd:string"
     },
-    "NotebookInstance": {
-      "@id": "sagemaker:API_CreateNotebookInstance.html",
-      "@context": {
-        "NotebookInstanceName": "schema:name",
-        "NotebookInstanceArn": "schema:identifier",
-        "NotebookInstanceStatus": "schema:status",
-        "InstanceType": "sagemaker:InstanceType",
-        "Url": "schema:url",
-        "CreationTime": "schema:dateCreated",
-        "LastModifiedTime": "schema:dateModified"
-      }
+    "NotebookInstance": "aws:NotebookInstance",
+    "NotebookInstanceArn": {
+      "@id": "aws:NotebookInstanceArn",
+      "@type": "xsd:string"
     },
-    "TrainingJob": {
-      "@id": "sagemaker:API_CreateTrainingJob.html",
-      "@context": {
-        "TrainingJobName": "schema:name",
-        "TrainingJobArn": "schema:identifier",
-        "TrainingJobStatus": "schema:status",
-        "AlgorithmSpecification": "sagemaker:AlgorithmSpecification",
-        "HyperParameters": "sagemaker:HyperParameters",
-        "ModelArtifacts": "sagemaker:ModelArtifacts",
-        "CreationTime": "schema:dateCreated",
-        "TrainingStartTime": "schema:startDate",
-        "TrainingEndTime": "schema:endDate"
-      }
+    "NotebookInstanceName": {
+      "@id": "aws:NotebookInstanceName",
+      "@type": "xsd:string"
     },
-    "Endpoint": {
-      "@id": "sagemaker:API_CreateEndpoint.html",
-      "@context": {
-        "EndpointName": "schema:name",
-        "EndpointArn": "schema:identifier",
-        "EndpointConfigName": "sagemaker:EndpointConfigName",
-        "EndpointStatus": "schema:status",
-        "ProductionVariants": "sagemaker:ProductionVariants",
-        "CreationTime": "schema:dateCreated",
-        "LastModifiedTime": "schema:dateModified"
-      }
+    "NotebookInstanceStatus": {
+      "@id": "aws:NotebookInstanceStatus",
+      "@type": "xsd:string"
     },
-    "Tag": {
-      "@id": "sagemaker:Tag",
-      "@context": {
-        "Key": "schema:name",
-        "Value": "schema:value"
-      }
+    "InstanceType": {
+      "@id": "aws:InstanceType",
+      "@type": "xsd:string"
+    },
+    "RoleArn": {
+      "@id": "aws:RoleArn",
+      "@type": "xsd:string"
+    },
+    "SubnetId": {
+      "@id": "aws:SubnetId",
+      "@type": "xsd:string"
+    },
+    "SecurityGroups": {
+      "@id": "aws:SecurityGroups",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "Url": {
+      "@id": "aws:Url",
+      "@type": "xsd:string"
+    },
+    "VolumeSizeInGB": {
+      "@id": "aws:VolumeSizeInGB",
+      "@type": "xsd:integer"
+    },
+    "CreationTime": {
+      "@id": "aws:CreationTime",
+      "@type": "xsd:dateTime"
+    },
+    "LastModifiedTime": {
+      "@id": "aws:LastModifiedTime",
+      "@type": "xsd:dateTime"
+    },
+    "TrainingJob": "aws:TrainingJob",
+    "TrainingJobName": {
+      "@id": "aws:TrainingJobName",
+      "@type": "xsd:string"
+    },
+    "TrainingJobArn": {
+      "@id": "aws:TrainingJobArn",
+      "@type": "xsd:string"
+    },
+    "TrainingJobStatus": {
+      "@id": "aws:TrainingJobStatus",
+      "@type": "xsd:string"
+    },
+    "SecondaryStatus": {
+      "@id": "aws:SecondaryStatus",
+      "@type": "xsd:string"
+    },
+    "AlgorithmSpecification": {
+      "@id": "aws:AlgorithmSpecification",
+      "@type": "xsd:string"
+    },
+    "TrainingImage": {
+      "@id": "aws:TrainingImage",
+      "@type": "xsd:string"
+    },
+    "TrainingInputMode": {
+      "@id": "aws:TrainingInputMode",
+      "@type": "xsd:string"
+    },
+    "AlgorithmName": {
+      "@id": "aws:AlgorithmName",
+      "@type": "xsd:string"
+    },
+    "InputDataConfig": {
+      "@id": "aws:InputDataConfig",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "OutputDataConfig": {
+      "@id": "aws:OutputDataConfig",
+      "@type": "xsd:string"
+    },
+    "S3OutputPath": {
+      "@id": "aws:S3OutputPath",
+      "@type": "xsd:string"
+    },
+    "KmsKeyId": {
+      "@id": "aws:KmsKeyId",
+      "@type": "xsd:string"
+    },
+    "ResourceConfig": {
+      "@id": "aws:ResourceConfig",
+      "@type": "xsd:string"
+    },
+    "InstanceCount": {
+      "@id": "aws:InstanceCount",
+      "@type": "xsd:integer"
+    },
+    "StoppingCondition": {
+      "@id": "aws:StoppingCondition",
+      "@type": "xsd:string"
+    },
+    "MaxRuntimeInSeconds": {
+      "@id": "aws:MaxRuntimeInSeconds",
+      "@type": "xsd:integer"
+    },
+    "MaxWaitTimeInSeconds": {
+      "@id": "aws:MaxWaitTimeInSeconds",
+      "@type": "xsd:integer"
+    },
+    "HyperParameters": {
+      "@id": "aws:HyperParameters",
+      "@type": "xsd:string"
+    },
+    "ModelArtifacts": {
+      "@id": "aws:ModelArtifacts",
+      "@type": "xsd:string"
+    },
+    "S3ModelArtifacts": {
+      "@id": "aws:S3ModelArtifacts",
+      "@type": "xsd:string"
+    },
+    "TrainingStartTime": {
+      "@id": "aws:TrainingStartTime",
+      "@type": "xsd:dateTime"
+    },
+    "TrainingEndTime": {
+      "@id": "aws:TrainingEndTime",
+      "@type": "xsd:dateTime"
+    },
+    "BillableTimeInSeconds": {
+      "@id": "aws:BillableTimeInSeconds",
+      "@type": "xsd:integer"
+    },
+    "FailureReason": {
+      "@id": "aws:FailureReason",
+      "@type": "xsd:string"
+    },
+    "Model": "aws:Model",
+    "ModelName": {
+      "@id": "aws:ModelName",
+      "@type": "xsd:string"
+    },
+    "ModelArn": {
+      "@id": "aws:ModelArn",
+      "@type": "xsd:string"
+    },
+    "PrimaryContainer": {
+      "@id": "aws:PrimaryContainer",
+      "@type": "xsd:string"
+    },
+    "Image": {
+      "@id": "aws:Image",
+      "@type": "xsd:string"
+    },
+    "ModelDataUrl": {
+      "@id": "aws:ModelDataUrl",
+      "@type": "xsd:string"
+    },
+    "Environment": {
+      "@id": "aws:Environment",
+      "@type": "xsd:string"
+    },
+    "ExecutionRoleArn": {
+      "@id": "aws:ExecutionRoleArn",
+      "@type": "xsd:string"
+    },
+    "Endpoint": "aws:Endpoint",
+    "EndpointName": {
+      "@id": "aws:EndpointName",
+      "@type": "xsd:string"
+    },
+    "EndpointArn": {
+      "@id": "aws:EndpointArn",
+      "@type": "xsd:string"
+    },
+    "EndpointConfigName": {
+      "@id": "aws:EndpointConfigName",
+      "@type": "xsd:string"
+    },
+    "EndpointStatus": {
+      "@id": "aws:EndpointStatus",
+      "@type": "xsd:string"
+    },
+    "ProductionVariants": {
+      "@id": "aws:ProductionVariants",
+      "@container": "@set",
+      "@type": "xsd:string"
     }
   }
 }
