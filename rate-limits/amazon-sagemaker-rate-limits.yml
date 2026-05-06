@@ -4,110 +4,74 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Amazon SageMaker
 providerId: amazon-sagemaker
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - AI
-  - AWS
-  - Inference
-  - Machine Learning
-  - MLOps
-  - Training
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Amazon SageMaker API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
+  - AWS
+  - Machine Learning
+  - SageMaker
+description: Amazon SageMaker exposes a control-plane API (CreateTrainingJob, CreateEndpoint, etc.) that
+  follows AWS API throttling per account/region, plus a runtime InvokeEndpoint surface whose throughput
+  scales with the underlying instance count and instance type. Endpoint-specific quotas (concurrent invocations,
+  payload size, timeout) are configurable. ServiceQuotas governs the maximum number and type of instances
+  per account.
+sources:
+  - https://docs.aws.amazon.com/sagemaker/latest/dg/regions-quotas.html
+  - https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html
+  - https://docs.aws.amazon.com/general/latest/gr/api-retries.html
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
+  requestId: x-amzn-RequestId
   retryAfter: Retry-After
-  policy: RateLimit-Policy
 responseCodes:
-  throttled: 429
-  quotaExceeded: 429
+  throttled: 400
+  quotaExceeded: 400
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Amazon SageMaker API
-      - Amazon SageMaker Runtime API
-      - Amazon SageMaker Feature Store Runtime API
-      - Amazon SageMaker Metrics Service API
-      - Amazon SageMaker Geospatial API
-      - Amazon SageMaker Edge Manager API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Amazon SageMaker API
-      - Amazon SageMaker Runtime API
-      - Amazon SageMaker Feature Store Runtime API
-      - Amazon SageMaker Metrics Service API
-      - Amazon SageMaker Geospatial API
-      - Amazon SageMaker Edge Manager API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Amazon SageMaker API
-      - Amazon SageMaker Runtime API
-      - Amazon SageMaker Feature Store Runtime API
-      - Amazon SageMaker Metrics Service API
-      - Amazon SageMaker Geospatial API
-      - Amazon SageMaker Edge Manager API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Amazon SageMaker API
-      - Amazon SageMaker Runtime API
-      - Amazon SageMaker Feature Store Runtime API
-      - Amazon SageMaker Metrics Service API
-      - Amazon SageMaker Geospatial API
-      - Amazon SageMaker Edge Manager API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Amazon SageMaker API
-      - Amazon SageMaker Runtime API
-      - Amazon SageMaker Feature Store Runtime API
-      - Amazon SageMaker Metrics Service API
-      - Amazon SageMaker Geospatial API
-      - Amazon SageMaker Edge Manager API
+  - name: SageMaker control-plane API
+    scope: account/region
+    metric: varies
+    limit: see Service Quotas console for SageMaker
+    notes: Standard AWS API throttling envelope.
+  - name: InvokeEndpoint (real-time)
+    scope: endpoint
+    metric: requests_per_second
+    limit: scales with instance count and type
+    notes: Default soft limit per endpoint; configure auto-scaling on the production variant. Payload up
+      to 6 MB synchronous, 1 GB asynchronous.
+  - name: InvokeEndpoint payload size
+    scope: endpoint
+    metric: bytes
+    limit: 6291456
+    notes: 6 MB max synchronous payload; use AsynchronousInferenceConfig for larger payloads (up to 1 GB).
+  - name: Synchronous invocation timeout
+    scope: endpoint
+    metric: seconds
+    limit: 60
+    timeFrame: second
+    notes: Default 60s; can be raised on async endpoints up to 1 hour.
+  - name: ML instances per type per region
+    scope: account/region
+    metric: count
+    limit: see Service Quotas console for SageMaker
+    notes: Soft limits; raise via Service Quotas before training/deploying at scale.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
-maintainers: []
+  - name: Backoff with jitter
+    description: AWS SDKs default to standard retry mode (truncated exponential backoff with jitter, max
+      20s, 3 attempts).
+  - name: Auto-scaling
+    description: Configure target-tracking scaling on production variants (InvocationsPerInstance) to absorb
+      load.
+  - name: Quota increases
+    description: ML instance counts, training-job concurrency, and notebook quotas are all soft limits;
+      raise via Service Quotas before campaigns.
+  - name: Async inference for large payloads
+    description: Use SageMaker Asynchronous Inference for payloads >6 MB or processing >60s, queuing requests
+      to a SageMaker-managed S3 location.
+maintainers:
+  - name: Kin Lane
+    email: kin@apievangelist.com
+    url: https://apievangelist.com
+  - name: Amazon Web Services
+    email: support@aws.amazon.com
+    url: https://aws.amazon.com
