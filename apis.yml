@@ -309,4 +309,15 @@ common:
   url: examples/amazon-sagemaker-training-job-example.json
 - type: NaftikoCapability
   url: capabilities/shared/amazon-sagemaker.yaml
+- type: Integrations
+  url: https://aws.amazon.com/partners/
 maintainer: Kin Lane
+integrations:
+  - name: Partner Programs
+  - name: Resources
+  - name: Success Stories
+  - name: Work with an AWS Partner
+  - name: AWS Marketplace
+  - name: AWS Partner Central
+  - name: Partner Paths
+  - name: co-sell with AWS
