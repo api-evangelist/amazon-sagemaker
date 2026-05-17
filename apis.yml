@@ -8,7 +8,7 @@ description: >-
   deployment to production endpoints with auto-scaling.
 url: https://aws.amazon.com/sagemaker/
 baseURL: https://api.sagemaker.amazonaws.com
-x-type: company
+kind: company
 created: '2024-01-01'
 modified: '2026-04-19'
 
@@ -283,7 +283,7 @@ common:
   - name: Hugging Face
     description: Deploy Hugging Face models directly via SageMaker JumpStart.
 
-- type: JSON-LD
+- type: JSONLD
   url: json-ld/amazon-sagemaker-context.jsonld
 - type: JSONSchema
   url: json-schema/amazon-sagemaker-tag-schema.json
