@@ -1,0 +1,161 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Amazon SageMaker API — Training Jobs
+  description: 'Amazon SageMaker API — Training Jobs. 3 operations. Lead operation: Amazon SageMaker Create a Training Job.
+    Self-contained Naftiko capability covering one Amazon Sagemaker business surface.'
+  tags:
+  - Amazon Sagemaker
+  - Training Jobs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMAZON_SAGEMAKER_API_KEY: AMAZON_SAGEMAKER_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: amazon-sagemaker-training-jobs
+    baseUri: https://api.sagemaker.{region}.amazonaws.com
+    description: Amazon SageMaker API — Training Jobs business capability. Self-contained, no shared references.
+    resources:
+    - name: '#CreateTrainingJob'
+      path: /#CreateTrainingJob
+      operations:
+      - name: createtrainingjob
+        method: POST
+        description: Amazon SageMaker Create a Training Job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: '#DescribeTrainingJob'
+      path: /#DescribeTrainingJob
+      operations:
+      - name: describetrainingjob
+        method: POST
+        description: Amazon SageMaker Describe a Training Job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: '#ListTrainingJobs'
+      path: /#ListTrainingJobs
+      operations:
+      - name: listtrainingjobs
+        method: POST
+        description: Amazon SageMaker List Training Jobs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: amazon-sagemaker-training-jobs-rest
+    port: 8080
+    description: REST adapter for Amazon SageMaker API — Training Jobs. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/createtrainingjob
+      name: createtrainingjob
+      description: 'REST surface for #CreateTrainingJob.'
+      operations:
+      - method: POST
+        name: createtrainingjob
+        description: Amazon SageMaker Create a Training Job
+        call: amazon-sagemaker-training-jobs.createtrainingjob
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/describetrainingjob
+      name: describetrainingjob
+      description: 'REST surface for #DescribeTrainingJob.'
+      operations:
+      - method: POST
+        name: describetrainingjob
+        description: Amazon SageMaker Describe a Training Job
+        call: amazon-sagemaker-training-jobs.describetrainingjob
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/listtrainingjobs
+      name: listtrainingjobs
+      description: 'REST surface for #ListTrainingJobs.'
+      operations:
+      - method: POST
+        name: listtrainingjobs
+        description: Amazon SageMaker List Training Jobs
+        call: amazon-sagemaker-training-jobs.listtrainingjobs
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: amazon-sagemaker-training-jobs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Amazon SageMaker API — Training Jobs. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: amazon-sagemaker-create-training-job
+      description: Amazon SageMaker Create a Training Job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-sagemaker-training-jobs.createtrainingjob
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sagemaker-describe-training-job
+      description: Amazon SageMaker Describe a Training Job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-sagemaker-training-jobs.describetrainingjob
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sagemaker-list-training-jobs
+      description: Amazon SageMaker List Training Jobs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: amazon-sagemaker-training-jobs.listtrainingjobs
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

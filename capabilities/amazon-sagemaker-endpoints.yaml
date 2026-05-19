@@ -1,0 +1,203 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Amazon SageMaker API — Endpoints
+  description: 'Amazon SageMaker API — Endpoints. 4 operations. Lead operation: Amazon SageMaker Create an Endpoint. Self-contained
+    Naftiko capability covering one Amazon Sagemaker business surface.'
+  tags:
+  - Amazon Sagemaker
+  - Endpoints
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMAZON_SAGEMAKER_API_KEY: AMAZON_SAGEMAKER_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: amazon-sagemaker-endpoints
+    baseUri: https://api.sagemaker.{region}.amazonaws.com
+    description: Amazon SageMaker API — Endpoints business capability. Self-contained, no shared references.
+    resources:
+    - name: '#CreateEndpoint'
+      path: /#CreateEndpoint
+      operations:
+      - name: createendpoint
+        method: POST
+        description: Amazon SageMaker Create an Endpoint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: '#CreateEndpointConfig'
+      path: /#CreateEndpointConfig
+      operations:
+      - name: createendpointconfig
+        method: POST
+        description: Amazon SageMaker Create an Endpoint Configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: '#DescribeEndpoint'
+      path: /#DescribeEndpoint
+      operations:
+      - name: describeendpoint
+        method: POST
+        description: Amazon SageMaker Describe an Endpoint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: '#ListEndpoints'
+      path: /#ListEndpoints
+      operations:
+      - name: listendpoints
+        method: POST
+        description: Amazon SageMaker List Endpoints
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: amazon-sagemaker-endpoints-rest
+    port: 8080
+    description: REST adapter for Amazon SageMaker API — Endpoints. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/createendpoint
+      name: createendpoint
+      description: 'REST surface for #CreateEndpoint.'
+      operations:
+      - method: POST
+        name: createendpoint
+        description: Amazon SageMaker Create an Endpoint
+        call: amazon-sagemaker-endpoints.createendpoint
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/createendpointconfig
+      name: createendpointconfig
+      description: 'REST surface for #CreateEndpointConfig.'
+      operations:
+      - method: POST
+        name: createendpointconfig
+        description: Amazon SageMaker Create an Endpoint Configuration
+        call: amazon-sagemaker-endpoints.createendpointconfig
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/describeendpoint
+      name: describeendpoint
+      description: 'REST surface for #DescribeEndpoint.'
+      operations:
+      - method: POST
+        name: describeendpoint
+        description: Amazon SageMaker Describe an Endpoint
+        call: amazon-sagemaker-endpoints.describeendpoint
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/listendpoints
+      name: listendpoints
+      description: 'REST surface for #ListEndpoints.'
+      operations:
+      - method: POST
+        name: listendpoints
+        description: Amazon SageMaker List Endpoints
+        call: amazon-sagemaker-endpoints.listendpoints
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: amazon-sagemaker-endpoints-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Amazon SageMaker API — Endpoints. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: amazon-sagemaker-create-endpoint
+      description: Amazon SageMaker Create an Endpoint
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-sagemaker-endpoints.createendpoint
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sagemaker-create-endpoint-configuration
+      description: Amazon SageMaker Create an Endpoint Configuration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-sagemaker-endpoints.createendpointconfig
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sagemaker-describe-endpoint
+      description: Amazon SageMaker Describe an Endpoint
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: amazon-sagemaker-endpoints.describeendpoint
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-sagemaker-list-endpoints
+      description: Amazon SageMaker List Endpoints
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: amazon-sagemaker-endpoints.listendpoints
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

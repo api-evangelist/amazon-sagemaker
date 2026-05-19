@@ -1,17 +1,13 @@
 name: Amazon SageMaker
-description: >-
-  Amazon SageMaker is a fully managed machine learning platform that enables
-  developers and data scientists to build, train, and deploy machine learning
-  models at scale. SageMaker removes the heavy lifting from each step of the
-  machine learning process, providing built-in algorithms, managed Jupyter
-  notebooks, distributed training, automatic model tuning, and one-click
-  deployment to production endpoints with auto-scaling.
+description: Amazon SageMaker is a fully managed machine learning platform that enables developers and data scientists to
+  build, train, and deploy machine learning models at scale. SageMaker removes the heavy lifting from each step of the machine
+  learning process, providing built-in algorithms, managed Jupyter notebooks, distributed training, automatic model tuning,
+  and one-click deployment to production endpoints with auto-scaling.
 url: https://aws.amazon.com/sagemaker/
 baseURL: https://api.sagemaker.amazonaws.com
 kind: company
 created: '2024-01-01'
-modified: '2026-04-19'
-
+modified: '2026-05-19'
 tags:
 - AI
 - AWS
@@ -19,14 +15,10 @@ tags:
 - Machine Learning
 - MLOps
 - Training
-
 apis:
-
 - name: Amazon SageMaker API
-  description: >-
-    The Amazon SageMaker control plane API for creating and managing SageMaker
-    resources including notebook instances, training jobs, models, endpoints,
-    pipelines, experiments, feature groups, and monitoring schedules.
+  description: The Amazon SageMaker control plane API for creating and managing SageMaker resources including notebook instances,
+    training jobs, models, endpoints, pipelines, experiments, feature groups, and monitoring schedules.
   humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html
   baseURL: https://api.sagemaker.{region}.amazonaws.com
   tags:
@@ -53,11 +45,16 @@ apis:
   - type: CodeExamples
     url: https://github.com/aws/amazon-sagemaker-examples
     title: Jupyter Notebook Examples
-
+  - type: NaftikoCapability
+    url: capabilities/amazon-sagemaker-endpoints.yaml
+  - type: NaftikoCapability
+    url: capabilities/amazon-sagemaker-models.yaml
+  - type: NaftikoCapability
+    url: capabilities/amazon-sagemaker-notebook-instances.yaml
+  - type: NaftikoCapability
+    url: capabilities/amazon-sagemaker-training-jobs.yaml
 - name: Amazon SageMaker Runtime API
-  description: >-
-    The Amazon SageMaker AI runtime API for invoking deployed model endpoints
-    to get real-time inference predictions.
+  description: The Amazon SageMaker AI runtime API for invoking deployed model endpoints to get real-time inference predictions.
   humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
   baseURL: https://runtime.sagemaker.{region}.amazonaws.com
   tags:
@@ -67,11 +64,9 @@ apis:
   properties:
   - type: Documentation
     url: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
-
 - name: Amazon SageMaker Feature Store Runtime API
-  description: >-
-    Data plane API operations for the Amazon SageMaker Feature Store supporting
-    put, delete, and retrieve operations for ML features.
+  description: Data plane API operations for the Amazon SageMaker Feature Store supporting put, delete, and retrieve operations
+    for ML features.
   humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Feature_Store_Runtime.html
   baseURL: https://featurestore-runtime.sagemaker.{region}.amazonaws.com
   tags:
@@ -81,11 +76,9 @@ apis:
   properties:
   - type: Documentation
     url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Feature_Store_Runtime.html
-
 - name: Amazon SageMaker Metrics Service API
-  description: >-
-    Data plane API operations for Amazon SageMaker Metrics for putting and
-    retrieving metrics related to training runs.
+  description: Data plane API operations for Amazon SageMaker Metrics for putting and retrieving metrics related to training
+    runs.
   humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Metrics_Service.html
   baseURL: https://metrics.sagemaker.{region}.amazonaws.com
   tags:
@@ -95,11 +88,9 @@ apis:
   properties:
   - type: Documentation
     url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Metrics_Service.html
-
 - name: Amazon SageMaker Geospatial API
-  description: >-
-    APIs for creating and managing Amazon SageMaker geospatial capabilities
-    including earth observation jobs and vector enrichment jobs.
+  description: APIs for creating and managing Amazon SageMaker geospatial capabilities including earth observation jobs and
+    vector enrichment jobs.
   humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_geospatial_capabilities.html
   baseURL: https://sagemaker-geospatial.{region}.amazonaws.com
   tags:
@@ -109,11 +100,9 @@ apis:
   properties:
   - type: Documentation
     url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_geospatial_capabilities.html
-
 - name: Amazon SageMaker Edge Manager API
-  description: >-
-    SageMaker Edge Manager dataplane service for communicating with active
-    edge agents running ML models on edge devices.
+  description: SageMaker Edge Manager dataplane service for communicating with active edge agents running ML models on edge
+    devices.
   humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_Sagemaker_Edge.html
   baseURL: https://edge.sagemaker.{region}.amazonaws.com
   tags:
@@ -123,101 +112,70 @@ apis:
   properties:
   - type: Documentation
     url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_Sagemaker_Edge.html
-
 common:
-
 - type: Portal
   url: https://aws.amazon.com/
-
 - type: GettingStarted
   url: https://aws.amazon.com/sagemaker/getting-started/
-
 - type: Documentation
   url: https://docs.aws.amazon.com/sagemaker/latest/dg/
-
 - type: APIReference
   url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/
-
 - type: Console
   url: https://console.aws.amazon.com/sagemaker/
-
 - type: SignUp
   url: https://portal.aws.amazon.com/billing/signup
-
 - type: Pricing
   url: https://aws.amazon.com/sagemaker/pricing/
-
 - type: FAQ
   url: https://aws.amazon.com/sagemaker/faqs/
-
 - type: Blog
   url: https://aws.amazon.com/blogs/machine-learning/
-
 - type: StatusPage
   url: https://status.aws.amazon.com/
-
 - type: Support
   url: https://aws.amazon.com/support/
-
 - type: TermsOfService
   url: https://aws.amazon.com/service-terms/
-
 - type: PrivacyPolicy
   url: https://aws.amazon.com/privacy/
-
 - type: Security
   url: https://docs.aws.amazon.com/sagemaker/latest/dg/security.html
-
 - type: Compliance
   url: https://aws.amazon.com/compliance/
-
 - type: GitHubOrganization
   url: https://github.com/aws
-
 - type: YouTube
   url: https://www.youtube.com/user/AmazonWebServices
-
 - type: StackOverflow
   url: https://stackoverflow.com/questions/tagged/amazon-sagemaker
-
 - type: KnowledgeCenter
   url: https://repost.aws/knowledge-center
-
 - type: CLI
   url: https://docs.aws.amazon.com/cli/latest/reference/sagemaker/
-
 - type: CLI
   url: https://github.com/aws/sagemaker-hyperpod-cli
   title: SageMaker HyperPod CLI
-
 - type: SDK
   url: https://github.com/aws/sagemaker-python-sdk
   title: Python SDK (GitHub)
-
 - type: GitHubRepository
   url: https://github.com/aws/sagemaker-core
-
 - type: GitHubRepository
   url: https://github.com/aws/sagemaker-distribution
-
 - type: SpectralRules
   url: rules/amazon-sagemaker-spectral-rules.yml
-
 - type: Vocabulary
   url: vocabulary/amazon-sagemaker-vocabulary.yaml
-
-- type: NaftikoCapability
-  url: capabilities/ml-lifecycle-management.yaml
-
 - type: Training
   url: https://aws.amazon.com/training/
-
 - type: Features
   data:
   - name: SageMaker Studio
     description: Fully integrated development environment for ML work with notebooks, debugging, and experiment tracking.
   - name: SageMaker HyperPod
-    description: Purpose-built infrastructure for distributed training that reduces foundation model training time by up to 40%.
+    description: Purpose-built infrastructure for distributed training that reduces foundation model training time by up to
+      40%.
   - name: SageMaker JumpStart
     description: Hub providing access to foundation models, pre-built algorithms, and one-click deployment.
   - name: SageMaker Autopilot
@@ -240,7 +198,6 @@ common:
     description: Streamlines tracking and management of ML experiments.
   - name: ML Governance
     description: Access controls and transparency across the full ML lifecycle with audit trails.
-
 - type: UseCases
   data:
   - name: Generative AI Applications
@@ -259,7 +216,6 @@ common:
     description: Build real-time fraud detection models with low-latency inference endpoints.
   - name: Predictive Maintenance
     description: Deploy ML models on edge devices for predictive maintenance use cases.
-
 - type: Integrations
   data:
   - name: Amazon S3
@@ -282,7 +238,6 @@ common:
     description: Natural language assistance integrated into SageMaker Unified Studio.
   - name: Hugging Face
     description: Deploy Hugging Face models directly via SageMaker JumpStart.
-
 - type: JSONLD
   url: json-ld/amazon-sagemaker-context.jsonld
 - type: JSONSchema
@@ -307,17 +262,15 @@ common:
   url: examples/amazon-sagemaker-tag-example.json
 - type: Example
   url: examples/amazon-sagemaker-training-job-example.json
-- type: NaftikoCapability
-  url: capabilities/shared/amazon-sagemaker.yaml
 - type: Integrations
   url: https://aws.amazon.com/partners/
 maintainer: Kin Lane
 integrations:
-  - name: Partner Programs
-  - name: Resources
-  - name: Success Stories
-  - name: Work with an AWS Partner
-  - name: AWS Marketplace
-  - name: AWS Partner Central
-  - name: Partner Paths
-  - name: co-sell with AWS
+- name: Partner Programs
+- name: Resources
+- name: Success Stories
+- name: Work with an AWS Partner
+- name: AWS Marketplace
+- name: AWS Partner Central
+- name: Partner Paths
+- name: co-sell with AWS
