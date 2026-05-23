@@ -1,0 +1,19 @@
+{
+  "operationId": "CreateNotebookInstance",
+  "method": "POST",
+  "path": "/#CreateNotebookInstance",
+  "summary": "Amazon SageMaker Create a Notebook Instance",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "CreateNotebookInstance200Example",
+      "example": {
+        "Status": "Success",
+        "RequestId": "abc12345-def6-7890-ghij-klmnopqrstuv",
+        "RoleArn": "arn:aws:iam::123456789012:role/SageMakerRole"
+      }
+    }
+  ]
+}

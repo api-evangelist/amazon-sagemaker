@@ -1,0 +1,13 @@
+name: Amazon SageMaker Domain Vocabulary
+provider: Amazon SageMaker
+providerId: amazon-sagemaker
+description: Tag-derived vocabulary for the Amazon SageMaker API surface; sourced from openapi/ tags.
+terms:
+- term: Endpoints
+  description: Operations for managing SageMaker endpoints.
+- term: Models
+  description: Operations for managing SageMaker models.
+- term: Notebook Instances
+  description: Operations for managing SageMaker notebook instances.
+- term: Training Jobs
+  description: Operations for managing SageMaker training jobs.

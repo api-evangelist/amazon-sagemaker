@@ -1,0 +1,19 @@
+{
+  "operationId": "ListNotebookInstances",
+  "method": "POST",
+  "path": "/#ListNotebookInstances",
+  "summary": "Amazon SageMaker List Notebook Instances",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "ListNotebookInstances200Example",
+      "example": {
+        "Status": "Success",
+        "RequestId": "abc12345-def6-7890-ghij-klmnopqrstuv",
+        "RoleArn": "arn:aws:iam::123456789012:role/SageMakerRole"
+      }
+    }
+  ]
+}

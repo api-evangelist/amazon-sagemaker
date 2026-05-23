@@ -1,0 +1,159 @@
+{
+  "provider": "Amazon SageMaker",
+  "providerId": "amazon-sagemaker",
+  "kind": "json-structure",
+  "description": "Structural overview of the Amazon SageMaker API surface; extracted from openapi/.",
+  "schemaCount": 5,
+  "operationCount": 13,
+  "schemas": [
+    {
+      "name": "Tag",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "NotebookInstance",
+      "type": "object",
+      "propertyCount": 11,
+      "required": []
+    },
+    {
+      "name": "TrainingJob",
+      "type": "object",
+      "propertyCount": 18,
+      "required": []
+    },
+    {
+      "name": "Model",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Endpoint",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "POST",
+      "path": "/#CreateNotebookInstance",
+      "operationId": "CreateNotebookInstance",
+      "summary": "Amazon SageMaker Create a Notebook Instance",
+      "tags": [
+        "Notebook Instances"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/#DescribeNotebookInstance",
+      "operationId": "DescribeNotebookInstance",
+      "summary": "Amazon SageMaker Describe a Notebook Instance",
+      "tags": [
+        "Notebook Instances"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/#ListNotebookInstances",
+      "operationId": "ListNotebookInstances",
+      "summary": "Amazon SageMaker List Notebook Instances",
+      "tags": [
+        "Notebook Instances"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/#CreateTrainingJob",
+      "operationId": "CreateTrainingJob",
+      "summary": "Amazon SageMaker Create a Training Job",
+      "tags": [
+        "Training Jobs"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/#DescribeTrainingJob",
+      "operationId": "DescribeTrainingJob",
+      "summary": "Amazon SageMaker Describe a Training Job",
+      "tags": [
+        "Training Jobs"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/#ListTrainingJobs",
+      "operationId": "ListTrainingJobs",
+      "summary": "Amazon SageMaker List Training Jobs",
+      "tags": [
+        "Training Jobs"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/#CreateModel",
+      "operationId": "CreateModel",
+      "summary": "Amazon SageMaker Create a Model",
+      "tags": [
+        "Models"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/#DescribeModel",
+      "operationId": "DescribeModel",
+      "summary": "Amazon SageMaker Describe a Model",
+      "tags": [
+        "Models"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/#ListModels",
+      "operationId": "ListModels",
+      "summary": "Amazon SageMaker List Models",
+      "tags": [
+        "Models"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/#CreateEndpoint",
+      "operationId": "CreateEndpoint",
+      "summary": "Amazon SageMaker Create an Endpoint",
+      "tags": [
+        "Endpoints"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/#DescribeEndpoint",
+      "operationId": "DescribeEndpoint",
+      "summary": "Amazon SageMaker Describe an Endpoint",
+      "tags": [
+        "Endpoints"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/#ListEndpoints",
+      "operationId": "ListEndpoints",
+      "summary": "Amazon SageMaker List Endpoints",
+      "tags": [
+        "Endpoints"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/#CreateEndpointConfig",
+      "operationId": "CreateEndpointConfig",
+      "summary": "Amazon SageMaker Create an Endpoint Configuration",
+      "tags": [
+        "Endpoints"
+      ]
+    }
+  ]
+}
