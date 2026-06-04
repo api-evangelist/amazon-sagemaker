@@ -1,0 +1,101 @@
+arazzo: 1.0.1
+info:
+  title: Amazon SageMaker Provision Notebook Instance
+  summary: Create a SageMaker notebook instance and poll it until it is in service.
+  description: >-
+    A common SageMaker development setup flow. The workflow launches a managed
+    Jupyter notebook instance with the requested instance type and IAM role,
+    then describes the instance and loops while its status remains Pending,
+    continuing once the instance reaches a terminal state such as InService or
+    Failed. The connection URL is captured for the caller. Each step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sagemakerApi
+  url: ../openapi/amazon-sagemaker-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-notebook-instance
+  summary: Create a notebook instance and poll it to an in-service state.
+  description: >-
+    Launches a managed Jupyter notebook instance and describes it in a loop
+    until it leaves the Pending state, returning the connection URL and final
+    status.
+  inputs:
+    type: object
+    required:
+    - notebookInstanceName
+    - instanceType
+    - roleArn
+    properties:
+      notebookInstanceName:
+        type: string
+        description: A unique name for the notebook instance.
+      instanceType:
+        type: string
+        description: The type of ML compute instance to launch for the notebook.
+      roleArn:
+        type: string
+        description: The ARN of the IAM role SageMaker assumes for the notebook instance.
+      volumeSizeInGB:
+        type: integer
+        description: The size of the ML storage volume to attach, in GB.
+  steps:
+  - stepId: createNotebookInstance
+    description: >-
+      Launch a managed Jupyter notebook instance with the requested instance
+      type, IAM role, and optional storage volume size.
+    operationId: CreateNotebookInstance
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.CreateNotebookInstance
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        NotebookInstanceName: $inputs.notebookInstanceName
+        InstanceType: $inputs.instanceType
+        RoleArn: $inputs.roleArn
+        VolumeSizeInGB: $inputs.volumeSizeInGB
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      notebookInstanceArn: $response.body#/NotebookInstanceArn
+  - stepId: pollNotebookInstance
+    description: >-
+      Describe the notebook instance to read its status. Repeat while the status
+      remains Pending and continue once it reaches a terminal state such as
+      InService or Failed.
+    operationId: DescribeNotebookInstance
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.DescribeNotebookInstance
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        NotebookInstanceName: $inputs.notebookInstanceName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      notebookInstanceStatus: $response.body#/NotebookInstanceStatus
+      url: $response.body#/Url
+    onSuccess:
+    - name: stillPending
+      type: goto
+      stepId: pollNotebookInstance
+      criteria:
+      - context: $response.body
+        condition: $.NotebookInstanceStatus == "Pending"
+        type: jsonpath
+    - name: notebookTerminal
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.NotebookInstanceStatus != "Pending"
+        type: jsonpath
+  outputs:
+    notebookInstanceArn: $steps.createNotebookInstance.outputs.notebookInstanceArn
+    notebookInstanceStatus: $steps.pollNotebookInstance.outputs.notebookInstanceStatus
+    url: $steps.pollNotebookInstance.outputs.url

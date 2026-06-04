@@ -1,0 +1,164 @@
+arazzo: 1.0.1
+info:
+  title: Amazon SageMaker Deploy Model to Endpoint
+  summary: Create a model, build an endpoint configuration, launch an endpoint, and poll it until it is in service.
+  description: >-
+    The complete SageMaker hosting pipeline. The workflow registers a model from
+    an inference container and model artifacts, defines an endpoint
+    configuration that places that model on a production variant, creates the
+    endpoint, and then polls the endpoint until its status leaves Creating and
+    settles on a terminal state such as InService or Failed. Each step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sagemakerApi
+  url: ../openapi/amazon-sagemaker-openapi.yml
+  type: openapi
+workflows:
+- workflowId: deploy-model-to-endpoint
+  summary: Register a model and deploy it to a hosted real-time endpoint.
+  description: >-
+    Creates a model, an endpoint configuration referencing that model, and an
+    endpoint built from the configuration, then polls the endpoint until it is
+    no longer in the Creating state.
+  inputs:
+    type: object
+    required:
+    - modelName
+    - image
+    - modelDataUrl
+    - executionRoleArn
+    - endpointConfigName
+    - variantName
+    - initialInstanceCount
+    - instanceType
+    - endpointName
+    properties:
+      modelName:
+        type: string
+        description: A unique name for the model.
+      image:
+        type: string
+        description: The registry path of the Docker image that contains the inference code.
+      modelDataUrl:
+        type: string
+        description: The S3 path where the model artifacts are stored.
+      executionRoleArn:
+        type: string
+        description: The ARN of the IAM role SageMaker can assume to access model artifacts.
+      endpointConfigName:
+        type: string
+        description: A unique name for the endpoint configuration.
+      variantName:
+        type: string
+        description: The name of the production variant.
+      initialInstanceCount:
+        type: integer
+        description: The initial number of instances to launch for the variant.
+      instanceType:
+        type: string
+        description: The ML compute instance type to deploy for the variant.
+      endpointName:
+        type: string
+        description: A unique name for the endpoint.
+  steps:
+  - stepId: createModel
+    description: >-
+      Register a model from an inference container image and model artifacts so
+      it can be referenced by an endpoint configuration.
+    operationId: CreateModel
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.CreateModel
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        ModelName: $inputs.modelName
+        PrimaryContainer:
+          Image: $inputs.image
+          ModelDataUrl: $inputs.modelDataUrl
+        ExecutionRoleArn: $inputs.executionRoleArn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      modelArn: $response.body#/ModelArn
+  - stepId: createEndpointConfig
+    description: >-
+      Define an endpoint configuration that places the newly created model on a
+      single production variant with the requested instance type and count.
+    operationId: CreateEndpointConfig
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.CreateEndpointConfig
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        EndpointConfigName: $inputs.endpointConfigName
+        ProductionVariants:
+        - VariantName: $inputs.variantName
+          ModelName: $inputs.modelName
+          InitialInstanceCount: $inputs.initialInstanceCount
+          InstanceType: $inputs.instanceType
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      endpointConfigArn: $response.body#/EndpointConfigArn
+  - stepId: createEndpoint
+    description: >-
+      Create a hosted endpoint from the endpoint configuration so SageMaker
+      begins provisioning resources and deploying the model.
+    operationId: CreateEndpoint
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.CreateEndpoint
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        EndpointName: $inputs.endpointName
+        EndpointConfigName: $inputs.endpointConfigName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      endpointArn: $response.body#/EndpointArn
+  - stepId: pollEndpoint
+    description: >-
+      Describe the endpoint to read its status. Repeat this step while the
+      endpoint remains in the Creating state and continue once it reaches a
+      terminal state such as InService or Failed.
+    operationId: DescribeEndpoint
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.DescribeEndpoint
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        EndpointName: $inputs.endpointName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      endpointStatus: $response.body#/EndpointStatus
+      failureReason: $response.body#/FailureReason
+    onSuccess:
+    - name: stillCreating
+      type: goto
+      stepId: pollEndpoint
+      criteria:
+      - context: $response.body
+        condition: $.EndpointStatus == "Creating"
+        type: jsonpath
+    - name: endpointTerminal
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.EndpointStatus != "Creating"
+        type: jsonpath
+  outputs:
+    modelArn: $steps.createModel.outputs.modelArn
+    endpointConfigArn: $steps.createEndpointConfig.outputs.endpointConfigArn
+    endpointArn: $steps.createEndpoint.outputs.endpointArn
+    endpointStatus: $steps.pollEndpoint.outputs.endpointStatus

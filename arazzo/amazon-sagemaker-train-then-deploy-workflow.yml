@@ -1,0 +1,269 @@
+arazzo: 1.0.1
+info:
+  title: Amazon SageMaker Train Then Deploy
+  summary: Train a model to completion, then register it from the produced artifacts and stand up a hosted endpoint.
+  description: >-
+    The end-to-end SageMaker lifecycle in a single flow. The workflow starts a
+    training job, polls it until training completes, and only when the job
+    reaches Completed does it register a model from the produced S3 artifacts,
+    build an endpoint configuration, and create a hosted endpoint that it then
+    polls to service. If training does not complete the flow ends without
+    deploying. Each step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sagemakerApi
+  url: ../openapi/amazon-sagemaker-openapi.yml
+  type: openapi
+workflows:
+- workflowId: train-then-deploy
+  summary: Train a model and, on success, deploy the trained artifacts to an endpoint.
+  description: >-
+    Submits a training job, polls it to a terminal status, and branches: when
+    training completes it registers a model from the produced artifacts, creates
+    an endpoint configuration and endpoint, and polls the endpoint to service;
+    otherwise it ends.
+  inputs:
+    type: object
+    required:
+    - trainingJobName
+    - trainingImage
+    - roleArn
+    - s3OutputPath
+    - instanceType
+    - instanceCount
+    - volumeSizeInGB
+    - maxRuntimeInSeconds
+    - modelName
+    - inferenceImage
+    - endpointConfigName
+    - variantName
+    - initialInstanceCount
+    - hostingInstanceType
+    - endpointName
+    properties:
+      trainingJobName:
+        type: string
+        description: A unique name for the training job.
+      trainingImage:
+        type: string
+        description: The registry path of the Docker image that contains the training algorithm.
+      trainingInputMode:
+        type: string
+        description: The input mode the algorithm supports (Pipe or File).
+        default: File
+      roleArn:
+        type: string
+        description: The ARN of the IAM role SageMaker assumes for training and hosting.
+      inputDataConfig:
+        type: array
+        description: The input data channels for the training job.
+        items:
+          type: object
+      s3OutputPath:
+        type: string
+        description: The S3 path where SageMaker stores the model artifacts.
+      instanceType:
+        type: string
+        description: The ML compute instance type to use for training.
+      instanceCount:
+        type: integer
+        description: The number of ML compute instances to use for training.
+      volumeSizeInGB:
+        type: integer
+        description: The size of the ML storage volume attached to each training instance, in GB.
+      maxRuntimeInSeconds:
+        type: integer
+        description: The maximum length of time, in seconds, that the training job can run.
+      modelName:
+        type: string
+        description: A unique name for the model to register from the trained artifacts.
+      inferenceImage:
+        type: string
+        description: The registry path of the Docker image that contains the inference code.
+      endpointConfigName:
+        type: string
+        description: A unique name for the endpoint configuration.
+      variantName:
+        type: string
+        description: The name of the production variant.
+      initialInstanceCount:
+        type: integer
+        description: The initial number of instances to launch for the variant.
+      hostingInstanceType:
+        type: string
+        description: The ML compute instance type to deploy for hosting.
+      endpointName:
+        type: string
+        description: A unique name for the endpoint.
+  steps:
+  - stepId: createTrainingJob
+    description: >-
+      Start a model training job using the supplied algorithm image, IAM role,
+      input data, output location, and compute resources.
+    operationId: CreateTrainingJob
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.CreateTrainingJob
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        TrainingJobName: $inputs.trainingJobName
+        AlgorithmSpecification:
+          TrainingImage: $inputs.trainingImage
+          TrainingInputMode: $inputs.trainingInputMode
+        RoleArn: $inputs.roleArn
+        InputDataConfig: $inputs.inputDataConfig
+        OutputDataConfig:
+          S3OutputPath: $inputs.s3OutputPath
+        ResourceConfig:
+          InstanceType: $inputs.instanceType
+          InstanceCount: $inputs.instanceCount
+          VolumeSizeInGB: $inputs.volumeSizeInGB
+        StoppingCondition:
+          MaxRuntimeInSeconds: $inputs.maxRuntimeInSeconds
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      trainingJobArn: $response.body#/TrainingJobArn
+  - stepId: pollTrainingJob
+    description: >-
+      Describe the training job to read its current status. Repeat while the
+      status remains InProgress; on a terminal status branch on whether training
+      completed.
+    operationId: DescribeTrainingJob
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.DescribeTrainingJob
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        TrainingJobName: $inputs.trainingJobName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      trainingJobStatus: $response.body#/TrainingJobStatus
+      modelArtifacts: $response.body#/ModelArtifacts/S3ModelArtifacts
+      failureReason: $response.body#/FailureReason
+    onSuccess:
+    - name: stillTraining
+      type: goto
+      stepId: pollTrainingJob
+      criteria:
+      - context: $response.body
+        condition: $.TrainingJobStatus == "InProgress"
+        type: jsonpath
+    - name: trainingCompleted
+      type: goto
+      stepId: createModel
+      criteria:
+      - context: $response.body
+        condition: $.TrainingJobStatus == "Completed"
+        type: jsonpath
+    - name: trainingFailed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.TrainingJobStatus != "Completed" && $.TrainingJobStatus != "InProgress"
+        type: jsonpath
+  - stepId: createModel
+    description: >-
+      Register a model from the inference container and the S3 artifacts the
+      training job produced.
+    operationId: CreateModel
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.CreateModel
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        ModelName: $inputs.modelName
+        PrimaryContainer:
+          Image: $inputs.inferenceImage
+          ModelDataUrl: $steps.pollTrainingJob.outputs.modelArtifacts
+        ExecutionRoleArn: $inputs.roleArn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      modelArn: $response.body#/ModelArn
+  - stepId: createEndpointConfig
+    description: >-
+      Define an endpoint configuration that places the trained model on a single
+      production variant.
+    operationId: CreateEndpointConfig
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.CreateEndpointConfig
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        EndpointConfigName: $inputs.endpointConfigName
+        ProductionVariants:
+        - VariantName: $inputs.variantName
+          ModelName: $inputs.modelName
+          InitialInstanceCount: $inputs.initialInstanceCount
+          InstanceType: $inputs.hostingInstanceType
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      endpointConfigArn: $response.body#/EndpointConfigArn
+  - stepId: createEndpoint
+    description: >-
+      Create a hosted endpoint from the endpoint configuration so SageMaker
+      provisions resources and deploys the trained model.
+    operationId: CreateEndpoint
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.CreateEndpoint
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        EndpointName: $inputs.endpointName
+        EndpointConfigName: $inputs.endpointConfigName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      endpointArn: $response.body#/EndpointArn
+  - stepId: pollEndpoint
+    description: >-
+      Describe the endpoint and loop while it remains in the Creating state,
+      continuing once it reaches a terminal state.
+    operationId: DescribeEndpoint
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.DescribeEndpoint
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        EndpointName: $inputs.endpointName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      endpointStatus: $response.body#/EndpointStatus
+      failureReason: $response.body#/FailureReason
+    onSuccess:
+    - name: stillCreating
+      type: goto
+      stepId: pollEndpoint
+      criteria:
+      - context: $response.body
+        condition: $.EndpointStatus == "Creating"
+        type: jsonpath
+    - name: endpointTerminal
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.EndpointStatus != "Creating"
+        type: jsonpath
+  outputs:
+    trainingJobArn: $steps.createTrainingJob.outputs.trainingJobArn
+    modelArtifacts: $steps.pollTrainingJob.outputs.modelArtifacts
+    modelArn: $steps.createModel.outputs.modelArn
+    endpointArn: $steps.createEndpoint.outputs.endpointArn
+    endpointStatus: $steps.pollEndpoint.outputs.endpointStatus

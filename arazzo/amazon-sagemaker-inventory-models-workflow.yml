@@ -1,0 +1,88 @@
+arazzo: 1.0.1
+info:
+  title: Amazon SageMaker Inventory Models
+  summary: List registered models and describe the most recently created one in detail.
+  description: >-
+    A model catalog inspection flow. The workflow lists the account's registered
+    models sorted by creation time, branches on whether any exist, and when
+    there is at least one describes the newest model to surface its primary
+    container image, artifact location, and execution role. Each step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sagemakerApi
+  url: ../openapi/amazon-sagemaker-openapi.yml
+  type: openapi
+workflows:
+- workflowId: inventory-models
+  summary: List models and inspect the most recently created one.
+  description: >-
+    Lists models newest-first and, when at least one exists, describes the top
+    model to read its container image, artifact location, and execution role.
+  inputs:
+    type: object
+    properties:
+      maxResults:
+        type: integer
+        description: The maximum number of models to return.
+        default: 10
+  steps:
+  - stepId: listModels
+    description: >-
+      List registered models sorted by creation time in descending order so the
+      most recently created model is first.
+    operationId: ListModels
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.ListModels
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        SortBy: CreationTime
+        SortOrder: Descending
+        MaxResults: $inputs.maxResults
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      newestModelName: $response.body#/Models/0/ModelName
+      nextToken: $response.body#/NextToken
+    onSuccess:
+    - name: modelsExist
+      type: goto
+      stepId: describeModel
+      criteria:
+      - context: $response.body
+        condition: $.Models.length > 0
+        type: jsonpath
+    - name: noModels
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.Models.length == 0
+        type: jsonpath
+  - stepId: describeModel
+    description: >-
+      Describe the most recently created model to read its primary container
+      image, model artifact location, and execution role ARN.
+    operationId: DescribeModel
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.DescribeModel
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        ModelName: $steps.listModels.outputs.newestModelName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      modelArn: $response.body#/ModelArn
+      image: $response.body#/PrimaryContainer/Image
+      modelDataUrl: $response.body#/PrimaryContainer/ModelDataUrl
+      executionRoleArn: $response.body#/ExecutionRoleArn
+  outputs:
+    newestModelName: $steps.listModels.outputs.newestModelName
+    modelArn: $steps.describeModel.outputs.modelArn
+    modelDataUrl: $steps.describeModel.outputs.modelDataUrl

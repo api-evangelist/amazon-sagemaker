@@ -1,0 +1,92 @@
+arazzo: 1.0.1
+info:
+  title: Amazon SageMaker Audit Endpoint Fleet
+  summary: List hosted endpoints and describe the most recently created one in detail.
+  description: >-
+    An operations and monitoring flow. The workflow lists the account's hosted
+    endpoints sorted by creation time, branches on whether any exist, and when
+    there is at least one describes the newest endpoint to surface its status,
+    production variants, and any failure reason. Each step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sagemakerApi
+  url: ../openapi/amazon-sagemaker-openapi.yml
+  type: openapi
+workflows:
+- workflowId: audit-endpoint-fleet
+  summary: List endpoints and inspect the most recently created one.
+  description: >-
+    Lists endpoints newest-first and, when at least one exists, describes the
+    top endpoint to read its status and production variant detail.
+  inputs:
+    type: object
+    properties:
+      statusEquals:
+        type: string
+        description: Optional endpoint status to filter the list by (e.g. InService).
+      maxResults:
+        type: integer
+        description: The maximum number of endpoints to return.
+        default: 10
+  steps:
+  - stepId: listEndpoints
+    description: >-
+      List hosted endpoints sorted by creation time in descending order,
+      optionally filtered to a single status.
+    operationId: ListEndpoints
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.ListEndpoints
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        SortBy: CreationTime
+        SortOrder: Descending
+        StatusEquals: $inputs.statusEquals
+        MaxResults: $inputs.maxResults
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      newestEndpointName: $response.body#/Endpoints/0/EndpointName
+      nextToken: $response.body#/NextToken
+    onSuccess:
+    - name: endpointsExist
+      type: goto
+      stepId: describeEndpoint
+      criteria:
+      - context: $response.body
+        condition: $.Endpoints.length > 0
+        type: jsonpath
+    - name: noEndpoints
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.Endpoints.length == 0
+        type: jsonpath
+  - stepId: describeEndpoint
+    description: >-
+      Describe the most recently created endpoint to read its status, production
+      variants, and any failure reason.
+    operationId: DescribeEndpoint
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.DescribeEndpoint
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        EndpointName: $steps.listEndpoints.outputs.newestEndpointName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      endpointStatus: $response.body#/EndpointStatus
+      endpointConfigName: $response.body#/EndpointConfigName
+      productionVariants: $response.body#/ProductionVariants
+      failureReason: $response.body#/FailureReason
+  outputs:
+    newestEndpointName: $steps.listEndpoints.outputs.newestEndpointName
+    endpointStatus: $steps.describeEndpoint.outputs.endpointStatus
+    productionVariants: $steps.describeEndpoint.outputs.productionVariants

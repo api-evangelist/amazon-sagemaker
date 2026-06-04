@@ -113,6 +113,33 @@ apis:
   - type: Documentation
     url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_Sagemaker_Edge.html
 common:
+- type: ArazzoWorkflows
+  url: arazzo/
+  workflows:
+  - url: arazzo/amazon-sagemaker-audit-endpoint-fleet-workflow.yml
+    name: Amazon SageMaker Audit Endpoint Fleet
+    summary: List hosted endpoints and describe the most recently created one in detail.
+  - url: arazzo/amazon-sagemaker-deploy-existing-model-workflow.yml
+    name: Amazon SageMaker Deploy Existing Model
+    summary: Verify an existing model, build an endpoint configuration for it, create an endpoint, and poll it to service.
+  - url: arazzo/amazon-sagemaker-deploy-model-to-endpoint-workflow.yml
+    name: Amazon SageMaker Deploy Model to Endpoint
+    summary: Create a model, build an endpoint configuration, launch an endpoint, and poll it until it is in service.
+  - url: arazzo/amazon-sagemaker-inventory-models-workflow.yml
+    name: Amazon SageMaker Inventory Models
+    summary: List registered models and describe the most recently created one in detail.
+  - url: arazzo/amazon-sagemaker-provision-notebook-instance-workflow.yml
+    name: Amazon SageMaker Provision Notebook Instance
+    summary: Create a SageMaker notebook instance and poll it until it is in service.
+  - url: arazzo/amazon-sagemaker-register-latest-completed-training-workflow.yml
+    name: Amazon SageMaker Register Latest Completed Training
+    summary: Find the most recent completed training job, read its artifacts, and register a model from them.
+  - url: arazzo/amazon-sagemaker-train-and-poll-job-workflow.yml
+    name: Amazon SageMaker Train Model and Poll Job
+    summary: Start a SageMaker training job and poll its status until it reaches a terminal state.
+  - url: arazzo/amazon-sagemaker-train-then-deploy-workflow.yml
+    name: Amazon SageMaker Train Then Deploy
+    summary: Train a model to completion, then register it from the produced artifacts and stand up a hosted endpoint.
 - type: Portal
   url: https://aws.amazon.com/
 - type: GettingStarted

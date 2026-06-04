@@ -1,0 +1,146 @@
+arazzo: 1.0.1
+info:
+  title: Amazon SageMaker Deploy Existing Model
+  summary: Verify an existing model, build an endpoint configuration for it, create an endpoint, and poll it to service.
+  description: >-
+    A hosting flow for a model that already exists. The workflow first describes
+    the model to confirm it is present and to capture its ARN, then defines an
+    endpoint configuration that places the model on a production variant,
+    creates the endpoint, and polls the endpoint until it leaves the Creating
+    state. Each step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sagemakerApi
+  url: ../openapi/amazon-sagemaker-openapi.yml
+  type: openapi
+workflows:
+- workflowId: deploy-existing-model
+  summary: Stand up an endpoint for a model that already exists.
+  description: >-
+    Confirms a model exists, creates an endpoint configuration and endpoint for
+    it, and polls the endpoint until it reaches a terminal state.
+  inputs:
+    type: object
+    required:
+    - modelName
+    - endpointConfigName
+    - variantName
+    - initialInstanceCount
+    - instanceType
+    - endpointName
+    properties:
+      modelName:
+        type: string
+        description: The name of the existing model to deploy.
+      endpointConfigName:
+        type: string
+        description: A unique name for the endpoint configuration.
+      variantName:
+        type: string
+        description: The name of the production variant.
+      initialInstanceCount:
+        type: integer
+        description: The initial number of instances to launch for the variant.
+      instanceType:
+        type: string
+        description: The ML compute instance type to deploy for the variant.
+      endpointName:
+        type: string
+        description: A unique name for the endpoint.
+  steps:
+  - stepId: describeModel
+    description: >-
+      Describe the model to confirm it exists and capture its ARN before
+      building an endpoint configuration around it.
+    operationId: DescribeModel
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.DescribeModel
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        ModelName: $inputs.modelName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      modelArn: $response.body#/ModelArn
+      executionRoleArn: $response.body#/ExecutionRoleArn
+  - stepId: createEndpointConfig
+    description: >-
+      Define an endpoint configuration that places the existing model on a
+      single production variant with the requested instance type and count.
+    operationId: CreateEndpointConfig
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.CreateEndpointConfig
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        EndpointConfigName: $inputs.endpointConfigName
+        ProductionVariants:
+        - VariantName: $inputs.variantName
+          ModelName: $inputs.modelName
+          InitialInstanceCount: $inputs.initialInstanceCount
+          InstanceType: $inputs.instanceType
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      endpointConfigArn: $response.body#/EndpointConfigArn
+  - stepId: createEndpoint
+    description: >-
+      Create a hosted endpoint from the endpoint configuration so SageMaker
+      provisions resources and deploys the model.
+    operationId: CreateEndpoint
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.CreateEndpoint
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        EndpointName: $inputs.endpointName
+        EndpointConfigName: $inputs.endpointConfigName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      endpointArn: $response.body#/EndpointArn
+  - stepId: pollEndpoint
+    description: >-
+      Describe the endpoint and loop while it remains in the Creating state,
+      continuing once it reaches a terminal state.
+    operationId: DescribeEndpoint
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.DescribeEndpoint
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        EndpointName: $inputs.endpointName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      endpointStatus: $response.body#/EndpointStatus
+      failureReason: $response.body#/FailureReason
+    onSuccess:
+    - name: stillCreating
+      type: goto
+      stepId: pollEndpoint
+      criteria:
+      - context: $response.body
+        condition: $.EndpointStatus == "Creating"
+        type: jsonpath
+    - name: endpointTerminal
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.EndpointStatus != "Creating"
+        type: jsonpath
+  outputs:
+    modelArn: $steps.describeModel.outputs.modelArn
+    endpointConfigArn: $steps.createEndpointConfig.outputs.endpointConfigArn
+    endpointArn: $steps.createEndpoint.outputs.endpointArn
+    endpointStatus: $steps.pollEndpoint.outputs.endpointStatus

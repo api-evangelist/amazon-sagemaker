@@ -1,0 +1,116 @@
+arazzo: 1.0.1
+info:
+  title: Amazon SageMaker Register Latest Completed Training
+  summary: Find the most recent completed training job, read its artifacts, and register a model from them.
+  description: >-
+    A handoff flow from training to hosting. The workflow lists training jobs
+    filtered to the Completed status and sorted by creation time, takes the most
+    recent one, describes it to read the S3 path of its model artifacts, and
+    registers a SageMaker model from those artifacts and an inference container.
+    Each step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sagemakerApi
+  url: ../openapi/amazon-sagemaker-openapi.yml
+  type: openapi
+workflows:
+- workflowId: register-latest-completed-training
+  summary: Register a model from the most recently completed training job.
+  description: >-
+    Lists completed training jobs newest-first, describes the top result to get
+    its artifact location, and creates a model from those artifacts.
+  inputs:
+    type: object
+    required:
+    - modelName
+    - inferenceImage
+    - executionRoleArn
+    properties:
+      modelName:
+        type: string
+        description: A unique name for the model to register.
+      inferenceImage:
+        type: string
+        description: The registry path of the Docker image that contains the inference code.
+      executionRoleArn:
+        type: string
+        description: The ARN of the IAM role SageMaker can assume to access the model artifacts.
+  steps:
+  - stepId: listCompletedTrainingJobs
+    description: >-
+      List training jobs filtered to the Completed status and sorted by creation
+      time in descending order so the newest completed job is first.
+    operationId: ListTrainingJobs
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.ListTrainingJobs
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        StatusEquals: Completed
+        SortBy: CreationTime
+        SortOrder: Descending
+        MaxResults: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      latestTrainingJobName: $response.body#/TrainingJobSummaries/0/TrainingJobName
+    onSuccess:
+    - name: foundCompletedJob
+      type: goto
+      stepId: describeTrainingJob
+      criteria:
+      - context: $response.body
+        condition: $.TrainingJobSummaries.length > 0
+        type: jsonpath
+    - name: noCompletedJob
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.TrainingJobSummaries.length == 0
+        type: jsonpath
+  - stepId: describeTrainingJob
+    description: >-
+      Describe the most recent completed training job to read the S3 location of
+      its model artifacts.
+    operationId: DescribeTrainingJob
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.DescribeTrainingJob
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        TrainingJobName: $steps.listCompletedTrainingJobs.outputs.latestTrainingJobName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      trainingJobStatus: $response.body#/TrainingJobStatus
+      modelArtifacts: $response.body#/ModelArtifacts/S3ModelArtifacts
+  - stepId: createModel
+    description: >-
+      Register a model from the inference container and the artifacts produced by
+      the completed training job.
+    operationId: CreateModel
+    parameters:
+    - name: X-Amz-Target
+      in: header
+      value: SageMaker.CreateModel
+    requestBody:
+      contentType: application/x-amz-json-1.1
+      payload:
+        ModelName: $inputs.modelName
+        PrimaryContainer:
+          Image: $inputs.inferenceImage
+          ModelDataUrl: $steps.describeTrainingJob.outputs.modelArtifacts
+        ExecutionRoleArn: $inputs.executionRoleArn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      modelArn: $response.body#/ModelArn
+  outputs:
+    latestTrainingJobName: $steps.listCompletedTrainingJobs.outputs.latestTrainingJobName
+    modelArtifacts: $steps.describeTrainingJob.outputs.modelArtifacts
+    modelArn: $steps.createModel.outputs.modelArn
