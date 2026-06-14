@@ -1,0 +1,3701 @@
+"""
+Amazon SageMaker GraphQL Schema
+Derived from the Amazon SageMaker REST API
+Docs: https://docs.aws.amazon.com/sagemaker/latest/APIReference/
+"""
+
+# ─── Scalars ──────────────────────────────────────────────────────────────────
+
+scalar DateTime
+scalar JSON
+scalar AmazonResourceName
+
+# ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum TrainingJobStatus {
+  InProgress
+  Completed
+  Failed
+  Stopping
+  Stopped
+}
+
+enum EndpointStatus {
+  OutOfService
+  Creating
+  Updating
+  SystemUpdating
+  RollingBack
+  InService
+  Deleting
+  Failed
+  UpdateRollbackFailed
+}
+
+enum TransformJobStatus {
+  InProgress
+  Completed
+  Failed
+  Stopping
+  Stopped
+}
+
+enum CompilationJobStatus {
+  INPROGRESS
+  COMPLETED
+  FAILED
+  STARTING
+  STOPPING
+  STOPPED
+}
+
+enum ProcessingJobStatus {
+  InProgress
+  Completed
+  Failed
+  Stopping
+  Stopped
+}
+
+enum ContainerMode {
+  SingleModel
+  MultiModel
+}
+
+enum ModelPackageStatus {
+  Pending
+  InProgress
+  Completed
+  Failed
+  Deleting
+}
+
+enum FeatureType {
+  Integral
+  Fractional
+  String
+}
+
+enum PipelineStatus {
+  Active
+  Deleting
+}
+
+enum PipelineExecutionStatus {
+  Executing
+  Stopping
+  Stopped
+  Failed
+  Succeeded
+}
+
+enum StepStatus {
+  Starting
+  Executing
+  Stopping
+  Stopped
+  Failed
+  Succeeded
+  Cached
+  Skipped
+}
+
+enum MonitoringScheduleStatus {
+  Pending
+  Failed
+  Scheduled
+  Stopped
+}
+
+enum InferenceExperimentStatus {
+  Creating
+  Created
+  Updating
+  Running
+  Starting
+  Stopping
+  Completed
+  Cancelled
+}
+
+enum ProjectStatus {
+  Pending
+  CreateInProgress
+  CreateCompleted
+  CreateFailed
+  DeleteInProgress
+  DeleteFailed
+  UpdateInProgress
+  UpdateCompleted
+  UpdateFailed
+}
+
+enum DomainStatus {
+  Deleting
+  Failed
+  InService
+  Pending
+  Updating
+  Update_Failed
+  Delete_Failed
+}
+
+enum AssociationEdgeType {
+  ContributedTo
+  AssociatedWith
+  DerivedFrom
+  Produced
+  SameAs
+}
+
+enum SortOrder {
+  Ascending
+  Descending
+}
+
+# ─── Core Training Types ───────────────────────────────────────────────────────
+
+type TrainingJob {
+  trainingJobName: String!
+  trainingJobArn: AmazonResourceName!
+  tuningJobArn: AmazonResourceName
+  labelingJobArn: AmazonResourceName
+  autoMLJobArn: AmazonResourceName
+  modelArtifacts: ModelArtifact
+  trainingJobStatus: TrainingJobStatus!
+  secondaryStatus: String
+  failureReason: String
+  hyperParameters: JSON
+  algorithmSpecification: AlgorithmSpec
+  roleArn: AmazonResourceName
+  inputDataConfig: [TrainingInput!]
+  outputDataConfig: OutputDataConfig
+  resourceConfig: ResourceConfig
+  vpcConfig: VpcConfig
+  stoppingCondition: StoppingCondition
+  creationTime: DateTime
+  trainingStartTime: DateTime
+  trainingEndTime: DateTime
+  lastModifiedTime: DateTime
+  secondaryStatusTransitions: [SecondaryStatusTransition]
+  finalMetricDataList: [MetricData]
+  enableNetworkIsolation: Boolean
+  enableInterContainerTrafficEncryption: Boolean
+  enableManagedSpotTraining: Boolean
+  checkpointConfig: CheckpointConfig
+  debuggingJobConfig: DebuggingConfig
+  experimentConfig: ExperimentConfig
+  tags: [Tag]
+}
+
+type TrainingInput {
+  channelName: String!
+  dataSource: DataSource
+  contentType: String
+  compressionType: String
+  recordWrapperType: String
+  inputMode: String
+  shuffleConfig: ShuffleConfig
+}
+
+type DataSource {
+  s3DataSource: S3DataSource
+  fileSystemDataSource: FileSystemDataSource
+}
+
+type S3DataSource {
+  s3DataType: String!
+  s3Uri: String!
+  s3DataDistributionType: String
+  attributeNames: [String]
+  instanceGroupNames: [String]
+}
+
+type FileSystemDataSource {
+  fileSystemId: String!
+  fileSystemAccessMode: String!
+  fileSystemType: String!
+  directoryPath: String!
+}
+
+type ShuffleConfig {
+  seed: Int!
+}
+
+type OutputDataConfig {
+  kmsKeyId: String
+  s3OutputPath: String!
+  compressionType: String
+}
+
+type ResourceConfig {
+  instanceType: String!
+  instanceCount: Int!
+  volumeSizeInGB: Int!
+  volumeKmsKeyId: String
+  keepAlivePeriodInSeconds: Int
+  instanceGroups: [InstanceGroup]
+}
+
+type InstanceGroup {
+  instanceType: String!
+  instanceCount: Int!
+  instanceGroupName: String!
+}
+
+type StoppingCondition {
+  maxRuntimeInSeconds: Int
+  maxWaitTimeInSeconds: Int
+  maxPendingTimeInSeconds: Int
+}
+
+type AlgorithmSpec {
+  trainingImage: String
+  algorithmName: String
+  trainingInputMode: String!
+  metricDefinitions: [MetricDefinition]
+  enableSageMakerMetricsTimeSeries: Boolean
+  containerEntrypoint: [String]
+  containerArguments: [String]
+}
+
+type MetricDefinition {
+  name: String!
+  regex: String!
+}
+
+type MetricData {
+  metricName: String
+  value: Float
+  timestamp: DateTime
+}
+
+type CheckpointConfig {
+  s3Uri: String!
+  localPath: String
+}
+
+type DebuggingConfig {
+  debugHookConfig: DebugHookConfig
+  debugRuleConfigurations: [DebugRuleConfiguration]
+  tensorBoardOutputConfig: TensorBoardOutputConfig
+  debugRuleEvaluationStatuses: [DebugRuleEvaluationStatus]
+}
+
+type DebugHookConfig {
+  localPath: String
+  s3OutputPath: String!
+  hookParameters: JSON
+  collectionConfigurations: [CollectionConfiguration]
+}
+
+type CollectionConfiguration {
+  collectionName: String
+  collectionParameters: JSON
+}
+
+type DebugRuleConfiguration {
+  ruleConfigurationName: String!
+  localPath: String
+  s3OutputPath: String
+  ruleEvaluatorImage: String!
+  instanceType: String
+  volumeSizeInGB: Int
+  ruleParameters: JSON
+}
+
+type DebugRuleEvaluationStatus {
+  ruleConfigurationName: String
+  ruleEvaluationJobArn: AmazonResourceName
+  ruleEvaluationStatus: String
+  statusDetails: String
+  lastModifiedTime: DateTime
+}
+
+type TensorBoardOutputConfig {
+  localPath: String
+  s3OutputPath: String!
+}
+
+type SecondaryStatusTransition {
+  status: String
+  startTime: DateTime
+  endTime: DateTime
+  statusMessage: String
+}
+
+type VpcConfig {
+  securityGroupIds: [String!]!
+  subnets: [String!]!
+}
+
+type ExperimentConfig {
+  experimentName: String
+  trialName: String
+  trialComponentDisplayName: String
+  runName: String
+}
+
+# ─── Model Types ──────────────────────────────────────────────────────────────
+
+type Model {
+  modelName: String!
+  modelArn: AmazonResourceName
+  primaryContainer: Container
+  containers: [Container]
+  inferenceExecutionConfig: InferenceExecutionConfig
+  executionRoleArn: AmazonResourceName
+  vpcConfig: VpcConfig
+  creationTime: DateTime
+  enableNetworkIsolation: Boolean
+  tags: [Tag]
+}
+
+type ModelInput {
+  dataInputConfig: String!
+}
+
+type ModelArtifact {
+  s3ModelArtifacts: String!
+}
+
+type Container {
+  containerHostname: String
+  image: String
+  imageConfig: ImageConfig
+  mode: ContainerMode
+  modelDataUrl: String
+  modelDataSource: ModelDataSource
+  environment: JSON
+  modelPackageName: String
+  inferenceSpecificationName: String
+  multiModelConfig: MultiModelConfig
+}
+
+type ImageConfig {
+  repositoryAccessMode: String!
+  repositoryAuthConfig: RepositoryAuthConfig
+}
+
+type RepositoryAuthConfig {
+  repositoryCredentialsProviderArn: AmazonResourceName!
+}
+
+type ModelDataSource {
+  s3DataSource: S3ModelDataSource
+}
+
+type S3ModelDataSource {
+  s3Uri: String!
+  s3DataType: String!
+  compressionType: String!
+  modelAccessConfig: ModelAccessConfig
+  hubAccessConfig: HubAccessConfig
+}
+
+type ModelAccessConfig {
+  acceptEula: Boolean!
+}
+
+type HubAccessConfig {
+  hubContentArn: AmazonResourceName!
+}
+
+type MultiModelConfig {
+  modelCacheSetting: String
+}
+
+type InferenceExecutionConfig {
+  mode: ContainerMode!
+}
+
+type ModelPackage {
+  modelPackageName: String
+  modelPackageGroupName: String
+  modelPackageVersion: Int
+  modelPackageArn: AmazonResourceName
+  modelPackageDescription: String
+  creationTime: DateTime
+  inferenceSpecification: InferenceSpecification
+  sourceAlgorithmSpecification: SourceAlgorithmSpecification
+  validationSpecification: ModelPackageValidationSpecification
+  modelPackageStatus: ModelPackageStatus
+  modelPackageStatusDetails: ModelPackageStatusDetails
+  certifyForMarketplace: Boolean
+  modelApprovalStatus: String
+  createdBy: UserContext
+  metadataProperties: MetadataProperties
+  modelMetrics: ModelMetrics
+  lastModifiedTime: DateTime
+  lastModifiedBy: UserContext
+  approvalDescription: String
+  domain: String
+  task: String
+  samplePayloadUrl: String
+  additionalInferenceSpecifications: [AdditionalInferenceSpecification]
+  tags: [Tag]
+}
+
+type ModelPackageGroup {
+  modelPackageGroupName: String!
+  modelPackageGroupArn: AmazonResourceName
+  modelPackageGroupDescription: String
+  creationTime: DateTime
+  createdBy: UserContext
+  modelPackageGroupStatus: String
+  tags: [Tag]
+}
+
+type InferenceSpecification {
+  containers: [ModelPackageContainerDefinition!]!
+  supportedTransformInstanceTypes: [String]
+  supportedRealtimeInferenceInstanceTypes: [String]
+  supportedContentTypes: [String]
+  supportedResponseMIMETypes: [String]
+}
+
+type ModelPackageContainerDefinition {
+  containerHostname: String
+  image: String!
+  imageDigest: String
+  modelDataUrl: String
+  modelDataSource: ModelDataSource
+  productId: String
+  environment: JSON
+  modelInput: ModelInput
+  framework: String
+  frameworkVersion: String
+  nearestModelName: String
+}
+
+type SourceAlgorithmSpecification {
+  sourceAlgorithms: [SourceAlgorithm!]!
+}
+
+type SourceAlgorithm {
+  modelDataUrl: String
+  algorithmName: String!
+}
+
+type ModelPackageValidationSpecification {
+  validationRole: String!
+  validationProfiles: [ModelPackageValidationProfile!]!
+}
+
+type ModelPackageValidationProfile {
+  profileName: String!
+  transformJobDefinition: TransformJobDefinition!
+}
+
+type TransformJobDefinition {
+  maxConcurrentTransforms: Int
+  maxPayloadInMB: Int
+  batchStrategy: String
+  environment: JSON
+  transformInput: TransformInput!
+  transformOutput: TransformOutput!
+  transformResources: TransformResource!
+}
+
+type ModelPackageStatusDetails {
+  validationStatuses: [ModelPackageStatusItem!]!
+  imageScanStatuses: [ModelPackageStatusItem]
+}
+
+type ModelPackageStatusItem {
+  name: String!
+  status: String!
+  failureReason: String
+}
+
+type MetadataProperties {
+  commitId: String
+  repository: String
+  generatedBy: String
+  projectId: String
+}
+
+type ModelMetrics {
+  modelQuality: ModelQuality
+  modelDataQuality: ModelDataQuality
+  bias: Bias
+  explainability: Explainability
+}
+
+type ModelQuality {
+  statistics: MetricsSource
+  constraints: MetricsSource
+}
+
+type ModelDataQuality {
+  statistics: MetricsSource
+  constraints: MetricsSource
+}
+
+type Bias {
+  report: MetricsSource
+  preTrainingReport: MetricsSource
+  postTrainingReport: MetricsSource
+}
+
+type Explainability {
+  report: MetricsSource
+}
+
+type MetricsSource {
+  contentType: String!
+  contentDigest: String
+  s3Uri: String!
+}
+
+type AdditionalInferenceSpecification {
+  name: String!
+  description: String
+  containers: [ModelPackageContainerDefinition!]!
+  supportedTransformInstanceTypes: [String]
+  supportedRealtimeInferenceInstanceTypes: [String]
+  supportedContentTypes: [String]
+  supportedResponseMIMETypes: [String]
+}
+
+type Algorithm {
+  algorithmName: String!
+  algorithmArn: AmazonResourceName
+  algorithmDescription: String
+  creationTime: DateTime
+  trainingSpecification: TrainingSpecification
+  inferenceSpecification: InferenceSpecification
+  validationSpecification: AlgorithmValidationSpecification
+  algorithmStatus: String
+  algorithmStatusDetails: AlgorithmStatusDetails
+  productId: String
+  certifyForMarketplace: Boolean
+  tags: [Tag]
+}
+
+type TrainingSpecification {
+  trainingImage: String!
+  trainingImageDigest: String
+  supportedHyperParameters: [HyperParameterSpecification]
+  supportedTrainingInstanceTypes: [String!]!
+  supportsDistributedTraining: Boolean
+  metricDefinitions: [MetricDefinition]
+  trainingChannels: [TrainingChannelSpec!]!
+  supportedTuningJobObjectiveMetrics: [HyperParameterTuningJobObjective]
+  additionalS3DataSource: AdditionalS3DataSource
+}
+
+type TrainingChannelSpec {
+  name: String!
+  description: String
+  isRequired: Boolean
+  supportedContentTypes: [String!]!
+  supportedCompressionTypes: [String]
+  supportedInputModes: [String!]!
+}
+
+type HyperParameterSpecification {
+  name: String!
+  description: String
+  type: String!
+  range: ParameterRange
+  isTunable: Boolean
+  isRequired: Boolean
+  defaultValue: String
+}
+
+type ParameterRange {
+  integerParameterRangeSpecification: IntegerParameterRangeSpecification
+  continuousParameterRangeSpecification: ContinuousParameterRangeSpecification
+  categoricalParameterRangeSpecification: CategoricalParameterRangeSpecification
+}
+
+type IntegerParameterRangeSpecification {
+  minValue: String!
+  maxValue: String!
+}
+
+type ContinuousParameterRangeSpecification {
+  minValue: String!
+  maxValue: String!
+}
+
+type CategoricalParameterRangeSpecification {
+  values: [String!]!
+}
+
+type AlgorithmValidationSpecification {
+  validationRole: String!
+  validationProfiles: [AlgorithmValidationProfile!]!
+}
+
+type AlgorithmValidationProfile {
+  profileName: String!
+  trainingJobDefinition: TrainingJobDefinition!
+  transformJobDefinition: TransformJobDefinition
+}
+
+type TrainingJobDefinition {
+  trainingInputMode: String!
+  hyperParameters: JSON
+  inputDataConfig: [TrainingInput!]!
+  outputDataConfig: OutputDataConfig!
+  resourceConfig: ResourceConfig!
+  stoppingCondition: StoppingCondition!
+}
+
+type AlgorithmStatusDetails {
+  validationStatuses: [AlgorithmStatusItem]
+  imageScanStatuses: [AlgorithmStatusItem]
+}
+
+type AlgorithmStatusItem {
+  name: String!
+  status: String!
+  failureReason: String
+}
+
+type AdditionalS3DataSource {
+  s3DataType: String!
+  s3Uri: String!
+  compressionType: String
+}
+
+# ─── Endpoint Types ───────────────────────────────────────────────────────────
+
+type EndpointConfig {
+  endpointConfigName: String!
+  endpointConfigArn: AmazonResourceName
+  productionVariants: [EndpointVariant!]!
+  dataCaptureConfig: CaptureConfig
+  kmsKeyId: String
+  creationTime: DateTime
+  asyncInferenceConfig: AsyncInferenceConfig
+  explainerConfig: ExplainerConfig
+  shadowProductionVariants: [EndpointVariant]
+  vpcConfig: VpcConfig
+  executionRoleArn: AmazonResourceName
+  tags: [Tag]
+}
+
+type EndpointVariant {
+  variantName: String!
+  modelName: String
+  initialInstanceCount: Int
+  instanceType: String
+  initialVariantWeight: Float
+  acceleratorType: String
+  coreDumpConfig: ProductionVariantCoreDumpConfig
+  serverlessConfig: ProductionVariantServerlessConfig
+  volumeSizeInGB: Int
+  modelDataDownloadTimeoutInSeconds: Int
+  containerStartupHealthCheckTimeoutInSeconds: Int
+  enableSSMAccess: Boolean
+  managedInstanceScaling: ProductionVariantManagedInstanceScaling
+  routingConfig: ProductionVariantRoutingConfig
+  inferenceAmiVersion: String
+}
+
+type ProductionVariantCoreDumpConfig {
+  destinationS3Uri: String!
+  kmsKeyId: String
+}
+
+type ProductionVariantServerlessConfig {
+  memorySizeInMB: Int!
+  maxConcurrency: Int!
+  provisionedConcurrency: Int
+}
+
+type ProductionVariantManagedInstanceScaling {
+  status: String
+  minInstanceCount: Int
+  maxInstanceCount: Int
+}
+
+type ProductionVariantRoutingConfig {
+  routingStrategy: String!
+}
+
+type CaptureConfig {
+  enableCapture: Boolean
+  initialSamplingPercentage: Int!
+  destinationS3Uri: String!
+  kmsKeyId: String
+  captureOptions: [CaptureOption!]!
+  captureContentTypeHeader: CaptureContentTypeHeader
+}
+
+type CaptureOption {
+  captureMode: String!
+}
+
+type CaptureContentTypeHeader {
+  csvContentTypes: [String]
+  jsonContentTypes: [String]
+}
+
+type AsyncInferenceConfig {
+  clientConfig: AsyncInferenceClientConfig
+  outputConfig: AsyncInferenceOutputConfig!
+}
+
+type AsyncInferenceClientConfig {
+  maxConcurrentInvocationsPerInstance: Int
+}
+
+type AsyncInferenceOutputConfig {
+  kmsKeyId: String
+  s3OutputPath: String
+  notificationConfig: AsyncInferenceNotificationConfig
+  s3FailurePath: String
+}
+
+type AsyncInferenceNotificationConfig {
+  successTopic: String
+  errorTopic: String
+  includeInferenceResponseIn: [String]
+}
+
+type ExplainerConfig {
+  clarifyExplainerConfig: ClarifyExplainerConfig
+}
+
+type ClarifyExplainerConfig {
+  enableExplanations: String
+  inferenceConfig: ClarifyInferenceConfig
+  shapConfig: ClarifyShapConfig
+}
+
+type ClarifyInferenceConfig {
+  featuresAttribute: String
+  contentTemplate: String
+  maxRecordCount: Int
+  maxPayloadInMB: Int
+  probabilityIndex: Int
+  labelIndex: Int
+  probabilityAttribute: String
+  labelAttribute: String
+  labelHeaders: [String]
+  featureHeaders: [String]
+  featureTypes: [String]
+}
+
+type ClarifyShapConfig {
+  shapBaselineConfig: ClarifyShapBaselineConfig!
+  numberOfSamples: Int
+  useLogit: Boolean
+  seed: Int
+  textConfig: ClarifyTextConfig
+}
+
+type ClarifyShapBaselineConfig {
+  mimeType: String
+  shapBaseline: String
+  shapBaselineUri: String
+}
+
+type ClarifyTextConfig {
+  language: String!
+  granularity: String!
+}
+
+type Endpoint {
+  endpointName: String!
+  endpointArn: AmazonResourceName!
+  endpointConfigName: String!
+  productionVariants: [ProductionVariantSummary]
+  dataCaptureConfig: DataCaptureConfigSummary
+  endpointStatus: EndpointStatus!
+  failureReason: String
+  creationTime: DateTime!
+  lastModifiedTime: DateTime!
+  lastDeploymentConfig: DeploymentConfig
+  asyncInferenceConfig: AsyncInferenceConfig
+  pendingDeploymentSummary: PendingDeploymentSummary
+  explainerConfig: ExplainerConfig
+  shadowProductionVariants: [ProductionVariantSummary]
+  tags: [Tag]
+}
+
+type EndpointSummary {
+  endpointName: String!
+  endpointArn: AmazonResourceName!
+  creationTime: DateTime!
+  lastModifiedTime: DateTime!
+  endpointStatus: EndpointStatus!
+}
+
+type ProductionVariantSummary {
+  variantName: String!
+  deployedImages: [DeployedImage]
+  currentWeight: Float
+  desiredWeight: Float
+  currentInstanceCount: Int
+  desiredInstanceCount: Int
+  variantStatus: [ProductionVariantStatus]
+  currentServerlessConfig: ProductionVariantServerlessConfig
+  desiredServerlessConfig: ProductionVariantServerlessConfig
+  managedInstanceScaling: ProductionVariantManagedInstanceScaling
+  routingConfig: ProductionVariantRoutingConfig
+}
+
+type DeployedImage {
+  specifiedImage: String
+  resolvedImage: String
+  resolutionTime: DateTime
+}
+
+type ProductionVariantStatus {
+  status: String!
+  statusMessage: String
+  startTime: DateTime
+}
+
+type DataCaptureConfigSummary {
+  enableCapture: Boolean!
+  captureStatus: String!
+  currentSamplingPercentage: Int!
+  destinationS3Uri: String!
+  kmsKeyId: String
+}
+
+type DeploymentConfig {
+  blueGreenUpdatePolicy: BlueGreenUpdatePolicy
+  rollingUpdatePolicy: RollingUpdatePolicy
+  autoRollbackConfiguration: AutoRollbackConfig
+}
+
+type BlueGreenUpdatePolicy {
+  trafficRoutingConfiguration: TrafficRoutingConfig!
+  terminationWaitInSeconds: Int
+  maximumExecutionTimeoutInSeconds: Int
+}
+
+type TrafficRoutingConfig {
+  type: String!
+  waitIntervalInSeconds: Int!
+  canarySize: CapacitySize
+  linearStepSize: CapacitySize
+}
+
+type CapacitySize {
+  type: String!
+  value: Int!
+}
+
+type RollingUpdatePolicy {
+  maximumBatchSize: CapacitySize!
+  waitIntervalInSeconds: Int!
+  maximumExecutionTimeoutInSeconds: Int
+  rollbackMaximumBatchSize: CapacitySize
+}
+
+type AutoRollbackConfig {
+  alarms: [Alarm]
+}
+
+type Alarm {
+  alarmName: String
+}
+
+type PendingDeploymentSummary {
+  endpointConfigName: String!
+  productionVariants: [PendingProductionVariantSummary]
+  startTime: DateTime
+  shadowProductionVariants: [PendingProductionVariantSummary]
+}
+
+type PendingProductionVariantSummary {
+  variantName: String!
+  deployedImages: [DeployedImage]
+  currentWeight: Float
+  desiredWeight: Float
+  currentInstanceCount: Int
+  desiredInstanceCount: Int
+  instanceType: String
+  acceleratorType: String
+  variantStatus: [ProductionVariantStatus]
+  currentServerlessConfig: ProductionVariantServerlessConfig
+  desiredServerlessConfig: ProductionVariantServerlessConfig
+  managedInstanceScaling: ProductionVariantManagedInstanceScaling
+  routingConfig: ProductionVariantRoutingConfig
+}
+
+# ─── Transform Job Types ───────────────────────────────────────────────────────
+
+type TransformJob {
+  transformJobName: String!
+  transformJobArn: AmazonResourceName
+  transformJobStatus: TransformJobStatus!
+  failureReason: String
+  modelName: String!
+  maxConcurrentTransforms: Int
+  modelClientConfig: ModelClientConfig
+  maxPayloadInMB: Int
+  batchStrategy: String
+  environment: JSON
+  transformInput: TransformInput!
+  transformOutput: TransformOutput
+  dataProcessing: DataProcessing
+  transformResources: TransformResource!
+  creationTime: DateTime
+  transformStartTime: DateTime
+  transformEndTime: DateTime
+  labelingJobArn: AmazonResourceName
+  autoMLJobArn: AmazonResourceName
+  dataProcessingConfig: DataProcessing
+  experimentConfig: ExperimentConfig
+  tags: [Tag]
+}
+
+type TransformInput {
+  dataSource: TransformDataSource!
+  contentType: String
+  compressionType: String
+  splitType: String
+}
+
+type TransformDataSource {
+  s3DataSource: TransformS3DataSource!
+}
+
+type TransformS3DataSource {
+  s3DataType: String!
+  s3Uri: String!
+}
+
+type TransformOutput {
+  s3OutputPath: String!
+  accept: String
+  assembleWith: String
+  kmsKeyId: String
+}
+
+type TransformResource {
+  instanceType: String!
+  instanceCount: Int!
+  volumeKmsKeyId: String
+}
+
+type ModelClientConfig {
+  invocationsTimeoutInSeconds: Int
+  invocationsMaxRetries: Int
+}
+
+type DataProcessing {
+  inputFilter: String
+  outputFilter: String
+  joinSource: String
+}
+
+# ─── Compilation / Neo Types ──────────────────────────────────────────────────
+
+type CompilationJob {
+  compilationJobName: String!
+  compilationJobArn: AmazonResourceName
+  compilationJobStatus: CompilationJobStatus!
+  compilationStartTime: DateTime
+  compilationEndTime: DateTime
+  stoppingCondition: StoppingCondition!
+  inferenceImage: String
+  modelPackageVersionArn: AmazonResourceName
+  creationTime: DateTime!
+  lastModifiedTime: DateTime!
+  failureReason: String
+  modelArtifacts: ModelArtifact!
+  modelDigests: ModelDigests
+  roleArn: AmazonResourceName!
+  inputConfig: InputConfig!
+  outputConfig: NeoOutputConfig!
+  vpcConfig: NeoVpcConfig
+  tags: [Tag]
+}
+
+type ModelDigests {
+  artifactDigest: String
+}
+
+type InputConfig {
+  s3Uri: String!
+  dataInputConfig: String!
+  framework: String!
+  frameworkVersion: String
+}
+
+type NeoOutputConfig {
+  s3OutputLocation: String!
+  targetDevice: String
+  targetPlatform: TargetPlatform
+  compilerOptions: String
+  kmsKeyId: String
+}
+
+type TargetPlatform {
+  os: String!
+  arch: String!
+  accelerator: String
+}
+
+type NeoVpcConfig {
+  securityGroupIds: [String!]!
+  subnets: [String!]!
+}
+
+# ─── Hyperparameter Tuning Types ──────────────────────────────────────────────
+
+type HyperParameterTuning {
+  hyperParameterTuningJobName: String!
+  hyperParameterTuningJobArn: AmazonResourceName
+  hyperParameterTuningJobConfig: HyperParameterTuningJobConfig
+  trainingJobDefinition: HyperParameterTrainingJobDefinition
+  trainingJobDefinitions: [HyperParameterTrainingJobDefinition]
+  hyperParameterTuningJobStatus: String
+  creationTime: DateTime
+  hyperParameterTuningEndTime: DateTime
+  lastModifiedTime: DateTime
+  trainingJobStatusCounters: TrainingJobStatusCounters
+  objectiveStatusCounters: ObjectiveStatusCounters
+  bestTrainingJob: BestTrainingJob
+  overallBestTrainingJob: BestTrainingJob
+  warmStartConfig: HyperParameterTuningJobWarmStartConfig
+  autotune: Autotune
+  failureReason: String
+  tuningJobCompletionDetails: HyperParameterTuningJobCompletionDetails
+  consumedResources: HyperParameterTuningJobConsumedResources
+  tags: [Tag]
+}
+
+type HyperParameterTuningJobConfig {
+  strategy: String!
+  strategyConfig: HyperParameterTuningJobStrategyConfig
+  hyperParameterTuningJobObjective: HyperParameterTuningJobObjective
+  resourceLimits: ResourceLimits!
+  parameterRanges: HyperParameterRange
+  trainingJobEarlyStoppingType: String
+  tuningJobCompletionCriteria: TuningJobCompletionCriteria
+  randomSeed: Int
+}
+
+type HyperParameterTuningJobStrategyConfig {
+  hyperbandStrategyConfig: HyperbandStrategyConfig
+}
+
+type HyperbandStrategyConfig {
+  minResource: Int
+  maxResource: Int
+}
+
+type HyperParameterTuningJobObjective {
+  type: String!
+  metricName: String!
+}
+
+type ResourceLimits {
+  maxNumberOfTrainingJobs: Int
+  maxParallelTrainingJobs: Int!
+  maxRuntimeInSeconds: Int
+}
+
+type HyperParameterRange {
+  integerParameterRanges: [IntegerParameterRange]
+  continuousParameterRanges: [ContinuousParameterRange]
+  categoricalParameterRanges: [CategoricalParameterRange]
+  autoParameters: [AutoParameter]
+}
+
+type IntegerParameterRange {
+  name: String!
+  minValue: String!
+  maxValue: String!
+  scalingType: String
+}
+
+type ContinuousParameterRange {
+  name: String!
+  minValue: String!
+  maxValue: String!
+  scalingType: String
+}
+
+type CategoricalParameterRange {
+  name: String!
+  values: [String!]!
+}
+
+type AutoParameter {
+  name: String!
+  valueHint: String!
+}
+
+type TuningJobCompletionCriteria {
+  targetObjectiveMetricValue: Float
+  belowConvergenceCheck: ConvergenceDetected
+  maxNumberOfTrainingJobsNotImproving: Int
+}
+
+type ConvergenceDetected {
+  completeOnConvergence: String
+}
+
+type HyperParameterTrainingJobDefinition {
+  definitionName: String
+  tuningObjective: HyperParameterTuningJobObjective
+  hyperParameterRanges: HyperParameterRange
+  staticHyperParameters: JSON
+  algorithmSpecification: HyperParameterAlgorithmSpecification!
+  roleArn: AmazonResourceName!
+  inputDataConfig: [TrainingInput]
+  vpcConfig: VpcConfig
+  outputDataConfig: OutputDataConfig!
+  resourceConfig: ResourceConfig
+  hyperParameterTuningResourceConfig: HyperParameterTuningResourceConfig
+  stoppingCondition: StoppingCondition!
+  enableNetworkIsolation: Boolean
+  enableInterContainerTrafficEncryption: Boolean
+  enableManagedSpotTraining: Boolean
+  checkpointConfig: CheckpointConfig
+  retryStrategy: RetryStrategy
+  environment: JSON
+}
+
+type HyperParameterAlgorithmSpecification {
+  trainingImage: String
+  trainingInputMode: String!
+  algorithmName: String
+  metricDefinitions: [MetricDefinition]
+}
+
+type HyperParameterTuningResourceConfig {
+  instanceType: String
+  instanceCount: Int
+  volumeSizeInGB: Int
+  volumeKmsKeyId: String
+  allocationStrategy: String
+  instanceConfigs: [HyperParameterTuningInstanceConfig]
+}
+
+type HyperParameterTuningInstanceConfig {
+  instanceType: String!
+  instanceCount: Int!
+  volumeSizeInGB: Int!
+}
+
+type RetryStrategy {
+  maximumRetryAttempts: Int!
+}
+
+type TrainingJobStatusCounters {
+  completed: Int
+  inProgress: Int
+  retryableError: Int
+  nonRetryableError: Int
+  stopped: Int
+}
+
+type ObjectiveStatusCounters {
+  succeeded: Int
+  pending: Int
+  failed: Int
+}
+
+type BestTrainingJob {
+  trainingJobDefinitionName: String
+  trainingJobName: String
+  trainingJobArn: AmazonResourceName
+  tuningJobName: String
+  creationTime: DateTime
+  trainingStartTime: DateTime
+  trainingEndTime: DateTime
+  trainingJobStatus: TrainingJobStatus
+  tunedHyperParameters: JSON
+  failureReason: String
+  finalHyperParameterTuningJobObjectiveMetric: FinalHyperParameterTuningJobObjectiveMetric
+  objectiveStatus: String
+}
+
+type FinalHyperParameterTuningJobObjectiveMetric {
+  type: String
+  metricName: String!
+  value: Float!
+}
+
+type HyperParameterTuningJobWarmStartConfig {
+  parentHyperParameterTuningJobs: [ParentHyperParameterTuningJob!]!
+  warmStartType: String!
+}
+
+type ParentHyperParameterTuningJob {
+  hyperParameterTuningJobName: String
+}
+
+type Autotune {
+  mode: String!
+}
+
+type HyperParameterTuningJobCompletionDetails {
+  numberOfTrainingJobsObjectiveNotImproving: Int
+  convergenceDetectedTime: DateTime
+}
+
+type HyperParameterTuningJobConsumedResources {
+  runtimeInSeconds: Int
+}
+
+# ─── Pipeline Types ───────────────────────────────────────────────────────────
+
+type Pipeline {
+  pipelineArn: AmazonResourceName
+  pipelineName: String
+  pipelineDisplayName: String
+  pipelineDefinition: String
+  pipelineDescription: String
+  roleArn: AmazonResourceName
+  pipelineStatus: PipelineStatus
+  creationTime: DateTime
+  lastModifiedTime: DateTime
+  lastRunTime: DateTime
+  createdBy: UserContext
+  lastModifiedBy: UserContext
+  parallelismConfiguration: ParallelismConfiguration
+  tags: [Tag]
+}
+
+type PipelineStep {
+  stepName: String!
+  stepDisplayName: String
+  stepDescription: String
+  dependsOn: [String]
+}
+
+type PipelineExecution {
+  pipelineArn: AmazonResourceName
+  pipelineExecutionArn: AmazonResourceName
+  pipelineExecutionDisplayName: String
+  pipelineExecutionStatus: PipelineExecutionStatus
+  pipelineExecutionDescription: String
+  pipelineExperimentConfig: PipelineExperimentConfig
+  failureReason: String
+  creationTime: DateTime
+  lastModifiedTime: DateTime
+  createdBy: UserContext
+  lastModifiedBy: UserContext
+  parallelismConfiguration: ParallelismConfiguration
+  selectiveExecutionConfig: SelectiveExecutionConfig
+}
+
+type StepExecution {
+  stepName: String
+  stepDisplayName: String
+  stepDescription: String
+  startTime: DateTime
+  endTime: DateTime
+  stepStatus: StepStatus
+  cacheHitResult: CacheHitResult
+  failureReason: String
+  metadata: PipelineExecutionStepMetadata
+  attemptCount: Int
+  selectiveExecutionResult: SelectiveExecutionResult
+}
+
+type PipelineExperimentConfig {
+  experimentName: String
+  trialName: String
+}
+
+type ParallelismConfiguration {
+  maxParallelExecutionSteps: Int!
+}
+
+type SelectiveExecutionConfig {
+  sourcePipelineExecutionArn: AmazonResourceName
+  selectedSteps: [SelectedStep!]!
+}
+
+type SelectedStep {
+  stepName: String!
+}
+
+type CacheHitResult {
+  sourcePipelineExecutionArn: AmazonResourceName
+}
+
+type PipelineExecutionStepMetadata {
+  trainingJob: TrainingJobStepMetadata
+  processingJob: ProcessingJobStepMetadata
+  transformJob: TransformJobStepMetadata
+  tuningJob: TuningJobStepMetadata
+  model: ModelStepMetadata
+  registerModel: RegisterModelStepMetadata
+  condition: ConditionStepMetadata
+  callback: CallbackStepMetadata
+  lambda: LambdaStepMetadata
+  emrJob: EMRStepMetadata
+  qualityCheck: QualityCheckStepMetadata
+  clarifyCheck: ClarifyCheckStepMetadata
+  fail: FailStepMetadata
+  autoMLJob: AutoMLJobStepMetadata
+  endpoint: EndpointStepMetadata
+  endpointConfig: EndpointConfigStepMetadata
+}
+
+type TrainingJobStepMetadata { arn: AmazonResourceName }
+type ProcessingJobStepMetadata { arn: AmazonResourceName }
+type TransformJobStepMetadata { arn: AmazonResourceName }
+type TuningJobStepMetadata { arn: AmazonResourceName }
+type ModelStepMetadata { arn: AmazonResourceName }
+type RegisterModelStepMetadata { arn: AmazonResourceName }
+type ConditionStepMetadata { outcome: String }
+type CallbackStepMetadata { callbackToken: String; sqsQueueUrl: String; outputParameters: [OutputParameter] }
+type LambdaStepMetadata { arn: AmazonResourceName; outputParameters: [OutputParameter] }
+type EMRStepMetadata { clusterId: String; stepId: String; logFilePath: String }
+type QualityCheckStepMetadata { checkType: String; baselineUsedForDriftCheckStatistics: String; baselineUsedForDriftCheckConstraints: String; calculatedBaselineStatistics: String; calculatedBaselineConstraints: String; modelPackageGroupName: String; violationReport: String; checkJobArn: AmazonResourceName; skipCheck: Boolean; registerNewBaseline: Boolean }
+type ClarifyCheckStepMetadata { checkType: String; baselineUsedForDriftCheckConstraints: String; calculatedBaselineConstraints: String; modelPackageGroupName: String; violationReport: String; checkJobArn: AmazonResourceName; skipCheck: Boolean; registerNewBaseline: Boolean }
+type FailStepMetadata { errorMessage: String }
+type AutoMLJobStepMetadata { arn: AmazonResourceName }
+type EndpointStepMetadata { arn: AmazonResourceName }
+type EndpointConfigStepMetadata { arn: AmazonResourceName }
+
+type OutputParameter {
+  name: String!
+  value: String!
+}
+
+type SelectiveExecutionResult {
+  sourcePipelineExecutionArn: AmazonResourceName
+}
+
+# ─── Feature Store Types ──────────────────────────────────────────────────────
+
+type FeatureGroup {
+  featureGroupArn: AmazonResourceName
+  featureGroupName: String!
+  recordIdentifierFeatureName: String!
+  eventTimeFeatureName: String!
+  featureDefinitions: [FeatureDefinition!]!
+  creationTime: DateTime
+  lastModifiedTime: DateTime
+  onlineStoreConfig: OnlineStoreConfig
+  offlineStoreConfig: OfflineStoreConfig
+  roleArn: AmazonResourceName
+  featureGroupStatus: String
+  offlineStoreStatus: OfflineStoreStatus
+  lastUpdateStatus: LastUpdateStatus
+  failureReason: String
+  description: String
+  nextToken: String
+  onlineStoreTotalSizeBytes: Float
+  throughputConfig: ThroughputConfigDescription
+  tags: [Tag]
+}
+
+type FeatureDefinition {
+  featureName: String!
+  featureType: FeatureType!
+  collectionType: String
+  collectionConfig: CollectionConfig
+}
+
+type CollectionConfig {
+  vectorConfig: VectorConfig
+}
+
+type VectorConfig {
+  dimension: Int!
+}
+
+type OnlineStoreConfig {
+  securityConfig: OnlineStoreSecurityConfig
+  enableOnlineStore: Boolean
+  ttlDuration: TtlDuration
+  storageType: String
+}
+
+type OnlineStoreSecurityConfig {
+  kmsKeyId: String
+}
+
+type TtlDuration {
+  unit: String!
+  value: Int!
+}
+
+type OfflineStoreConfig {
+  s3StorageConfig: S3StorageConfig!
+  disableGlueTableCreation: Boolean
+  dataCatalogConfig: DataCatalogConfig
+  tableFormat: String
+}
+
+type S3StorageConfig {
+  s3Uri: String!
+  kmsKeyId: String
+  resolvedOutputS3Uri: String
+}
+
+type DataCatalogConfig {
+  tableName: String!
+  catalog: String!
+  database: String!
+}
+
+type OfflineStoreStatus {
+  status: String!
+  blockedReason: String
+}
+
+type LastUpdateStatus {
+  status: String!
+  failureReason: String
+}
+
+type ThroughputConfigDescription {
+  throughputMode: String!
+  provisionedReadCapacityUnits: Int
+  provisionedWriteCapacityUnits: Int
+}
+
+type Record {
+  featureGroupName: String!
+  recordIdentifierValueAsString: String!
+  record: [FeatureValue!]!
+  expiresAt: String
+}
+
+type FeatureValue {
+  featureName: String!
+  valueAsString: String
+  valueAsStringList: [String]
+}
+
+# ─── Experiment / Trial Types ──────────────────────────────────────────────────
+
+type Experiment {
+  experimentArn: AmazonResourceName
+  experimentName: String
+  displayName: String
+  source: ExperimentSource
+  description: String
+  creationTime: DateTime
+  createdBy: UserContext
+  lastModifiedTime: DateTime
+  lastModifiedBy: UserContext
+  tags: [Tag]
+}
+
+type ExperimentSource {
+  sourceArn: AmazonResourceName!
+  sourceType: String
+}
+
+type Trial {
+  trialName: String
+  trialArn: AmazonResourceName
+  displayName: String
+  experimentName: String
+  source: TrialSource
+  creationTime: DateTime
+  createdBy: UserContext
+  lastModifiedTime: DateTime
+  lastModifiedBy: UserContext
+  metadataProperties: MetadataProperties
+  tags: [Tag]
+  trialComponentSummaries: [TrialComponentSimpleSummary]
+}
+
+type TrialSource {
+  sourceArn: AmazonResourceName!
+  sourceType: String
+}
+
+type TrialComponent {
+  trialComponentName: String
+  displayName: String
+  trialComponentArn: AmazonResourceName
+  source: TrialComponentSource
+  status: TrialComponentStatus
+  startTime: DateTime
+  endTime: DateTime
+  creationTime: DateTime
+  createdBy: UserContext
+  lastModifiedTime: DateTime
+  lastModifiedBy: UserContext
+  parameters: JSON
+  inputArtifacts: JSON
+  outputArtifacts: JSON
+  metrics: [TrialComponentMetricSummary]
+  metadataProperties: MetadataProperties
+  sourceDetail: TrialComponentSourceDetail
+  lineageGroupArn: AmazonResourceName
+  tags: [Tag]
+  parents: [Parent]
+  runName: String
+}
+
+type TrialComponentSource {
+  sourceArn: AmazonResourceName!
+  sourceType: String
+}
+
+type TrialComponentStatus {
+  primaryStatus: String
+  message: String
+}
+
+type TrialComponentMetricSummary {
+  metricName: String
+  sourceArn: AmazonResourceName
+  timeStamp: DateTime
+  max: Float
+  min: Float
+  last: Float
+  count: Int
+  avg: Float
+  stdDev: Float
+}
+
+type TrialComponentSourceDetail {
+  sourceArn: AmazonResourceName
+  trainingJob: TrainingJob
+  processingJob: ProcessingJob
+  transformJob: TransformJob
+}
+
+type TrialComponentSimpleSummary {
+  trialComponentName: String
+  trialComponentArn: AmazonResourceName
+  trialComponentSource: TrialComponentSource
+  creationTime: DateTime
+  createdBy: UserContext
+}
+
+type Parent {
+  trialName: String
+  experimentName: String
+}
+
+# ─── Lineage / Artifact / Association Types ───────────────────────────────────
+
+type LineageEntity {
+  sourceArn: AmazonResourceName
+  sourceType: String
+  destinationArn: AmazonResourceName
+  destinationType: String
+  associationType: AssociationEdgeType
+  creationTime: DateTime
+  createdBy: UserContext
+}
+
+type Action {
+  actionName: String
+  actionArn: AmazonResourceName
+  source: ActionSource!
+  actionType: String
+  description: String
+  status: String
+  properties: JSON
+  creationTime: DateTime
+  createdBy: UserContext
+  lastModifiedTime: DateTime
+  lastModifiedBy: UserContext
+  metadataProperties: MetadataProperties
+  lineageGroupArn: AmazonResourceName
+  tags: [Tag]
+}
+
+type ActionSource {
+  sourceUri: String!
+  sourceType: String
+  sourceId: String
+}
+
+type Context {
+  contextName: String
+  contextArn: AmazonResourceName
+  source: ContextSource!
+  contextType: String
+  description: String
+  properties: JSON
+  creationTime: DateTime
+  createdBy: UserContext
+  lastModifiedTime: DateTime
+  lastModifiedBy: UserContext
+  lineageGroupArn: AmazonResourceName
+  tags: [Tag]
+}
+
+type ContextSource {
+  sourceUri: String!
+  sourceType: String
+  sourceId: String
+}
+
+type Artifact {
+  artifactName: String
+  artifactArn: AmazonResourceName
+  source: ArtifactSource!
+  artifactType: String
+  properties: JSON
+  creationTime: DateTime
+  createdBy: UserContext
+  lastModifiedTime: DateTime
+  lastModifiedBy: UserContext
+  metadataProperties: MetadataProperties
+  lineageGroupArn: AmazonResourceName
+  tags: [Tag]
+}
+
+type ArtifactSource {
+  sourceUri: String!
+  sourceTypes: [ArtifactSourceType]
+}
+
+type ArtifactSourceType {
+  sourceIdType: String!
+  value: String!
+}
+
+type Association {
+  sourceArn: AmazonResourceName
+  destinationArn: AmazonResourceName
+  sourceType: String
+  destinationType: String
+  associationType: AssociationEdgeType
+  sourceName: String
+  destinationName: String
+  creationTime: DateTime
+  createdBy: UserContext
+}
+
+# ─── Processing Job Types ──────────────────────────────────────────────────────
+
+type ProcessingJob {
+  processingInputs: [ProcessingInput]
+  processingOutputConfig: ProcessingOutputConfig
+  processingJobName: String!
+  processingResources: ProcessingResource!
+  stoppingCondition: ProcessingStoppingCondition
+  appSpecification: AppSpecification!
+  environment: JSON
+  networkConfig: NetworkConfig
+  roleArn: AmazonResourceName!
+  experimentConfig: ExperimentConfig
+  processingJobArn: AmazonResourceName
+  processingJobStatus: ProcessingJobStatus!
+  exitMessage: String
+  failureReason: String
+  processingEndTime: DateTime
+  processingStartTime: DateTime
+  lastModifiedTime: DateTime
+  creationTime: DateTime
+  monitoringScheduleArn: AmazonResourceName
+  autoMLJobArn: AmazonResourceName
+  trainingJobArn: AmazonResourceName
+  tags: [Tag]
+}
+
+type ProcessingInput {
+  inputName: String!
+  appManaged: Boolean
+  s3Input: ProcessingS3Input
+  datasetDefinition: DatasetDefinition
+}
+
+type ProcessingS3Input {
+  s3Uri: String!
+  localPath: String!
+  s3DataType: String!
+  s3InputMode: String!
+  s3DataDistributionType: String
+  s3CompressionType: String
+}
+
+type DatasetDefinition {
+  athenaDatasetDefinition: AthenaDatasetDefinition
+  redshiftDatasetDefinition: RedshiftDatasetDefinition
+  localPath: String
+  dataDistributionType: String
+  inputMode: String
+}
+
+type AthenaDatasetDefinition {
+  catalog: String!
+  database: String!
+  queryString: String!
+  workGroup: String
+  outputS3Uri: String!
+  kmsKeyId: String
+  outputFormat: String!
+  outputCompression: String
+}
+
+type RedshiftDatasetDefinition {
+  clusterId: String!
+  database: String!
+  dbUser: String!
+  queryString: String!
+  clusterRoleArn: AmazonResourceName!
+  outputS3Uri: String!
+  kmsKeyId: String
+  outputFormat: String!
+  outputCompression: String
+}
+
+type ProcessingOutputConfig {
+  outputs: [ProcessingOutput!]!
+  kmsKeyId: String
+}
+
+type ProcessingOutput {
+  outputName: String!
+  s3Output: ProcessingS3Output
+  featureStoreOutput: ProcessingFeatureStoreOutput
+  appManaged: Boolean
+}
+
+type ProcessingS3Output {
+  s3Uri: String!
+  localPath: String!
+  s3UploadMode: String!
+}
+
+type ProcessingFeatureStoreOutput {
+  featureGroupName: String!
+}
+
+type ProcessingResource {
+  clusterConfig: ProcessingClusterConfig!
+}
+
+type ProcessingClusterConfig {
+  instanceCount: Int!
+  instanceType: String!
+  volumeSizeInGB: Int!
+  volumeKmsKeyId: String
+}
+
+type ProcessingStoppingCondition {
+  maxRuntimeInSeconds: Int!
+}
+
+type AppSpecification {
+  imageUri: String!
+  containerEntrypoint: [String]
+  containerArguments: [String]
+}
+
+type NetworkConfig {
+  enableInterContainerTrafficEncryption: Boolean
+  enableNetworkIsolation: Boolean
+  vpcConfig: VpcConfig
+}
+
+# ─── Monitoring Types ──────────────────────────────────────────────────────────
+
+type MonitoringSchedule {
+  monitoringScheduleArn: AmazonResourceName
+  monitoringScheduleName: String!
+  monitoringScheduleStatus: MonitoringScheduleStatus
+  monitoringType: String
+  failureReason: String
+  creationTime: DateTime
+  lastModifiedTime: DateTime
+  monitoringScheduleConfig: MonitoringScheduleConfig!
+  endpointName: String
+  lastMonitoringExecutionSummary: MonitoringExecutionSummary
+  tags: [Tag]
+}
+
+type MonitoringScheduleConfig {
+  scheduleConfig: ScheduleConfig
+  monitoringJobDefinition: MonitoringJobDefinition
+  monitoringJobDefinitionName: String
+  monitoringType: String
+}
+
+type ScheduleConfig {
+  scheduleExpression: String!
+  dataAnalysisStartTime: String
+  dataAnalysisEndTime: String
+}
+
+type MonitoringJobDefinition {
+  baselineConfig: MonitoringBaselineConfig
+  monitoringInputs: [MonitoringInput!]!
+  monitoringOutputConfig: MonitoringOutputConfig!
+  monitoringResources: MonitoringResources!
+  monitoringAppSpecification: MonitoringAppSpecification!
+  stoppingCondition: MonitoringStoppingCondition
+  environment: JSON
+  networkConfig: NetworkConfig
+  roleArn: AmazonResourceName!
+}
+
+type MonitoringBaselineConfig {
+  baseliningJobName: String
+  constraintsResource: MonitoringConstraintsResource
+  statisticsResource: MonitoringStatisticsResource
+}
+
+type MonitoringConstraintsResource {
+  s3Uri: String
+}
+
+type MonitoringStatisticsResource {
+  s3Uri: String
+}
+
+type MonitoringInput {
+  endpointInput: EndpointInput
+  batchTransformInput: BatchTransformInput
+}
+
+type EndpointInput {
+  endpointName: String!
+  localPath: String!
+  s3InputMode: String
+  s3DataDistributionType: String
+  featuresAttribute: String
+  inferenceAttribute: String
+  probabilityAttribute: String
+  probabilityThresholdAttribute: Float
+  startTimeOffset: String
+  endTimeOffset: String
+  excludeFeaturesAttribute: String
+}
+
+type BatchTransformInput {
+  dataCapturedDestinationS3Uri: String!
+  datasetFormat: MonitoringDatasetFormat!
+  localPath: String!
+  s3InputMode: String
+  s3DataDistributionType: String
+  featuresAttribute: String
+  inferenceAttribute: String
+  probabilityAttribute: String
+  probabilityThresholdAttribute: Float
+  startTimeOffset: String
+  endTimeOffset: String
+  excludeFeaturesAttribute: String
+}
+
+type MonitoringDatasetFormat {
+  csv: MonitoringCsvDatasetFormat
+  json: MonitoringJsonDatasetFormat
+  parquet: MonitoringParquetDatasetFormat
+}
+
+type MonitoringCsvDatasetFormat { header: Boolean }
+type MonitoringJsonDatasetFormat { line: Boolean }
+type MonitoringParquetDatasetFormat { _placeholder: Boolean }
+
+type MonitoringOutputConfig {
+  monitoringOutputs: [MonitoringOutput!]!
+  kmsKeyId: String
+}
+
+type MonitoringOutput {
+  s3Output: MonitoringS3Output!
+}
+
+type MonitoringS3Output {
+  s3Uri: String!
+  localPath: String!
+  s3UploadMode: String
+}
+
+type MonitoringResources {
+  clusterConfig: MonitoringClusterConfig!
+}
+
+type MonitoringClusterConfig {
+  instanceCount: Int!
+  instanceType: String!
+  volumeSizeInGB: Int!
+  volumeKmsKeyId: String
+}
+
+type MonitoringAppSpecification {
+  imageUri: String!
+  containerEntrypoint: [String]
+  containerArguments: [String]
+  recordPreprocessorSourceUri: String
+  postAnalyticsProcessorSourceUri: String
+}
+
+type MonitoringStoppingCondition {
+  maxRuntimeInSeconds: Int!
+}
+
+type MonitoringExecutionSummary {
+  monitoringScheduleName: String!
+  scheduledTime: DateTime!
+  creationTime: DateTime!
+  lastModifiedTime: DateTime!
+  monitoringExecutionStatus: String!
+  processingJobArn: AmazonResourceName
+  endpointName: String
+  failureReason: String
+  monitoringJobDefinitionName: String
+  monitoringType: String
+}
+
+type DataQualityMonitor {
+  jobDefinitionName: String!
+  jobDefinitionArn: AmazonResourceName
+  creationTime: DateTime
+  lastModifiedTime: DateTime
+  dataQualityBaselineConfig: DataQualityBaselineConfig
+  dataQualityAppSpecification: DataQualityAppSpecification!
+  dataQualityJobInput: DataQualityJobInput!
+  dataQualityJobOutputConfig: MonitoringOutputConfig!
+  jobResources: MonitoringResources!
+  networkConfig: MonitoringNetworkConfig
+  roleArn: AmazonResourceName!
+  stoppingCondition: MonitoringStoppingCondition
+  tags: [Tag]
+}
+
+type DataQualityBaselineConfig {
+  baseliningJobName: String
+  constraintsResource: MonitoringConstraintsResource
+  statisticsResource: MonitoringStatisticsResource
+}
+
+type DataQualityAppSpecification {
+  imageUri: String!
+  containerEntrypoint: [String]
+  containerArguments: [String]
+  recordPreprocessorSourceUri: String
+  postAnalyticsProcessorSourceUri: String
+  environment: JSON
+}
+
+type DataQualityJobInput {
+  endpointInput: EndpointInput
+  batchTransformInput: BatchTransformInput
+}
+
+type MonitoringNetworkConfig {
+  enableInterContainerTrafficEncryption: Boolean
+  enableNetworkIsolation: Boolean
+  vpcConfig: VpcConfig
+}
+
+type ModelQualityMonitor {
+  jobDefinitionName: String!
+  jobDefinitionArn: AmazonResourceName
+  creationTime: DateTime
+  lastModifiedTime: DateTime
+  modelQualityBaselineConfig: ModelQualityBaselineConfig
+  modelQualityAppSpecification: ModelQualityAppSpecification!
+  modelQualityJobInput: ModelQualityJobInput!
+  modelQualityJobOutputConfig: MonitoringOutputConfig!
+  jobResources: MonitoringResources!
+  networkConfig: MonitoringNetworkConfig
+  roleArn: AmazonResourceName!
+  stoppingCondition: MonitoringStoppingCondition
+  tags: [Tag]
+}
+
+type ModelQualityBaselineConfig {
+  baseliningJobName: String
+  constraintsResource: MonitoringConstraintsResource
+}
+
+type ModelQualityAppSpecification {
+  imageUri: String!
+  containerEntrypoint: [String]
+  containerArguments: [String]
+  recordPreprocessorSourceUri: String
+  postAnalyticsProcessorSourceUri: String
+  environment: JSON
+  problemType: String!
+  inferenceAttribute: String
+  probabilityAttribute: String
+  groundTruthAttribute: String
+}
+
+type ModelQualityJobInput {
+  endpointInput: EndpointInput
+  batchTransformInput: BatchTransformInput
+  groundTruthS3Input: MonitoringGroundTruthS3Input!
+}
+
+type MonitoringGroundTruthS3Input {
+  s3Uri: String
+}
+
+# ─── Inference Experiment Types ───────────────────────────────────────────────
+
+type InferenceExperiment {
+  arn: AmazonResourceName
+  name: String!
+  type: String!
+  schedule: InferenceExperimentSchedule
+  status: InferenceExperimentStatus
+  statusReason: String
+  description: String
+  creationTime: DateTime
+  completionTime: DateTime
+  lastModifiedTime: DateTime
+  roleArn: AmazonResourceName
+  endpointMetadata: EndpointMetadata!
+  modelVariants: [ModelVariantConfigSummary!]!
+  dataStorageConfig: InferenceExperimentDataStorageConfig
+  shadowModeConfig: ShadowModeConfig
+  kmsKey: String
+  tags: [Tag]
+}
+
+type InferenceExperimentSchedule {
+  startTime: DateTime
+  endTime: DateTime
+}
+
+type EndpointMetadata {
+  endpointName: String!
+  endpointConfigName: String
+  endpointStatus: EndpointStatus
+  failureReason: String
+}
+
+type ModelVariantConfigSummary {
+  modelName: String!
+  variantName: String!
+  infrastructureConfig: ModelInfrastructureConfig!
+  status: String
+}
+
+type ModelInfrastructureConfig {
+  infrastructureType: String!
+  realTimeInferenceConfig: RealTimeInferenceConfig!
+}
+
+type RealTimeInferenceConfig {
+  instanceType: String!
+  instanceCount: Int!
+}
+
+type InferenceExperimentDataStorageConfig {
+  destination: String!
+  kmsKey: String
+  contentType: CaptureContentTypeHeader
+}
+
+type ShadowModeConfig {
+  sourceModelVariantName: String!
+  shadowModelVariants: [ShadowModelVariantConfig!]!
+}
+
+type ShadowModelVariantConfig {
+  shadowModelVariantName: String!
+  samplingPercentage: Int!
+}
+
+# ─── Project / Space / Domain / User Types ────────────────────────────────────
+
+type Project {
+  projectArn: AmazonResourceName
+  projectName: String!
+  projectId: String
+  projectDescription: String
+  serviceCatalogProvisioningDetails: ServiceCatalogProvisioningDetails
+  serviceCatalogProvisionedProductDetails: ServiceCatalogProvisionedProductDetails
+  projectStatus: ProjectStatus
+  createdBy: UserContext
+  creationTime: DateTime
+  lastModifiedTime: DateTime
+  lastModifiedBy: UserContext
+  tags: [Tag]
+}
+
+type ServiceCatalogProvisioningDetails {
+  productId: String!
+  provisioningArtifactId: String
+  pathId: String
+  provisioningParameters: [ProvisioningParameter]
+}
+
+type ProvisioningParameter {
+  key: String
+  value: String
+}
+
+type ServiceCatalogProvisionedProductDetails {
+  provisionedProductId: String
+  provisionedProductStatusMessage: String
+}
+
+type Space {
+  domainId: String
+  spaceArn: AmazonResourceName
+  spaceName: String!
+  status: String
+  lastModifiedTime: DateTime
+  creationTime: DateTime
+  failureReason: String
+  spaceSettings: SpaceSettings
+  ownershipSettings: OwnershipSettings
+  spaceSharingSettings: SpaceSharingSettings
+  spaceDisplayName: String
+  url: String
+  tags: [Tag]
+}
+
+type SpaceSettings {
+  jupyterServerAppSettings: JupyterServerAppSettings
+  kernelGatewayAppSettings: KernelGatewayAppSettings
+  codeEditorAppSettings: SpaceCodeEditorAppSettings
+  jupyterLabAppSettings: SpaceJupyterLabAppSettings
+  appType: String
+  spaceStorageSettings: SpaceStorageSettings
+  customFileSystems: [CustomFileSystem]
+}
+
+type JupyterServerAppSettings {
+  defaultResourceSpec: ResourceSpec
+  lifecycleConfigArns: [AmazonResourceName]
+  codeRepositories: [CodeRepository]
+}
+
+type ResourceSpec {
+  sageMakerImageArn: AmazonResourceName
+  sageMakerImageVersionArn: AmazonResourceName
+  sageMakerImageVersionAlias: String
+  instanceType: String
+  lifecycleConfigArn: AmazonResourceName
+}
+
+type CodeRepository {
+  repositoryUrl: String!
+}
+
+type KernelGatewayAppSettings {
+  defaultResourceSpec: ResourceSpec
+  customImages: [CustomImage]
+  lifecycleConfigArns: [AmazonResourceName]
+}
+
+type CustomImage {
+  imageName: String!
+  imageVersionNumber: Int
+  appImageConfigName: String!
+}
+
+type SpaceCodeEditorAppSettings {
+  defaultResourceSpec: ResourceSpec
+  appLifecycleManagement: SpaceAppLifecycleManagement
+}
+
+type SpaceJupyterLabAppSettings {
+  defaultResourceSpec: ResourceSpec
+  codeRepositories: [CodeRepository]
+  appLifecycleManagement: SpaceAppLifecycleManagement
+}
+
+type SpaceAppLifecycleManagement {
+  idleSettings: SpaceIdleSettings
+}
+
+type SpaceIdleSettings {
+  idleTimeoutInMinutes: Int
+}
+
+type SpaceStorageSettings {
+  ebsStorageSettings: EbsStorageSettings
+}
+
+type EbsStorageSettings {
+  ebsVolumeSizeInGb: Int!
+}
+
+type CustomFileSystem {
+  efsFileSystem: EFSFileSystem
+  fSxLustreFileSystem: FSxLustreFileSystem
+}
+
+type EFSFileSystem {
+  fileSystemId: String!
+}
+
+type FSxLustreFileSystem {
+  fileSystemId: String!
+}
+
+type OwnershipSettings {
+  ownerUserProfileName: String!
+}
+
+type SpaceSharingSettings {
+  sharingType: String!
+}
+
+type Domain {
+  domainId: String
+  domainArn: AmazonResourceName
+  domainName: String
+  homeEfsFileSystemId: String
+  singleSignOnManagedApplicationInstanceId: String
+  singleSignOnApplicationArn: AmazonResourceName
+  status: DomainStatus
+  creationTime: DateTime
+  lastModifiedTime: DateTime
+  failureReason: String
+  authMode: String
+  defaultUserSettings: UserSettings
+  domainSettings: DomainSettings
+  appNetworkAccessType: String
+  homeEfsFileSystemKmsKeyId: String
+  subnetIds: [String]
+  url: String
+  vpcId: String
+  kmsKeyId: String
+  appSecurityGroupManagement: String
+  securityGroupIdForDomainBoundary: String
+  defaultSpaceSettings: DefaultSpaceSettings
+  tags: [Tag]
+}
+
+type UserSettings {
+  executionRole: AmazonResourceName
+  securityGroups: [String]
+  sharingSettings: SharingSettings
+  jupyterServerAppSettings: JupyterServerAppSettings
+  kernelGatewayAppSettings: KernelGatewayAppSettings
+  tensorBoardAppSettings: TensorBoardAppSettings
+  rSessionAppSettings: RSessionAppSettings
+  rStudioServerProAppSettings: RStudioServerProAppSettings
+  codeEditorAppSettings: CodeEditorAppSettings
+  jupyterLabAppSettings: JupyterLabAppSettings
+  spaceStorageSettings: DefaultSpaceStorageSettings
+  defaultLandingUri: String
+  studioWebPortal: String
+  customPosixUserConfig: CustomPosixUserConfig
+  customFileSystemConfigs: [CustomFileSystemConfig]
+  studioWebPortalSettings: StudioWebPortalSettings
+}
+
+type SharingSettings {
+  notebookOutputOption: String
+  s3OutputPath: String
+  s3KmsKeyId: String
+}
+
+type TensorBoardAppSettings {
+  defaultResourceSpec: ResourceSpec
+}
+
+type RSessionAppSettings {
+  defaultResourceSpec: ResourceSpec
+  customImages: [CustomImage]
+}
+
+type RStudioServerProAppSettings {
+  accessStatus: String
+  userGroup: String
+}
+
+type CodeEditorAppSettings {
+  defaultResourceSpec: ResourceSpec
+  customImages: [CustomImage]
+  lifecycleConfigArns: [AmazonResourceName]
+  appLifecycleManagement: AppLifecycleManagement
+  builtInLifecycleConfigArn: AmazonResourceName
+}
+
+type AppLifecycleManagement {
+  idleSettings: IdleSettings
+}
+
+type IdleSettings {
+  lifecycleManagement: String
+  idleTimeoutInMinutes: Int
+  minIdleTimeoutInMinutes: Int
+  maxIdleTimeoutInMinutes: Int
+}
+
+type JupyterLabAppSettings {
+  defaultResourceSpec: ResourceSpec
+  customImages: [CustomImage]
+  lifecycleConfigArns: [AmazonResourceName]
+  codeRepositories: [CodeRepository]
+  appLifecycleManagement: AppLifecycleManagement
+  emrSettings: EmrSettings
+  builtInLifecycleConfigArn: AmazonResourceName
+}
+
+type EmrSettings {
+  assumableRoleArns: [AmazonResourceName]
+  executionRoleArns: [AmazonResourceName]
+}
+
+type DefaultSpaceStorageSettings {
+  defaultEbsStorageSettings: DefaultEbsStorageSettings
+}
+
+type DefaultEbsStorageSettings {
+  defaultEbsVolumeSizeInGb: Int!
+  maximumEbsVolumeSizeInGb: Int!
+}
+
+type CustomPosixUserConfig {
+  uid: Int!
+  gid: Int!
+}
+
+type CustomFileSystemConfig {
+  efsFileSystemConfig: EFSFileSystemConfig
+}
+
+type EFSFileSystemConfig {
+  fileSystemId: String!
+  fileSystemPath: String
+}
+
+type StudioWebPortalSettings {
+  hiddenMlTools: [String]
+  hiddenAppTypes: [String]
+}
+
+type DomainSettings {
+  securityGroupIds: [String]
+  rStudioServerProDomainSettings: RStudioServerProDomainSettings
+  executionRoleIdentityConfig: String
+  dockerSettings: DockerSettings
+  amazonQSettings: AmazonQSettings
+}
+
+type RStudioServerProDomainSettings {
+  domainExecutionRoleArn: AmazonResourceName!
+  rStudioConnectUrl: String
+  rStudioPackageManagerUrl: String
+  defaultResourceSpec: ResourceSpec
+}
+
+type DockerSettings {
+  enableDockerAccess: String
+  vpcOnlyTrustedAccounts: [String]
+}
+
+type AmazonQSettings {
+  status: String
+  qProfileArn: AmazonResourceName
+}
+
+type DefaultSpaceSettings {
+  executionRole: AmazonResourceName
+  securityGroups: [String]
+  jupyterServerAppSettings: JupyterServerAppSettings
+  kernelGatewayAppSettings: KernelGatewayAppSettings
+  jupyterLabAppSettings: JupyterLabAppSettings
+  codeEditorAppSettings: CodeEditorAppSettings
+  customFileSystemConfigs: [CustomFileSystemConfig]
+  customPosixUserConfig: CustomPosixUserConfig
+  spaceStorageSettings: DefaultSpaceStorageSettings
+}
+
+type UserProfile {
+  domainId: String
+  userProfileArn: AmazonResourceName
+  userProfileName: String
+  homeEfsFileSystemUid: String
+  status: String
+  lastModifiedTime: DateTime
+  creationTime: DateTime
+  failureReason: String
+  singleSignOnUserIdentifier: String
+  singleSignOnUserValue: String
+  userSettings: UserSettings
+  tags: [Tag]
+}
+
+# ─── Shared / Utility Types ───────────────────────────────────────────────────
+
+type Tag {
+  key: String!
+  value: String!
+}
+
+type UserContext {
+  userProfileArn: AmazonResourceName
+  userProfileName: String
+  domainId: String
+  iamIdentity: IamIdentity
+}
+
+type IamIdentity {
+  arn: AmazonResourceName
+  principalId: String
+  sourceIdentity: String
+}
+
+# ─── Queries ──────────────────────────────────────────────────────────────────
+
+type Query {
+  # Training
+  trainingJob(trainingJobName: String!): TrainingJob
+  listTrainingJobs(
+    sortBy: String
+    sortOrder: SortOrder
+    statusEquals: TrainingJobStatus
+    maxResults: Int
+    nextToken: String
+  ): TrainingJobList
+
+  # Model
+  model(modelName: String!): Model
+  listModels(sortBy: String sortOrder: SortOrder maxResults: Int nextToken: String): ModelList
+
+  # Model Package
+  modelPackage(modelPackageName: String!): ModelPackage
+  modelPackageGroup(modelPackageGroupName: String!): ModelPackageGroup
+  listModelPackages(modelPackageGroupName: String maxResults: Int nextToken: String): ModelPackageList
+
+  # Endpoint
+  endpointConfig(endpointConfigName: String!): EndpointConfig
+  endpoint(endpointName: String!): Endpoint
+  listEndpoints(statusEquals: EndpointStatus maxResults: Int nextToken: String): EndpointList
+
+  # Transform
+  transformJob(transformJobName: String!): TransformJob
+  listTransformJobs(statusEquals: TransformJobStatus maxResults: Int nextToken: String): TransformJobList
+
+  # Compilation
+  compilationJob(compilationJobName: String!): CompilationJob
+  listCompilationJobs(statusEquals: CompilationJobStatus maxResults: Int nextToken: String): CompilationJobList
+
+  # Tuning
+  hyperParameterTuningJob(hyperParameterTuningJobName: String!): HyperParameterTuning
+  listHyperParameterTuningJobs(maxResults: Int nextToken: String): HyperParameterTuningList
+
+  # Pipeline
+  pipeline(pipelineName: String!): Pipeline
+  pipelineExecution(pipelineExecutionArn: AmazonResourceName!): PipelineExecution
+  listPipelines(maxResults: Int nextToken: String): PipelineList
+  listPipelineExecutions(pipelineName: String! maxResults: Int nextToken: String): PipelineExecutionList
+  listPipelineExecutionSteps(pipelineExecutionArn: AmazonResourceName! maxResults: Int nextToken: String): StepExecutionList
+
+  # Feature Store
+  featureGroup(featureGroupName: String!): FeatureGroup
+  listFeatureGroups(maxResults: Int nextToken: String): FeatureGroupList
+
+  # Experiment
+  experiment(experimentName: String!): Experiment
+  trial(trialName: String!): Trial
+  trialComponent(trialComponentName: String!): TrialComponent
+  listExperiments(maxResults: Int nextToken: String): ExperimentList
+  listTrials(experimentName: String maxResults: Int nextToken: String): TrialList
+
+  # Lineage
+  listArtifacts(sourceUri: String maxResults: Int nextToken: String): ArtifactList
+  listActions(sourceUri: String maxResults: Int nextToken: String): ActionList
+  listContexts(sourceUri: String maxResults: Int nextToken: String): ContextList
+  listAssociations(sourceArn: AmazonResourceName destinationArn: AmazonResourceName maxResults: Int nextToken: String): AssociationList
+  queryLineage(startArns: [AmazonResourceName!]! direction: String maxDepth: Int maxResults: Int nextToken: String): LineageQueryResult
+
+  # Processing
+  processingJob(processingJobName: String!): ProcessingJob
+  listProcessingJobs(statusEquals: ProcessingJobStatus maxResults: Int nextToken: String): ProcessingJobList
+
+  # Monitoring
+  monitoringSchedule(monitoringScheduleName: String!): MonitoringSchedule
+  listMonitoringSchedules(endpointName: String maxResults: Int nextToken: String): MonitoringScheduleList
+
+  # Inference Experiment
+  inferenceExperiment(name: String!): InferenceExperiment
+  listInferenceExperiments(statusEquals: InferenceExperimentStatus maxResults: Int nextToken: String): InferenceExperimentList
+
+  # Project
+  project(projectName: String!): Project
+  listProjects(maxResults: Int nextToken: String): ProjectList
+
+  # Domain / Space / User
+  domain(domainId: String!): Domain
+  space(domainId: String! spaceName: String!): Space
+  userProfile(domainId: String! userProfileName: String!): UserProfile
+  listDomains(maxResults: Int nextToken: String): DomainList
+  listSpaces(domainId: String maxResults: Int nextToken: String): SpaceList
+  listUserProfiles(domainId: String maxResults: Int nextToken: String): UserProfileList
+}
+
+# ─── Mutations ────────────────────────────────────────────────────────────────
+
+type Mutation {
+  # Training
+  createTrainingJob(input: CreateTrainingJobInput!): TrainingJob
+  stopTrainingJob(trainingJobName: String!): StopResult
+  deleteTrainingJob(trainingJobName: String!): DeleteResult
+
+  # Model
+  createModel(input: CreateModelInput!): Model
+  deleteModel(modelName: String!): DeleteResult
+
+  # Model Package
+  createModelPackage(input: CreateModelPackageInput!): ModelPackage
+  createModelPackageGroup(input: CreateModelPackageGroupInput!): ModelPackageGroup
+  updateModelPackage(modelPackageName: String! modelApprovalStatus: String approvalDescription: String): ModelPackage
+  deleteModelPackage(modelPackageName: String!): DeleteResult
+  deleteModelPackageGroup(modelPackageGroupName: String!): DeleteResult
+
+  # Endpoint
+  createEndpointConfig(input: CreateEndpointConfigInput!): EndpointConfig
+  createEndpoint(input: CreateEndpointInput!): Endpoint
+  updateEndpoint(endpointName: String! endpointConfigName: String!): Endpoint
+  deleteEndpointConfig(endpointConfigName: String!): DeleteResult
+  deleteEndpoint(endpointName: String!): DeleteResult
+
+  # Transform
+  createTransformJob(input: CreateTransformJobInput!): TransformJob
+  stopTransformJob(transformJobName: String!): StopResult
+
+  # Compilation
+  createCompilationJob(input: CreateCompilationJobInput!): CompilationJob
+  stopCompilationJob(compilationJobName: String!): StopResult
+  deleteCompilationJob(compilationJobName: String!): DeleteResult
+
+  # Tuning
+  createHyperParameterTuningJob(input: CreateHyperParameterTuningJobInput!): HyperParameterTuning
+  stopHyperParameterTuningJob(hyperParameterTuningJobName: String!): StopResult
+  deleteHyperParameterTuningJob(hyperParameterTuningJobName: String!): DeleteResult
+
+  # Pipeline
+  createPipeline(input: CreatePipelineInput!): Pipeline
+  updatePipeline(pipelineName: String! pipelineDefinition: String pipelineDescription: String roleArn: AmazonResourceName): Pipeline
+  deletePipeline(pipelineName: String!): DeleteResult
+  startPipelineExecution(pipelineName: String! pipelineExecutionDisplayName: String pipelineParameters: [PipelineParameterInput] parallelismConfiguration: ParallelismConfigurationInput): PipelineExecution
+  stopPipelineExecution(pipelineExecutionArn: AmazonResourceName!): StopResult
+
+  # Feature Store
+  createFeatureGroup(input: CreateFeatureGroupInput!): FeatureGroup
+  updateFeatureGroup(featureGroupName: String! featureAdditions: [FeatureDefinitionInput]): FeatureGroup
+  deleteFeatureGroup(featureGroupName: String!): DeleteResult
+  putRecord(featureGroupName: String! record: [FeatureValueInput!]!): PutRecordResult
+  deleteRecord(featureGroupName: String! recordIdentifierValueAsString: String! eventTime: String!): DeleteResult
+
+  # Experiment / Trial
+  createExperiment(experimentName: String! displayName: String description: String tags: [TagInput]): Experiment
+  deleteExperiment(experimentName: String!): DeleteResult
+  createTrial(trialName: String! experimentName: String! displayName: String tags: [TagInput]): Trial
+  deleteTrial(trialName: String!): DeleteResult
+  createTrialComponent(input: CreateTrialComponentInput!): TrialComponent
+  deleteTrialComponent(trialComponentName: String!): DeleteResult
+  associateTrialComponent(trialComponentName: String! trialName: String!): AssociateResult
+  disassociateTrialComponent(trialComponentName: String! trialName: String!): DisassociateResult
+
+  # Lineage
+  createArtifact(artifactName: String source: ArtifactSourceInput! artifactType: String! properties: JSON tags: [TagInput]): Artifact
+  deleteArtifact(artifactArn: AmazonResourceName source: ArtifactSourceInput): DeleteResult
+  createAction(actionName: String! source: ActionSourceInput! actionType: String! description: String status: String properties: JSON tags: [TagInput]): Action
+  deleteAction(actionName: String!): DeleteResult
+  createContext(contextName: String! source: ContextSourceInput! contextType: String! description: String properties: JSON tags: [TagInput]): Context
+  deleteContext(contextName: String!): DeleteResult
+  addAssociation(sourceArn: AmazonResourceName! destinationArn: AmazonResourceName! associationType: AssociationEdgeType): Association
+  deleteAssociation(sourceArn: AmazonResourceName! destinationArn: AmazonResourceName!): DeleteResult
+
+  # Processing
+  createProcessingJob(input: CreateProcessingJobInput!): ProcessingJob
+  stopProcessingJob(processingJobName: String!): StopResult
+
+  # Monitoring
+  createMonitoringSchedule(input: CreateMonitoringScheduleInput!): MonitoringSchedule
+  updateMonitoringSchedule(monitoringScheduleName: String! monitoringScheduleConfig: MonitoringScheduleConfigInput!): MonitoringSchedule
+  deleteMonitoringSchedule(monitoringScheduleName: String!): DeleteResult
+  startMonitoringSchedule(monitoringScheduleName: String!): StartResult
+  stopMonitoringSchedule(monitoringScheduleName: String!): StopResult
+
+  # Inference Experiment
+  createInferenceExperiment(input: CreateInferenceExperimentInput!): InferenceExperiment
+  updateInferenceExperiment(name: String! description: String schedule: InferenceExperimentScheduleInput modelVariants: [ModelVariantConfigInput] dataStorageConfig: InferenceExperimentDataStorageConfigInput shadowModeConfig: ShadowModeConfigInput): InferenceExperiment
+  startInferenceExperiment(name: String!): InferenceExperiment
+  stopInferenceExperiment(name: String! modelVariantActions: JSON desiredModelVariants: [ModelVariantConfigInput] desiredState: String reason: String): InferenceExperiment
+  deleteInferenceExperiment(name: String!): DeleteResult
+
+  # Project
+  createProject(input: CreateProjectInput!): Project
+  updateProject(projectName: String! projectDescription: String serviceCatalogProvisioningUpdateDetails: ServiceCatalogProvisioningDetailsInput tags: [TagInput]): Project
+  deleteProject(projectName: String!): DeleteResult
+
+  # Domain / Space / User
+  createDomain(input: CreateDomainInput!): Domain
+  updateDomain(domainId: String! defaultUserSettings: UserSettingsInput domainSettingsForUpdate: DomainSettingsForUpdateInput appSecurityGroupManagement: String defaultSpaceSettings: DefaultSpaceSettingsInput): Domain
+  deleteDomain(domainId: String! retentionPolicy: RetentionPolicyInput): DeleteResult
+  createSpace(domainId: String! spaceName: String! spaceSettings: SpaceSettingsInput ownershipSettings: OwnershipSettingsInput spaceSharingSettings: SpaceSharingSettingsInput spaceDisplayName: String tags: [TagInput]): Space
+  updateSpace(domainId: String! spaceName: String! spaceSettings: SpaceSettingsInput spaceDisplayName: String): Space
+  deleteSpace(domainId: String! spaceName: String!): DeleteResult
+  createUserProfile(domainId: String! userProfileName: String! singleSignOnUserIdentifier: String singleSignOnUserValue: String userSettings: UserSettingsInput tags: [TagInput]): UserProfile
+  updateUserProfile(domainId: String! userProfileName: String! userSettings: UserSettingsInput): UserProfile
+  deleteUserProfile(domainId: String! userProfileName: String!): DeleteResult
+
+  # Tags
+  addTags(resourceArn: AmazonResourceName! tags: [TagInput!]!): AddTagsResult
+  deleteTags(resourceArn: AmazonResourceName! tagKeys: [String!]!): DeleteResult
+  listTags(resourceArn: AmazonResourceName! maxResults: Int nextToken: String): TagList
+}
+
+# ─── Input Types ──────────────────────────────────────────────────────────────
+
+input CreateTrainingJobInput {
+  trainingJobName: String!
+  hyperParameters: JSON
+  algorithmSpecification: AlgorithmSpecInput!
+  roleArn: AmazonResourceName!
+  inputDataConfig: [TrainingInputInput]
+  outputDataConfig: OutputDataConfigInput!
+  resourceConfig: ResourceConfigInput!
+  vpcConfig: VpcConfigInput
+  stoppingCondition: StoppingConditionInput!
+  tags: [TagInput]
+  enableNetworkIsolation: Boolean
+  enableInterContainerTrafficEncryption: Boolean
+  enableManagedSpotTraining: Boolean
+  checkpointConfig: CheckpointConfigInput
+  debugHookConfig: DebugHookConfigInput
+  experimentConfig: ExperimentConfigInput
+  environment: JSON
+}
+
+input AlgorithmSpecInput {
+  trainingImage: String
+  algorithmName: String
+  trainingInputMode: String!
+  metricDefinitions: [MetricDefinitionInput]
+  enableSageMakerMetricsTimeSeries: Boolean
+}
+
+input MetricDefinitionInput {
+  name: String!
+  regex: String!
+}
+
+input TrainingInputInput {
+  channelName: String!
+  dataSource: DataSourceInput!
+  contentType: String
+  compressionType: String
+  recordWrapperType: String
+  inputMode: String
+}
+
+input DataSourceInput {
+  s3DataSource: S3DataSourceInput
+}
+
+input S3DataSourceInput {
+  s3DataType: String!
+  s3Uri: String!
+  s3DataDistributionType: String
+}
+
+input OutputDataConfigInput {
+  kmsKeyId: String
+  s3OutputPath: String!
+}
+
+input ResourceConfigInput {
+  instanceType: String!
+  instanceCount: Int!
+  volumeSizeInGB: Int!
+  volumeKmsKeyId: String
+}
+
+input VpcConfigInput {
+  securityGroupIds: [String!]!
+  subnets: [String!]!
+}
+
+input StoppingConditionInput {
+  maxRuntimeInSeconds: Int
+  maxWaitTimeInSeconds: Int
+}
+
+input CheckpointConfigInput {
+  s3Uri: String!
+  localPath: String
+}
+
+input DebugHookConfigInput {
+  localPath: String
+  s3OutputPath: String!
+  hookParameters: JSON
+}
+
+input ExperimentConfigInput {
+  experimentName: String
+  trialName: String
+  trialComponentDisplayName: String
+}
+
+input CreateModelInput {
+  modelName: String!
+  primaryContainer: ContainerInput
+  containers: [ContainerInput]
+  inferenceExecutionConfig: InferenceExecutionConfigInput
+  executionRoleArn: AmazonResourceName!
+  vpcConfig: VpcConfigInput
+  enableNetworkIsolation: Boolean
+  tags: [TagInput]
+}
+
+input ContainerInput {
+  containerHostname: String
+  image: String
+  mode: ContainerMode
+  modelDataUrl: String
+  environment: JSON
+  modelPackageName: String
+}
+
+input InferenceExecutionConfigInput {
+  mode: ContainerMode!
+}
+
+input CreateModelPackageInput {
+  modelPackageName: String
+  modelPackageGroupName: String
+  modelPackageDescription: String
+  inferenceSpecification: InferenceSpecificationInput
+  validationSpecification: ModelPackageValidationSpecificationInput
+  sourceAlgorithmSpecification: SourceAlgorithmSpecificationInput
+  certifyForMarketplace: Boolean
+  tags: [TagInput]
+  modelApprovalStatus: String
+  metadataProperties: MetadataPropertiesInput
+  modelMetrics: ModelMetricsInput
+  clientToken: String
+  domain: String
+  task: String
+  samplePayloadUrl: String
+}
+
+input InferenceSpecificationInput {
+  containers: [ModelPackageContainerDefinitionInput!]!
+  supportedTransformInstanceTypes: [String]
+  supportedRealtimeInferenceInstanceTypes: [String]
+  supportedContentTypes: [String]
+  supportedResponseMIMETypes: [String]
+}
+
+input ModelPackageContainerDefinitionInput {
+  image: String!
+  modelDataUrl: String
+  framework: String
+  frameworkVersion: String
+}
+
+input ModelPackageValidationSpecificationInput {
+  validationRole: String!
+  validationProfiles: [ModelPackageValidationProfileInput!]!
+}
+
+input ModelPackageValidationProfileInput {
+  profileName: String!
+  transformJobDefinition: TransformJobDefinitionInput!
+}
+
+input TransformJobDefinitionInput {
+  transformInput: TransformInputInput!
+  transformOutput: TransformOutputInput!
+  transformResources: TransformResourceInput!
+  maxConcurrentTransforms: Int
+  maxPayloadInMB: Int
+  batchStrategy: String
+}
+
+input SourceAlgorithmSpecificationInput {
+  sourceAlgorithms: [SourceAlgorithmInput!]!
+}
+
+input SourceAlgorithmInput {
+  modelDataUrl: String
+  algorithmName: String!
+}
+
+input MetadataPropertiesInput {
+  commitId: String
+  repository: String
+  generatedBy: String
+  projectId: String
+}
+
+input ModelMetricsInput {
+  modelQuality: ModelQualityInput
+  modelDataQuality: ModelDataQualityInput
+}
+
+input ModelQualityInput {
+  statistics: MetricsSourceInput
+  constraints: MetricsSourceInput
+}
+
+input ModelDataQualityInput {
+  statistics: MetricsSourceInput
+  constraints: MetricsSourceInput
+}
+
+input MetricsSourceInput {
+  contentType: String!
+  s3Uri: String!
+}
+
+input CreateModelPackageGroupInput {
+  modelPackageGroupName: String!
+  modelPackageGroupDescription: String
+  tags: [TagInput]
+}
+
+input CreateEndpointConfigInput {
+  endpointConfigName: String!
+  productionVariants: [EndpointVariantInput!]!
+  dataCaptureConfig: CaptureConfigInput
+  tags: [TagInput]
+  kmsKeyId: String
+  asyncInferenceConfig: AsyncInferenceConfigInput
+  explainerConfig: ExplainerConfigInput
+}
+
+input EndpointVariantInput {
+  variantName: String!
+  modelName: String!
+  initialInstanceCount: Int
+  instanceType: String
+  initialVariantWeight: Float
+  serverlessConfig: ProductionVariantServerlessConfigInput
+}
+
+input ProductionVariantServerlessConfigInput {
+  memorySizeInMB: Int!
+  maxConcurrency: Int!
+}
+
+input CaptureConfigInput {
+  enableCapture: Boolean
+  initialSamplingPercentage: Int!
+  destinationS3Uri: String!
+  captureOptions: [CaptureOptionInput!]!
+}
+
+input CaptureOptionInput {
+  captureMode: String!
+}
+
+input AsyncInferenceConfigInput {
+  outputConfig: AsyncInferenceOutputConfigInput!
+  clientConfig: AsyncInferenceClientConfigInput
+}
+
+input AsyncInferenceOutputConfigInput {
+  s3OutputPath: String
+  notificationConfig: AsyncInferenceNotificationConfigInput
+}
+
+input AsyncInferenceNotificationConfigInput {
+  successTopic: String
+  errorTopic: String
+}
+
+input AsyncInferenceClientConfigInput {
+  maxConcurrentInvocationsPerInstance: Int
+}
+
+input ExplainerConfigInput {
+  clarifyExplainerConfig: ClarifyExplainerConfigInput
+}
+
+input ClarifyExplainerConfigInput {
+  shapConfig: ClarifyShapConfigInput!
+}
+
+input ClarifyShapConfigInput {
+  shapBaselineConfig: ClarifyShapBaselineConfigInput!
+  numberOfSamples: Int
+}
+
+input ClarifyShapBaselineConfigInput {
+  shapBaseline: String
+  shapBaselineUri: String
+}
+
+input CreateEndpointInput {
+  endpointName: String!
+  endpointConfigName: String!
+  deploymentConfig: DeploymentConfigInput
+  tags: [TagInput]
+}
+
+input DeploymentConfigInput {
+  blueGreenUpdatePolicy: BlueGreenUpdatePolicyInput
+  autoRollbackConfiguration: AutoRollbackConfigInput
+}
+
+input BlueGreenUpdatePolicyInput {
+  trafficRoutingConfiguration: TrafficRoutingConfigInput!
+  terminationWaitInSeconds: Int
+  maximumExecutionTimeoutInSeconds: Int
+}
+
+input TrafficRoutingConfigInput {
+  type: String!
+  waitIntervalInSeconds: Int!
+  canarySize: CapacitySizeInput
+}
+
+input CapacitySizeInput {
+  type: String!
+  value: Int!
+}
+
+input AutoRollbackConfigInput {
+  alarms: [AlarmInput]
+}
+
+input AlarmInput {
+  alarmName: String
+}
+
+input CreateTransformJobInput {
+  transformJobName: String!
+  modelName: String!
+  transformInput: TransformInputInput!
+  transformOutput: TransformOutputInput!
+  transformResources: TransformResourceInput!
+  maxConcurrentTransforms: Int
+  modelClientConfig: ModelClientConfigInput
+  maxPayloadInMB: Int
+  batchStrategy: String
+  environment: JSON
+  dataProcessing: DataProcessingInput
+  tags: [TagInput]
+  experimentConfig: ExperimentConfigInput
+}
+
+input TransformInputInput {
+  dataSource: TransformDataSourceInput!
+  contentType: String
+  compressionType: String
+  splitType: String
+}
+
+input TransformDataSourceInput {
+  s3DataSource: TransformS3DataSourceInput!
+}
+
+input TransformS3DataSourceInput {
+  s3DataType: String!
+  s3Uri: String!
+}
+
+input TransformOutputInput {
+  s3OutputPath: String!
+  accept: String
+  assembleWith: String
+  kmsKeyId: String
+}
+
+input TransformResourceInput {
+  instanceType: String!
+  instanceCount: Int!
+  volumeKmsKeyId: String
+}
+
+input ModelClientConfigInput {
+  invocationsTimeoutInSeconds: Int
+  invocationsMaxRetries: Int
+}
+
+input DataProcessingInput {
+  inputFilter: String
+  outputFilter: String
+  joinSource: String
+}
+
+input CreateCompilationJobInput {
+  compilationJobName: String!
+  roleArn: AmazonResourceName!
+  modelPackageVersionArn: AmazonResourceName
+  inputConfig: InputConfigInput!
+  outputConfig: NeoOutputConfigInput!
+  vpcConfig: NeoVpcConfigInput
+  stoppingCondition: StoppingConditionInput!
+  tags: [TagInput]
+}
+
+input InputConfigInput {
+  s3Uri: String!
+  dataInputConfig: String!
+  framework: String!
+  frameworkVersion: String
+}
+
+input NeoOutputConfigInput {
+  s3OutputLocation: String!
+  targetDevice: String
+  targetPlatform: TargetPlatformInput
+  compilerOptions: String
+  kmsKeyId: String
+}
+
+input TargetPlatformInput {
+  os: String!
+  arch: String!
+  accelerator: String
+}
+
+input NeoVpcConfigInput {
+  securityGroupIds: [String!]!
+  subnets: [String!]!
+}
+
+input CreateHyperParameterTuningJobInput {
+  hyperParameterTuningJobName: String!
+  hyperParameterTuningJobConfig: HyperParameterTuningJobConfigInput!
+  trainingJobDefinition: HyperParameterTrainingJobDefinitionInput
+  trainingJobDefinitions: [HyperParameterTrainingJobDefinitionInput]
+  warmStartConfig: HyperParameterTuningJobWarmStartConfigInput
+  tags: [TagInput]
+  autotune: AutotuneInput
+}
+
+input HyperParameterTuningJobConfigInput {
+  strategy: String!
+  hyperParameterTuningJobObjective: HyperParameterTuningJobObjectiveInput
+  resourceLimits: ResourceLimitsInput!
+  parameterRanges: HyperParameterRangeInput
+  trainingJobEarlyStoppingType: String
+}
+
+input HyperParameterTuningJobObjectiveInput {
+  type: String!
+  metricName: String!
+}
+
+input ResourceLimitsInput {
+  maxNumberOfTrainingJobs: Int
+  maxParallelTrainingJobs: Int!
+}
+
+input HyperParameterRangeInput {
+  integerParameterRanges: [IntegerParameterRangeInput]
+  continuousParameterRanges: [ContinuousParameterRangeInput]
+  categoricalParameterRanges: [CategoricalParameterRangeInput]
+}
+
+input IntegerParameterRangeInput {
+  name: String!
+  minValue: String!
+  maxValue: String!
+  scalingType: String
+}
+
+input ContinuousParameterRangeInput {
+  name: String!
+  minValue: String!
+  maxValue: String!
+  scalingType: String
+}
+
+input CategoricalParameterRangeInput {
+  name: String!
+  values: [String!]!
+}
+
+input HyperParameterTrainingJobDefinitionInput {
+  definitionName: String
+  algorithmSpecification: HyperParameterAlgorithmSpecificationInput!
+  roleArn: AmazonResourceName!
+  inputDataConfig: [TrainingInputInput]
+  outputDataConfig: OutputDataConfigInput!
+  resourceConfig: ResourceConfigInput
+  stoppingCondition: StoppingConditionInput!
+  staticHyperParameters: JSON
+  hyperParameterRanges: HyperParameterRangeInput
+  tuningObjective: HyperParameterTuningJobObjectiveInput
+}
+
+input HyperParameterAlgorithmSpecificationInput {
+  trainingInputMode: String!
+  trainingImage: String
+  algorithmName: String
+  metricDefinitions: [MetricDefinitionInput]
+}
+
+input HyperParameterTuningJobWarmStartConfigInput {
+  parentHyperParameterTuningJobs: [ParentHyperParameterTuningJobInput!]!
+  warmStartType: String!
+}
+
+input ParentHyperParameterTuningJobInput {
+  hyperParameterTuningJobName: String
+}
+
+input AutotuneInput {
+  mode: String!
+}
+
+input CreatePipelineInput {
+  pipelineName: String!
+  pipelineDisplayName: String
+  pipelineDefinition: String
+  pipelineDefinitionS3Location: PipelineDefinitionS3LocationInput
+  pipelineDescription: String
+  clientRequestToken: String!
+  roleArn: AmazonResourceName!
+  tags: [TagInput]
+  parallelismConfiguration: ParallelismConfigurationInput
+}
+
+input PipelineDefinitionS3LocationInput {
+  bucket: String!
+  objectKey: String!
+  versionId: String
+}
+
+input ParallelismConfigurationInput {
+  maxParallelExecutionSteps: Int!
+}
+
+input PipelineParameterInput {
+  name: String!
+  value: String!
+}
+
+input CreateFeatureGroupInput {
+  featureGroupName: String!
+  recordIdentifierFeatureName: String!
+  eventTimeFeatureName: String!
+  featureDefinitions: [FeatureDefinitionInput!]!
+  onlineStoreConfig: OnlineStoreConfigInput
+  offlineStoreConfig: OfflineStoreConfigInput
+  throughputConfig: ThroughputConfigInput
+  roleArn: AmazonResourceName
+  description: String
+  tags: [TagInput]
+}
+
+input FeatureDefinitionInput {
+  featureName: String!
+  featureType: FeatureType!
+}
+
+input OnlineStoreConfigInput {
+  securityConfig: OnlineStoreSecurityConfigInput
+  enableOnlineStore: Boolean
+  ttlDuration: TtlDurationInput
+  storageType: String
+}
+
+input OnlineStoreSecurityConfigInput {
+  kmsKeyId: String
+}
+
+input TtlDurationInput {
+  unit: String!
+  value: Int!
+}
+
+input OfflineStoreConfigInput {
+  s3StorageConfig: S3StorageConfigInput!
+  disableGlueTableCreation: Boolean
+  dataCatalogConfig: DataCatalogConfigInput
+  tableFormat: String
+}
+
+input S3StorageConfigInput {
+  s3Uri: String!
+  kmsKeyId: String
+}
+
+input DataCatalogConfigInput {
+  tableName: String!
+  catalog: String!
+  database: String!
+}
+
+input ThroughputConfigInput {
+  throughputMode: String!
+  provisionedReadCapacityUnits: Int
+  provisionedWriteCapacityUnits: Int
+}
+
+input FeatureValueInput {
+  featureName: String!
+  valueAsString: String
+}
+
+input CreateTrialComponentInput {
+  trialComponentName: String!
+  displayName: String
+  status: TrialComponentStatusInput
+  startTime: DateTime
+  endTime: DateTime
+  parameters: JSON
+  inputArtifacts: JSON
+  outputArtifacts: JSON
+  metadataProperties: MetadataPropertiesInput
+  tags: [TagInput]
+}
+
+input TrialComponentStatusInput {
+  primaryStatus: String
+  message: String
+}
+
+input ArtifactSourceInput {
+  sourceUri: String!
+  sourceTypes: [ArtifactSourceTypeInput]
+}
+
+input ArtifactSourceTypeInput {
+  sourceIdType: String!
+  value: String!
+}
+
+input ActionSourceInput {
+  sourceUri: String!
+  sourceType: String
+  sourceId: String
+}
+
+input ContextSourceInput {
+  sourceUri: String!
+  sourceType: String
+  sourceId: String
+}
+
+input CreateProcessingJobInput {
+  processingJobName: String!
+  processingInputs: [ProcessingInputInput]
+  processingOutputConfig: ProcessingOutputConfigInput
+  processingResources: ProcessingResourceInput!
+  stoppingCondition: ProcessingStoppingConditionInput
+  appSpecification: AppSpecificationInput!
+  environment: JSON
+  networkConfig: NetworkConfigInput
+  roleArn: AmazonResourceName!
+  experimentConfig: ExperimentConfigInput
+  tags: [TagInput]
+}
+
+input ProcessingInputInput {
+  inputName: String!
+  appManaged: Boolean
+  s3Input: ProcessingS3InputInput
+}
+
+input ProcessingS3InputInput {
+  s3Uri: String!
+  localPath: String!
+  s3DataType: String!
+  s3InputMode: String!
+}
+
+input ProcessingOutputConfigInput {
+  outputs: [ProcessingOutputInput!]!
+  kmsKeyId: String
+}
+
+input ProcessingOutputInput {
+  outputName: String!
+  s3Output: ProcessingS3OutputInput
+}
+
+input ProcessingS3OutputInput {
+  s3Uri: String!
+  localPath: String!
+  s3UploadMode: String!
+}
+
+input ProcessingResourceInput {
+  clusterConfig: ProcessingClusterConfigInput!
+}
+
+input ProcessingClusterConfigInput {
+  instanceCount: Int!
+  instanceType: String!
+  volumeSizeInGB: Int!
+  volumeKmsKeyId: String
+}
+
+input ProcessingStoppingConditionInput {
+  maxRuntimeInSeconds: Int!
+}
+
+input AppSpecificationInput {
+  imageUri: String!
+  containerEntrypoint: [String]
+  containerArguments: [String]
+}
+
+input NetworkConfigInput {
+  enableInterContainerTrafficEncryption: Boolean
+  enableNetworkIsolation: Boolean
+  vpcConfig: VpcConfigInput
+}
+
+input CreateMonitoringScheduleInput {
+  monitoringScheduleName: String!
+  monitoringScheduleConfig: MonitoringScheduleConfigInput!
+  tags: [TagInput]
+}
+
+input MonitoringScheduleConfigInput {
+  scheduleConfig: ScheduleConfigInput
+  monitoringJobDefinition: MonitoringJobDefinitionInput
+  monitoringJobDefinitionName: String
+  monitoringType: String
+}
+
+input ScheduleConfigInput {
+  scheduleExpression: String!
+  dataAnalysisStartTime: String
+  dataAnalysisEndTime: String
+}
+
+input MonitoringJobDefinitionInput {
+  baselineConfig: MonitoringBaselineConfigInput
+  monitoringInputs: [MonitoringInputInput!]!
+  monitoringOutputConfig: MonitoringOutputConfigInput!
+  monitoringResources: MonitoringResourcesInput!
+  monitoringAppSpecification: MonitoringAppSpecificationInput!
+  stoppingCondition: MonitoringStoppingConditionInput
+  environment: JSON
+  roleArn: AmazonResourceName!
+}
+
+input MonitoringBaselineConfigInput {
+  baseliningJobName: String
+  constraintsResource: MonitoringConstraintsResourceInput
+  statisticsResource: MonitoringStatisticsResourceInput
+}
+
+input MonitoringConstraintsResourceInput {
+  s3Uri: String
+}
+
+input MonitoringStatisticsResourceInput {
+  s3Uri: String
+}
+
+input MonitoringInputInput {
+  endpointInput: EndpointInputInput
+}
+
+input EndpointInputInput {
+  endpointName: String!
+  localPath: String!
+}
+
+input MonitoringOutputConfigInput {
+  monitoringOutputs: [MonitoringOutputInput!]!
+  kmsKeyId: String
+}
+
+input MonitoringOutputInput {
+  s3Output: MonitoringS3OutputInput!
+}
+
+input MonitoringS3OutputInput {
+  s3Uri: String!
+  localPath: String!
+  s3UploadMode: String
+}
+
+input MonitoringResourcesInput {
+  clusterConfig: MonitoringClusterConfigInput!
+}
+
+input MonitoringClusterConfigInput {
+  instanceCount: Int!
+  instanceType: String!
+  volumeSizeInGB: Int!
+}
+
+input MonitoringAppSpecificationInput {
+  imageUri: String!
+  containerEntrypoint: [String]
+  containerArguments: [String]
+  recordPreprocessorSourceUri: String
+  postAnalyticsProcessorSourceUri: String
+}
+
+input MonitoringStoppingConditionInput {
+  maxRuntimeInSeconds: Int!
+}
+
+input CreateInferenceExperimentInput {
+  name: String!
+  type: String!
+  schedule: InferenceExperimentScheduleInput
+  description: String
+  roleArn: AmazonResourceName!
+  endpointName: String!
+  modelVariants: [ModelVariantConfigInput!]!
+  dataStorageConfig: InferenceExperimentDataStorageConfigInput
+  shadowModeConfig: ShadowModeConfigInput!
+  kmsKey: String
+  tags: [TagInput]
+}
+
+input InferenceExperimentScheduleInput {
+  startTime: DateTime
+  endTime: DateTime
+}
+
+input ModelVariantConfigInput {
+  modelName: String!
+  variantName: String!
+  infrastructureConfig: ModelInfrastructureConfigInput!
+}
+
+input ModelInfrastructureConfigInput {
+  infrastructureType: String!
+  realTimeInferenceConfig: RealTimeInferenceConfigInput!
+}
+
+input RealTimeInferenceConfigInput {
+  instanceType: String!
+  instanceCount: Int!
+}
+
+input InferenceExperimentDataStorageConfigInput {
+  destination: String!
+  kmsKey: String
+}
+
+input ShadowModeConfigInput {
+  sourceModelVariantName: String!
+  shadowModelVariants: [ShadowModelVariantConfigInput!]!
+}
+
+input ShadowModelVariantConfigInput {
+  shadowModelVariantName: String!
+  samplingPercentage: Int!
+}
+
+input CreateProjectInput {
+  projectName: String!
+  projectDescription: String
+  serviceCatalogProvisioningDetails: ServiceCatalogProvisioningDetailsInput!
+  tags: [TagInput]
+}
+
+input ServiceCatalogProvisioningDetailsInput {
+  productId: String!
+  provisioningArtifactId: String
+  pathId: String
+  provisioningParameters: [ProvisioningParameterInput]
+}
+
+input ProvisioningParameterInput {
+  key: String
+  value: String
+}
+
+input ServiceCatalogProvisioningDetailsUpdateInput {
+  provisioningArtifactId: String
+  provisioningParameters: [ProvisioningParameterInput]
+}
+
+input ServiceCatalogProvisioningDetailsUpdateInputAlias {
+  provisioningArtifactId: String
+}
+
+input ServiceCatalogProvisioningDetailsInputAlias {
+  productId: String!
+}
+
+input ServiceCatalogProvisioningDetailsInputWrapper {
+  productId: String!
+  provisioningArtifactId: String
+}
+
+input CreateDomainInput {
+  domainName: String!
+  authMode: String!
+  defaultUserSettings: UserSettingsInput!
+  domainSettings: DomainSettingsInput
+  subnetIds: [String!]!
+  vpcId: String!
+  tags: [TagInput]
+  appNetworkAccessType: String
+  homeEfsFileSystemKmsKeyId: String
+  kmsKeyId: String
+  appSecurityGroupManagement: String
+  defaultSpaceSettings: DefaultSpaceSettingsInput
+}
+
+input UserSettingsInput {
+  executionRole: AmazonResourceName
+  securityGroups: [String]
+  sharingSettings: SharingSettingsInput
+  jupyterServerAppSettings: JupyterServerAppSettingsInput
+  kernelGatewayAppSettings: KernelGatewayAppSettingsInput
+}
+
+input SharingSettingsInput {
+  notebookOutputOption: String
+  s3OutputPath: String
+}
+
+input JupyterServerAppSettingsInput {
+  defaultResourceSpec: ResourceSpecInput
+  lifecycleConfigArns: [AmazonResourceName]
+}
+
+input ResourceSpecInput {
+  sageMakerImageArn: AmazonResourceName
+  instanceType: String
+  lifecycleConfigArn: AmazonResourceName
+}
+
+input KernelGatewayAppSettingsInput {
+  defaultResourceSpec: ResourceSpecInput
+  customImages: [CustomImageInput]
+  lifecycleConfigArns: [AmazonResourceName]
+}
+
+input CustomImageInput {
+  imageName: String!
+  imageVersionNumber: Int
+  appImageConfigName: String!
+}
+
+input DomainSettingsInput {
+  securityGroupIds: [String]
+  rStudioServerProDomainSettings: RStudioServerProDomainSettingsInput
+  executionRoleIdentityConfig: String
+}
+
+input RStudioServerProDomainSettingsInput {
+  domainExecutionRoleArn: AmazonResourceName!
+  rStudioConnectUrl: String
+  rStudioPackageManagerUrl: String
+}
+
+input DomainSettingsForUpdateInput {
+  defaultResourceSpec: ResourceSpecInput
+  rStudioServerProDomainSettingsForUpdate: RStudioServerProDomainSettingsForUpdateInput
+  executionRoleIdentityConfig: String
+  securityGroupIds: [String]
+  dockerSettings: DockerSettingsInput
+  amazonQSettings: AmazonQSettingsInput
+}
+
+input RStudioServerProDomainSettingsForUpdateInput {
+  domainExecutionRoleArn: AmazonResourceName!
+  defaultResourceSpec: ResourceSpecInput
+  rStudioConnectUrl: String
+  rStudioPackageManagerUrl: String
+}
+
+input DockerSettingsInput {
+  enableDockerAccess: String
+  vpcOnlyTrustedAccounts: [String]
+}
+
+input AmazonQSettingsInput {
+  status: String
+  qProfileArn: AmazonResourceName
+}
+
+input DefaultSpaceSettingsInput {
+  executionRole: AmazonResourceName
+  securityGroups: [String]
+  jupyterServerAppSettings: JupyterServerAppSettingsInput
+  kernelGatewayAppSettings: KernelGatewayAppSettingsInput
+}
+
+input SpaceSettingsInput {
+  jupyterServerAppSettings: JupyterServerAppSettingsInput
+  kernelGatewayAppSettings: KernelGatewayAppSettingsInput
+  appType: String
+  spaceStorageSettings: SpaceStorageSettingsInput
+}
+
+input SpaceStorageSettingsInput {
+  ebsStorageSettings: EbsStorageSettingsInput
+}
+
+input EbsStorageSettingsInput {
+  ebsVolumeSizeInGb: Int!
+}
+
+input OwnershipSettingsInput {
+  ownerUserProfileName: String!
+}
+
+input SpaceSharingSettingsInput {
+  sharingType: String!
+}
+
+input RetentionPolicyInput {
+  homeEfsFileSystem: String
+}
+
+input TagInput {
+  key: String!
+  value: String!
+}
+
+# ─── Connection / List Types ──────────────────────────────────────────────────
+
+type TrainingJobList { trainingJobSummaries: [TrainingJobSummary]; nextToken: String }
+type TrainingJobSummary { trainingJobName: String!; trainingJobArn: AmazonResourceName!; creationTime: DateTime!; trainingEndTime: DateTime; lastModifiedTime: DateTime; trainingJobStatus: TrainingJobStatus! }
+type ModelList { models: [ModelSummary]; nextToken: String }
+type ModelSummary { modelName: String!; modelArn: AmazonResourceName!; creationTime: DateTime! }
+type ModelPackageList { modelPackageSummaryList: [ModelPackageSummary]; nextToken: String }
+type ModelPackageSummary { modelPackageName: String; modelPackageArn: AmazonResourceName; modelPackageVersion: Int; modelPackageGroupName: String; modelPackageDescription: String; creationTime: DateTime!; modelPackageStatus: ModelPackageStatus!; modelApprovalStatus: String }
+type EndpointList { endpoints: [EndpointSummary]; nextToken: String }
+type TransformJobList { transformJobSummaries: [TransformJobSummary]; nextToken: String }
+type TransformJobSummary { transformJobName: String!; transformJobArn: AmazonResourceName!; creationTime: DateTime!; transformEndTime: DateTime; lastModifiedTime: DateTime; transformJobStatus: TransformJobStatus! }
+type CompilationJobList { compilationJobSummaries: [CompilationJobSummary]; nextToken: String }
+type CompilationJobSummary { compilationJobName: String!; compilationJobArn: AmazonResourceName!; creationTime: DateTime!; compilationStartTime: DateTime; compilationEndTime: DateTime; targetDevice: String; targetPlatformOs: String; targetPlatformArch: String; compilationJobStatus: CompilationJobStatus! }
+type HyperParameterTuningList { hyperParameterTuningJobSummaries: [HyperParameterTuningJobSummary]; nextToken: String }
+type HyperParameterTuningJobSummary { hyperParameterTuningJobName: String!; hyperParameterTuningJobArn: AmazonResourceName!; hyperParameterTuningJobStatus: String!; strategy: String!; creationTime: DateTime!; hyperParameterTuningEndTime: DateTime; lastModifiedTime: DateTime; trainingJobStatusCounters: TrainingJobStatusCounters!; objectiveStatusCounters: ObjectiveStatusCounters! }
+type PipelineList { pipelineSummaries: [PipelineSummary]; nextToken: String }
+type PipelineSummary { pipelineArn: AmazonResourceName; pipelineName: String; pipelineDisplayName: String; pipelineDescription: String; roleArn: AmazonResourceName; creationTime: DateTime; lastModifiedTime: DateTime; lastExecutionTime: DateTime }
+type PipelineExecutionList { pipelineExecutionSummaries: [PipelineExecutionSummary]; nextToken: String }
+type PipelineExecutionSummary { pipelineExecutionArn: AmazonResourceName; startTime: DateTime; pipelineExecutionStatus: PipelineExecutionStatus; pipelineExecutionDescription: String; pipelineExecutionDisplayName: String; pipelineExecutionFailureReason: String }
+type StepExecutionList { pipelineExecutionSteps: [StepExecution]; nextToken: String }
+type FeatureGroupList { featureGroupSummaries: [FeatureGroupSummary]; nextToken: String }
+type FeatureGroupSummary { featureGroupName: String!; featureGroupArn: AmazonResourceName!; creationTime: DateTime!; featureGroupStatus: String; offlineStoreStatus: OfflineStoreStatus }
+type ExperimentList { experimentSummaries: [ExperimentSummary]; nextToken: String }
+type ExperimentSummary { experimentArn: AmazonResourceName; experimentName: String; displayName: String; source: ExperimentSource; creationTime: DateTime; lastModifiedTime: DateTime }
+type TrialList { trialSummaries: [TrialSummary]; nextToken: String }
+type TrialSummary { trialArn: AmazonResourceName; trialName: String; displayName: String; trialSource: TrialSource; creationTime: DateTime; lastModifiedTime: DateTime }
+type ArtifactList { artifactSummaries: [ArtifactSummary]; nextToken: String }
+type ArtifactSummary { artifactArn: AmazonResourceName; artifactName: String; source: ArtifactSource; artifactType: String; creationTime: DateTime; lastModifiedTime: DateTime }
+type ActionList { actionSummaries: [ActionSummary]; nextToken: String }
+type ActionSummary { actionArn: AmazonResourceName; actionName: String; source: ActionSource; actionType: String; status: String; creationTime: DateTime; lastModifiedTime: DateTime }
+type ContextList { contextSummaries: [ContextSummary]; nextToken: String }
+type ContextSummary { contextArn: AmazonResourceName; contextName: String; source: ContextSource; contextType: String; creationTime: DateTime; lastModifiedTime: DateTime }
+type AssociationList { associationSummaries: [Association]; nextToken: String }
+type LineageQueryResult { vertices: [Vertex]; edges: [Edge]; nextToken: String }
+type Vertex { arn: AmazonResourceName; type: String; lineageType: String }
+type Edge { sourceArn: AmazonResourceName; destinationArn: AmazonResourceName; associationType: AssociationEdgeType }
+type ProcessingJobList { processingJobSummaries: [ProcessingJobSummary]; nextToken: String }
+type ProcessingJobSummary { processingJobName: String!; processingJobArn: AmazonResourceName!; creationTime: DateTime!; processingEndTime: DateTime; lastModifiedTime: DateTime; processingJobStatus: ProcessingJobStatus!; failureReason: String; exitMessage: String }
+type MonitoringScheduleList { monitoringScheduleSummaries: [MonitoringScheduleSummary]; nextToken: String }
+type MonitoringScheduleSummary { monitoringScheduleName: String!; monitoringScheduleArn: AmazonResourceName!; creationTime: DateTime!; lastModifiedTime: DateTime!; monitoringScheduleStatus: MonitoringScheduleStatus!; endpointName: String; monitoringJobDefinitionName: String; monitoringType: String }
+type InferenceExperimentList { inferenceExperiments: [InferenceExperimentSummary]; nextToken: String }
+type InferenceExperimentSummary { name: String!; type: String!; schedule: InferenceExperimentSchedule; status: InferenceExperimentStatus!; statusReason: String; description: String; creationTime: DateTime; completionTime: DateTime; lastModifiedTime: DateTime; roleArn: AmazonResourceName }
+type ProjectList { projectSummaryList: [ProjectSummary]; nextToken: String }
+type ProjectSummary { projectName: String!; projectDescription: String; projectArn: AmazonResourceName!; projectId: String!; creationTime: DateTime!; projectStatus: ProjectStatus! }
+type DomainList { domains: [DomainDetails]; nextToken: String }
+type DomainDetails { domainId: String; domainArn: AmazonResourceName; domainName: String; status: DomainStatus; creationTime: DateTime; lastModifiedTime: DateTime; url: String }
+type SpaceList { spaces: [SpaceDetails]; nextToken: String }
+type SpaceDetails { domainId: String; spaceName: String; status: String; creationTime: DateTime; lastModifiedTime: DateTime; spaceSettingsSummary: SpaceSettingsSummary; spaceDisplayName: String }
+type SpaceSettingsSummary { appType: String; spaceStorageSettings: SpaceStorageSettings }
+type UserProfileList { userProfiles: [UserProfileDetails]; nextToken: String }
+type UserProfileDetails { domainId: String; userProfileName: String; status: String; creationTime: DateTime; lastModifiedTime: DateTime }
+type TagList { tags: [Tag]; nextToken: String }
+
+# ─── Result Types ─────────────────────────────────────────────────────────────
+
+type StopResult { success: Boolean! }
+type StartResult { success: Boolean! }
+type DeleteResult { success: Boolean! }
+type PutRecordResult { success: Boolean! }
+type AddTagsResult { tags: [Tag] }
+type AssociateResult { trialComponentName: String; trialName: String }
+type DisassociateResult { trialComponentName: String; trialName: String }
