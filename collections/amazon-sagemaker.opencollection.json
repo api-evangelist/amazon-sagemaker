@@ -1,0 +1,315 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon SageMaker API",
+    "version": "Sun Jul 23 2017 20:00:00 GMT-0400 (Eastern Daylight Time)"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Notebook Instances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon SageMaker Create a Notebook Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sagemaker.{region}.amazonaws.com/#CreateNotebookInstance",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an ML compute instance with a Jupyter notebook for exploring data and developing ML models."
+        },
+        {
+          "info": {
+            "name": "Amazon SageMaker Describe a Notebook Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sagemaker.{region}.amazonaws.com/#DescribeNotebookInstance",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns information about a notebook instance."
+        },
+        {
+          "info": {
+            "name": "Amazon SageMaker List Notebook Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sagemaker.{region}.amazonaws.com/#ListNotebookInstances",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a list of the notebook instances in the requester's account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Training Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon SageMaker Create a Training Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sagemaker.{region}.amazonaws.com/#CreateTrainingJob",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts a model training job. SageMaker provides the algorithm and compute resources, and you provide the input data and training parameters."
+        },
+        {
+          "info": {
+            "name": "Amazon SageMaker Describe a Training Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sagemaker.{region}.amazonaws.com/#DescribeTrainingJob",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns information about a training job."
+        },
+        {
+          "info": {
+            "name": "Amazon SageMaker List Training Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sagemaker.{region}.amazonaws.com/#ListTrainingJobs",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Lists training jobs."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Models",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon SageMaker Create a Model",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sagemaker.{region}.amazonaws.com/#CreateModel",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a model in SageMaker. In the request, you specify a name for the model and describe a primary container that contains the inference code, model artifacts, and environment variables."
+        },
+        {
+          "info": {
+            "name": "Amazon SageMaker Describe a Model",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sagemaker.{region}.amazonaws.com/#DescribeModel",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Describes a model that you created using the CreateModel API."
+        },
+        {
+          "info": {
+            "name": "Amazon SageMaker List Models",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sagemaker.{region}.amazonaws.com/#ListModels",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Lists models created with the CreateModel API."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Endpoints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon SageMaker Create an Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sagemaker.{region}.amazonaws.com/#CreateEndpoint",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an endpoint using the endpoint configuration specified in the request. SageMaker uses the endpoint to provision resources and deploy models."
+        },
+        {
+          "info": {
+            "name": "Amazon SageMaker Describe an Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sagemaker.{region}.amazonaws.com/#DescribeEndpoint",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the description of an endpoint."
+        },
+        {
+          "info": {
+            "name": "Amazon SageMaker List Endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sagemaker.{region}.amazonaws.com/#ListEndpoints",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Lists endpoints."
+        },
+        {
+          "info": {
+            "name": "Amazon SageMaker Create an Endpoint Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sagemaker.{region}.amazonaws.com/#CreateEndpointConfig",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an endpoint configuration that SageMaker hosting services uses to deploy models. The configuration identifies the ML compute instances and the model variants to deploy."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

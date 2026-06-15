@@ -1,0 +1,1389 @@
+{
+  "info": {
+    "_postman_id": "9aedb217-edc5-492d-8079-7baecc9f04da",
+    "name": "Amazon SageMaker API",
+    "description": "Amazon SageMaker is a fully managed machine learning platform that enables developers and data scientists to build, train, and deploy machine learning models at scale. This API provides programmatic access to SageMaker resources including notebook instances, training jobs, models, and endpoints.\n\nContact Support:\n Name: Amazon Web Services",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:00:28.000Z",
+    "updatedAt": "2026-06-05T15:00:29.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9aedb217-edc5-492d-8079-7baecc9f04da"
+  },
+  "item": [
+    {
+      "name": "#CreateNotebookInstance",
+      "item": [
+        {
+          "name": "Amazon SageMaker Create a Notebook Instance",
+          "id": "909d3f2b-743c-4094-81c4-9f774dfd9dc4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.1"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"NotebookInstanceName\": \"<string>\",\n  \"InstanceType\": \"<string>\",\n  \"RoleArn\": \"<string>\",\n  \"SubnetId\": \"<string>\",\n  \"SecurityGroupIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"VolumeSizeInGB\": \"<integer>\",\n  \"Tags\": [\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    },\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/#CreateNotebookInstance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "hash": "CreateNotebookInstance"
+            },
+            "description": "Creates an ML compute instance with a Jupyter notebook for exploring data and developing ML models."
+          },
+          "response": [
+            {
+              "id": "ce534a64-fead-482e-bef9-23aaca03fe65",
+              "name": "Successful response.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-amz-json-1.1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"NotebookInstanceName\": \"<string>\",\n  \"InstanceType\": \"<string>\",\n  \"RoleArn\": \"<string>\",\n  \"SubnetId\": \"<string>\",\n  \"SecurityGroupIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"VolumeSizeInGB\": \"<integer>\",\n  \"Tags\": [\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    },\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/#CreateNotebookInstance",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "hash": "CreateNotebookInstance"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"NotebookInstanceArn\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:00:29.000Z",
+              "updatedAt": "2026-06-05T15:00:29.000Z",
+              "uid": "35240-ce534a64-fead-482e-bef9-23aaca03fe65"
+            }
+          ],
+          "createdAt": "2026-06-05T15:00:29.000Z",
+          "updatedAt": "2026-06-05T15:00:29.000Z",
+          "uid": "35240-909d3f2b-743c-4094-81c4-9f774dfd9dc4"
+        }
+      ],
+      "id": "db4d05ea-ce7e-476e-9de2-3b97a5527949",
+      "createdAt": "2026-06-05T15:00:29.000Z",
+      "updatedAt": "2026-06-05T15:00:29.000Z",
+      "uid": "35240-db4d05ea-ce7e-476e-9de2-3b97a5527949"
+    },
+    {
+      "name": "#DescribeNotebookInstance",
+      "item": [
+        {
+          "name": "Amazon SageMaker Describe a Notebook Instance",
+          "id": "08e895de-671c-44b8-bd93-d3e1ccaa71ca",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.1"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"NotebookInstanceName\": \"<string>\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/#DescribeNotebookInstance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "hash": "DescribeNotebookInstance"
+            },
+            "description": "Returns information about a notebook instance."
+          },
+          "response": [
+            {
+              "id": "dc553889-e849-4448-9bdb-0a7734042ff6",
+              "name": "Successful response.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-amz-json-1.1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"NotebookInstanceName\": \"<string>\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/#DescribeNotebookInstance",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "hash": "DescribeNotebookInstance"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"NotebookInstanceArn\": \"<string>\",\n  \"NotebookInstanceName\": \"<string>\",\n  \"NotebookInstanceStatus\": \"Stopping\",\n  \"InstanceType\": \"<string>\",\n  \"RoleArn\": \"<string>\",\n  \"SubnetId\": \"<string>\",\n  \"SecurityGroups\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"Url\": \"<string>\",\n  \"VolumeSizeInGB\": \"<integer>\",\n  \"CreationTime\": \"<dateTime>\",\n  \"LastModifiedTime\": \"<dateTime>\"\n}",
+              "createdAt": "2026-06-05T15:00:29.000Z",
+              "updatedAt": "2026-06-05T15:00:29.000Z",
+              "uid": "35240-dc553889-e849-4448-9bdb-0a7734042ff6"
+            }
+          ],
+          "createdAt": "2026-06-05T15:00:29.000Z",
+          "updatedAt": "2026-06-05T15:00:29.000Z",
+          "uid": "35240-08e895de-671c-44b8-bd93-d3e1ccaa71ca"
+        }
+      ],
+      "id": "771c5359-f3ee-4e61-802e-ec03d3ae0e9c",
+      "createdAt": "2026-06-05T15:00:29.000Z",
+      "updatedAt": "2026-06-05T15:00:29.000Z",
+      "uid": "35240-771c5359-f3ee-4e61-802e-ec03d3ae0e9c"
+    },
+    {
+      "name": "#ListNotebookInstances",
+      "item": [
+        {
+          "name": "Amazon SageMaker List Notebook Instances",
+          "id": "d0ecd0a8-26f4-44ff-ad20-dcdbb9f25528",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.1"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"MaxResults\": \"<integer>\",\n  \"NextToken\": \"<string>\",\n  \"SortBy\": \"CreationTime\",\n  \"SortOrder\": \"Ascending\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/#ListNotebookInstances",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "hash": "ListNotebookInstances"
+            },
+            "description": "Returns a list of the notebook instances in the requester's account."
+          },
+          "response": [
+            {
+              "id": "290edc9f-83c3-459e-817d-7b47a6de64d5",
+              "name": "Successful response.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-amz-json-1.1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"MaxResults\": \"<integer>\",\n  \"NextToken\": \"<string>\",\n  \"SortBy\": \"CreationTime\",\n  \"SortOrder\": \"Ascending\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/#ListNotebookInstances",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "hash": "ListNotebookInstances"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"NotebookInstances\": [\n    {\n      \"NotebookInstanceArn\": \"<string>\",\n      \"NotebookInstanceName\": \"<string>\",\n      \"NotebookInstanceStatus\": \"Pending\",\n      \"InstanceType\": \"<string>\",\n      \"RoleArn\": \"<string>\",\n      \"SubnetId\": \"<string>\",\n      \"SecurityGroups\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"Url\": \"<string>\",\n      \"VolumeSizeInGB\": \"<integer>\",\n      \"CreationTime\": \"<dateTime>\",\n      \"LastModifiedTime\": \"<dateTime>\"\n    },\n    {\n      \"NotebookInstanceArn\": \"<string>\",\n      \"NotebookInstanceName\": \"<string>\",\n      \"NotebookInstanceStatus\": \"Updating\",\n      \"InstanceType\": \"<string>\",\n      \"RoleArn\": \"<string>\",\n      \"SubnetId\": \"<string>\",\n      \"SecurityGroups\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"Url\": \"<string>\",\n      \"VolumeSizeInGB\": \"<integer>\",\n      \"CreationTime\": \"<dateTime>\",\n      \"LastModifiedTime\": \"<dateTime>\"\n    }\n  ],\n  \"NextToken\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:00:29.000Z",
+              "updatedAt": "2026-06-05T15:00:29.000Z",
+              "uid": "35240-290edc9f-83c3-459e-817d-7b47a6de64d5"
+            }
+          ],
+          "createdAt": "2026-06-05T15:00:29.000Z",
+          "updatedAt": "2026-06-05T15:00:29.000Z",
+          "uid": "35240-d0ecd0a8-26f4-44ff-ad20-dcdbb9f25528"
+        }
+      ],
+      "id": "229ce05f-482b-4e0d-abb6-3e50f6d99ebf",
+      "createdAt": "2026-06-05T15:00:29.000Z",
+      "updatedAt": "2026-06-05T15:00:29.000Z",
+      "uid": "35240-229ce05f-482b-4e0d-abb6-3e50f6d99ebf"
+    },
+    {
+      "name": "#CreateTrainingJob",
+      "item": [
+        {
+          "name": "Amazon SageMaker Create a Training Job",
+          "id": "79f36fcb-c8a8-4a9e-9ab1-ec7a4f877f17",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.1"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TrainingJobName\": \"<string>\",\n  \"AlgorithmSpecification\": {\n    \"TrainingImage\": \"<string>\",\n    \"TrainingInputMode\": \"File\",\n    \"AlgorithmName\": \"<string>\"\n  },\n  \"RoleArn\": \"<string>\",\n  \"OutputDataConfig\": {\n    \"S3OutputPath\": \"<string>\",\n    \"KmsKeyId\": \"<string>\"\n  },\n  \"ResourceConfig\": {\n    \"InstanceType\": \"<string>\",\n    \"InstanceCount\": \"<integer>\",\n    \"VolumeSizeInGB\": \"<integer>\"\n  },\n  \"StoppingCondition\": {\n    \"MaxRuntimeInSeconds\": \"<integer>\",\n    \"MaxWaitTimeInSeconds\": \"<integer>\"\n  },\n  \"InputDataConfig\": [\n    {\n      \"ChannelName\": \"<string>\",\n      \"DataSource\": {\n        \"S3DataSource\": {\n          \"S3DataType\": \"<string>\",\n          \"S3Uri\": \"<string>\",\n          \"S3DataDistributionType\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"ChannelName\": \"<string>\",\n      \"DataSource\": {\n        \"S3DataSource\": {\n          \"S3DataType\": \"<string>\",\n          \"S3Uri\": \"<string>\",\n          \"S3DataDistributionType\": \"<string>\"\n        }\n      }\n    }\n  ],\n  \"HyperParameters\": {\n    \"estd\": \"<string>\"\n  },\n  \"Tags\": [\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    },\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/#CreateTrainingJob",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "hash": "CreateTrainingJob"
+            },
+            "description": "Starts a model training job. SageMaker provides the algorithm and compute resources, and you provide the input data and training parameters."
+          },
+          "response": [
+            {
+              "id": "dec9a658-fb56-4fbf-9d4b-7cf62317f952",
+              "name": "Successful response.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-amz-json-1.1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TrainingJobName\": \"<string>\",\n  \"AlgorithmSpecification\": {\n    \"TrainingImage\": \"<string>\",\n    \"TrainingInputMode\": \"File\",\n    \"AlgorithmName\": \"<string>\"\n  },\n  \"RoleArn\": \"<string>\",\n  \"OutputDataConfig\": {\n    \"S3OutputPath\": \"<string>\",\n    \"KmsKeyId\": \"<string>\"\n  },\n  \"ResourceConfig\": {\n    \"InstanceType\": \"<string>\",\n    \"InstanceCount\": \"<integer>\",\n    \"VolumeSizeInGB\": \"<integer>\"\n  },\n  \"StoppingCondition\": {\n    \"MaxRuntimeInSeconds\": \"<integer>\",\n    \"MaxWaitTimeInSeconds\": \"<integer>\"\n  },\n  \"InputDataConfig\": [\n    {\n      \"ChannelName\": \"<string>\",\n      \"DataSource\": {\n        \"S3DataSource\": {\n          \"S3DataType\": \"<string>\",\n          \"S3Uri\": \"<string>\",\n          \"S3DataDistributionType\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"ChannelName\": \"<string>\",\n      \"DataSource\": {\n        \"S3DataSource\": {\n          \"S3DataType\": \"<string>\",\n          \"S3Uri\": \"<string>\",\n          \"S3DataDistributionType\": \"<string>\"\n        }\n      }\n    }\n  ],\n  \"HyperParameters\": {\n    \"estd\": \"<string>\"\n  },\n  \"Tags\": [\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    },\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/#CreateTrainingJob",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "hash": "CreateTrainingJob"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"TrainingJobArn\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:00:29.000Z",
+              "updatedAt": "2026-06-05T15:00:29.000Z",
+              "uid": "35240-dec9a658-fb56-4fbf-9d4b-7cf62317f952"
+            }
+          ],
+          "createdAt": "2026-06-05T15:00:29.000Z",
+          "updatedAt": "2026-06-05T15:00:29.000Z",
+          "uid": "35240-79f36fcb-c8a8-4a9e-9ab1-ec7a4f877f17"
+        }
+      ],
+      "id": "6a60299c-49b9-4a5a-afc9-d948053fce0f",
+      "createdAt": "2026-06-05T15:00:29.000Z",
+      "updatedAt": "2026-06-05T15:00:29.000Z",
+      "uid": "35240-6a60299c-49b9-4a5a-afc9-d948053fce0f"
+    },
+    {
+      "name": "#DescribeTrainingJob",
+      "item": [
+        {
+          "name": "Amazon SageMaker Describe a Training Job",
+          "id": "f516b03e-c6c9-4e59-b99b-73ca633796a0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.1"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TrainingJobName\": \"<string>\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/#DescribeTrainingJob",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "hash": "DescribeTrainingJob"
+            },
+            "description": "Returns information about a training job."
+          },
+          "response": [
+            {
+              "id": "c16a9802-22f2-4a0b-a476-6a9f52602567",
+              "name": "Successful response.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-amz-json-1.1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TrainingJobName\": \"<string>\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/#DescribeTrainingJob",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "hash": "DescribeTrainingJob"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"TrainingJobName\": \"<string>\",\n  \"TrainingJobArn\": \"<string>\",\n  \"TrainingJobStatus\": \"Stopping\",\n  \"SecondaryStatus\": \"<string>\",\n  \"AlgorithmSpecification\": {\n    \"TrainingImage\": \"<string>\",\n    \"TrainingInputMode\": \"<string>\",\n    \"AlgorithmName\": \"<string>\"\n  },\n  \"RoleArn\": \"<string>\",\n  \"InputDataConfig\": [\n    {\n      \"ChannelName\": \"<string>\",\n      \"DataSource\": {}\n    },\n    {\n      \"ChannelName\": \"<string>\",\n      \"DataSource\": {}\n    }\n  ],\n  \"OutputDataConfig\": {\n    \"S3OutputPath\": \"<string>\",\n    \"KmsKeyId\": \"<string>\"\n  },\n  \"ResourceConfig\": {\n    \"InstanceType\": \"<string>\",\n    \"InstanceCount\": \"<integer>\",\n    \"VolumeSizeInGB\": \"<integer>\"\n  },\n  \"StoppingCondition\": {\n    \"MaxRuntimeInSeconds\": \"<integer>\",\n    \"MaxWaitTimeInSeconds\": \"<integer>\"\n  },\n  \"HyperParameters\": {\n    \"proident_1\": \"<string>\",\n    \"dob3\": \"<string>\"\n  },\n  \"ModelArtifacts\": {\n    \"S3ModelArtifacts\": \"<string>\"\n  },\n  \"TrainingStartTime\": \"<dateTime>\",\n  \"TrainingEndTime\": \"<dateTime>\",\n  \"CreationTime\": \"<dateTime>\",\n  \"LastModifiedTime\": \"<dateTime>\",\n  \"BillableTimeInSeconds\": \"<integer>\",\n  \"FailureReason\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:00:29.000Z",
+              "updatedAt": "2026-06-05T15:00:29.000Z",
+              "uid": "35240-c16a9802-22f2-4a0b-a476-6a9f52602567"
+            }
+          ],
+          "createdAt": "2026-06-05T15:00:29.000Z",
+          "updatedAt": "2026-06-05T15:00:29.000Z",
+          "uid": "35240-f516b03e-c6c9-4e59-b99b-73ca633796a0"
+        }
+      ],
+      "id": "97084b05-adb3-4a1f-996a-7575842bb85a",
+      "createdAt": "2026-06-05T15:00:29.000Z",
+      "updatedAt": "2026-06-05T15:00:29.000Z",
+      "uid": "35240-97084b05-adb3-4a1f-996a-7575842bb85a"
+    },
+    {
+      "name": "#ListTrainingJobs",
+      "item": [
+        {
+          "name": "Amazon SageMaker List Training Jobs",
+          "id": "f490260f-9ee8-4de1-b75a-a6846317ba47",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.1"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"MaxResults\": \"<integer>\",\n  \"NextToken\": \"<string>\",\n  \"SortBy\": \"CreationTime\",\n  \"SortOrder\": \"Ascending\",\n  \"StatusEquals\": \"Completed\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/#ListTrainingJobs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "hash": "ListTrainingJobs"
+            },
+            "description": "Lists training jobs."
+          },
+          "response": [
+            {
+              "id": "f722682d-59f8-4a65-964f-0dd49ba36fb1",
+              "name": "Successful response.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-amz-json-1.1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"MaxResults\": \"<integer>\",\n  \"NextToken\": \"<string>\",\n  \"SortBy\": \"CreationTime\",\n  \"SortOrder\": \"Ascending\",\n  \"StatusEquals\": \"Completed\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/#ListTrainingJobs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "hash": "ListTrainingJobs"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"TrainingJobSummaries\": [\n    {\n      \"TrainingJobName\": \"<string>\",\n      \"TrainingJobArn\": \"<string>\",\n      \"TrainingJobStatus\": \"Stopping\",\n      \"SecondaryStatus\": \"<string>\",\n      \"AlgorithmSpecification\": {\n        \"TrainingImage\": \"<string>\",\n        \"TrainingInputMode\": \"<string>\",\n        \"AlgorithmName\": \"<string>\"\n      },\n      \"RoleArn\": \"<string>\",\n      \"InputDataConfig\": [\n        {\n          \"ChannelName\": \"<string>\",\n          \"DataSource\": {}\n        },\n        {\n          \"ChannelName\": \"<string>\",\n          \"DataSource\": {}\n        }\n      ],\n      \"OutputDataConfig\": {\n        \"S3OutputPath\": \"<string>\",\n        \"KmsKeyId\": \"<string>\"\n      },\n      \"ResourceConfig\": {\n        \"InstanceType\": \"<string>\",\n        \"InstanceCount\": \"<integer>\",\n        \"VolumeSizeInGB\": \"<integer>\"\n      },\n      \"StoppingCondition\": {\n        \"MaxRuntimeInSeconds\": \"<integer>\",\n        \"MaxWaitTimeInSeconds\": \"<integer>\"\n      },\n      \"HyperParameters\": {\n        \"officiab_\": \"<string>\",\n        \"proident_4\": \"<string>\"\n      },\n      \"ModelArtifacts\": {\n        \"S3ModelArtifacts\": \"<string>\"\n      },\n      \"TrainingStartTime\": \"<dateTime>\",\n      \"TrainingEndTime\": \"<dateTime>\",\n      \"CreationTime\": \"<dateTime>\",\n      \"LastModifiedTime\": \"<dateTime>\",\n      \"BillableTimeInSeconds\": \"<integer>\",\n      \"FailureReason\": \"<string>\"\n    },\n    {\n      \"TrainingJobName\": \"<string>\",\n      \"TrainingJobArn\": \"<string>\",\n      \"TrainingJobStatus\": \"Stopped\",\n      \"SecondaryStatus\": \"<string>\",\n      \"AlgorithmSpecification\": {\n        \"TrainingImage\": \"<string>\",\n        \"TrainingInputMode\": \"<string>\",\n        \"AlgorithmName\": \"<string>\"\n      },\n      \"RoleArn\": \"<string>\",\n      \"InputDataConfig\": [\n        {\n          \"ChannelName\": \"<string>\",\n          \"DataSource\": {}\n        },\n        {\n          \"ChannelName\": \"<string>\",\n          \"DataSource\": {}\n        }\n      ],\n      \"OutputDataConfig\": {\n        \"S3OutputPath\": \"<string>\",\n        \"KmsKeyId\": \"<string>\"\n      },\n      \"ResourceConfig\": {\n        \"InstanceType\": \"<string>\",\n        \"InstanceCount\": \"<integer>\",\n        \"VolumeSizeInGB\": \"<integer>\"\n      },\n      \"StoppingCondition\": {\n        \"MaxRuntimeInSeconds\": \"<integer>\",\n        \"MaxWaitTimeInSeconds\": \"<integer>\"\n      },\n      \"HyperParameters\": {\n        \"anim_0\": \"<string>\"\n      },\n      \"ModelArtifacts\": {\n        \"S3ModelArtifacts\": \"<string>\"\n      },\n      \"TrainingStartTime\": \"<dateTime>\",\n      \"TrainingEndTime\": \"<dateTime>\",\n      \"CreationTime\": \"<dateTime>\",\n      \"LastModifiedTime\": \"<dateTime>\",\n      \"BillableTimeInSeconds\": \"<integer>\",\n      \"FailureReason\": \"<string>\"\n    }\n  ],\n  \"NextToken\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:00:29.000Z",
+              "updatedAt": "2026-06-05T15:00:29.000Z",
+              "uid": "35240-f722682d-59f8-4a65-964f-0dd49ba36fb1"
+            }
+          ],
+          "createdAt": "2026-06-05T15:00:29.000Z",
+          "updatedAt": "2026-06-05T15:00:29.000Z",
+          "uid": "35240-f490260f-9ee8-4de1-b75a-a6846317ba47"
+        }
+      ],
+      "id": "3328a134-8b74-4a4d-9df4-7e90baa8b259",
+      "createdAt": "2026-06-05T15:00:29.000Z",
+      "updatedAt": "2026-06-05T15:00:29.000Z",
+      "uid": "35240-3328a134-8b74-4a4d-9df4-7e90baa8b259"
+    },
+    {
+      "name": "#CreateModel",
+      "item": [
+        {
+          "name": "Amazon SageMaker Create a Model",
+          "id": "66d69114-0437-465f-814f-1d4f733c9950",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.1"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ModelName\": \"<string>\",\n  \"ExecutionRoleArn\": \"<string>\",\n  \"PrimaryContainer\": {\n    \"Image\": \"<string>\",\n    \"ModelDataUrl\": \"<string>\",\n    \"Environment\": {\n      \"irure_eb2\": \"<string>\"\n    }\n  },\n  \"Tags\": [\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    },\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/#CreateModel",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "hash": "CreateModel"
+            },
+            "description": "Creates a model in SageMaker. In the request, you specify a name for the model and describe a primary container that contains the inference code, model artifacts, and environment variables."
+          },
+          "response": [
+            {
+              "id": "2a03446f-cc20-4f6d-9106-f8b6e8e5e112",
+              "name": "Successful response.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-amz-json-1.1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ModelName\": \"<string>\",\n  \"ExecutionRoleArn\": \"<string>\",\n  \"PrimaryContainer\": {\n    \"Image\": \"<string>\",\n    \"ModelDataUrl\": \"<string>\",\n    \"Environment\": {\n      \"irure_eb2\": \"<string>\"\n    }\n  },\n  \"Tags\": [\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    },\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/#CreateModel",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "hash": "CreateModel"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ModelArn\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:00:29.000Z",
+              "updatedAt": "2026-06-05T15:00:29.000Z",
+              "uid": "35240-2a03446f-cc20-4f6d-9106-f8b6e8e5e112"
+            }
+          ],
+          "createdAt": "2026-06-05T15:00:29.000Z",
+          "updatedAt": "2026-06-05T15:00:29.000Z",
+          "uid": "35240-66d69114-0437-465f-814f-1d4f733c9950"
+        }
+      ],
+      "id": "1655d961-7dbb-44a6-8ee1-3764ccb92e72",
+      "createdAt": "2026-06-05T15:00:29.000Z",
+      "updatedAt": "2026-06-05T15:00:29.000Z",
+      "uid": "35240-1655d961-7dbb-44a6-8ee1-3764ccb92e72"
+    },
+    {
+      "name": "#DescribeModel",
+      "item": [
+        {
+          "name": "Amazon SageMaker Describe a Model",
+          "id": "ee6b60ac-fac5-4af0-b05f-8ea8a747ecf7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.1"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ModelName\": \"<string>\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/#DescribeModel",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "hash": "DescribeModel"
+            },
+            "description": "Describes a model that you created using the CreateModel API."
+          },
+          "response": [
+            {
+              "id": "00a41769-479b-4890-90d7-b22211150d02",
+              "name": "Successful response.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-amz-json-1.1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ModelName\": \"<string>\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/#DescribeModel",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "hash": "DescribeModel"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"ModelName\": \"<string>\",\n  \"ModelArn\": \"<string>\",\n  \"PrimaryContainer\": {\n    \"Image\": \"<string>\",\n    \"ModelDataUrl\": \"<string>\",\n    \"Environment\": {\n      \"cillum1\": \"<string>\"\n    }\n  },\n  \"ExecutionRoleArn\": \"<string>\",\n  \"CreationTime\": \"<dateTime>\"\n}",
+              "createdAt": "2026-06-05T15:00:29.000Z",
+              "updatedAt": "2026-06-05T15:00:29.000Z",
+              "uid": "35240-00a41769-479b-4890-90d7-b22211150d02"
+            }
+          ],
+          "createdAt": "2026-06-05T15:00:29.000Z",
+          "updatedAt": "2026-06-05T15:00:29.000Z",
+          "uid": "35240-ee6b60ac-fac5-4af0-b05f-8ea8a747ecf7"
+        }
+      ],
+      "id": "bedfa6d4-4e50-439d-8443-3f7bdf713ed9",
+      "createdAt": "2026-06-05T15:00:29.000Z",
+      "updatedAt": "2026-06-05T15:00:29.000Z",
+      "uid": "35240-bedfa6d4-4e50-439d-8443-3f7bdf713ed9"
+    },
+    {
+      "name": "#ListModels",
+      "item": [
+        {
+          "name": "Amazon SageMaker List Models",
+          "id": "0f3eb6f1-72c0-44d0-b6a1-2aeaa1a37cfb",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.1"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"MaxResults\": \"<integer>\",\n  \"NextToken\": \"<string>\",\n  \"SortBy\": \"Name\",\n  \"SortOrder\": \"Descending\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/#ListModels",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "hash": "ListModels"
+            },
+            "description": "Lists models created with the CreateModel API."
+          },
+          "response": [
+            {
+              "id": "70ce6eff-e01a-4a0f-9e62-23bbb316dc13",
+              "name": "Successful response.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-amz-json-1.1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"MaxResults\": \"<integer>\",\n  \"NextToken\": \"<string>\",\n  \"SortBy\": \"Name\",\n  \"SortOrder\": \"Descending\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/#ListModels",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "hash": "ListModels"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"Models\": [\n    {\n      \"ModelName\": \"<string>\",\n      \"ModelArn\": \"<string>\",\n      \"PrimaryContainer\": {\n        \"Image\": \"<string>\",\n        \"ModelDataUrl\": \"<string>\",\n        \"Environment\": {\n          \"anima48\": \"<string>\",\n          \"consequatff\": \"<string>\"\n        }\n      },\n      \"ExecutionRoleArn\": \"<string>\",\n      \"CreationTime\": \"<dateTime>\"\n    },\n    {\n      \"ModelName\": \"<string>\",\n      \"ModelArn\": \"<string>\",\n      \"PrimaryContainer\": {\n        \"Image\": \"<string>\",\n        \"ModelDataUrl\": \"<string>\",\n        \"Environment\": {\n          \"laboris1f\": \"<string>\",\n          \"consequat9c\": \"<string>\"\n        }\n      },\n      \"ExecutionRoleArn\": \"<string>\",\n      \"CreationTime\": \"<dateTime>\"\n    }\n  ],\n  \"NextToken\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:00:29.000Z",
+              "updatedAt": "2026-06-05T15:00:29.000Z",
+              "uid": "35240-70ce6eff-e01a-4a0f-9e62-23bbb316dc13"
+            }
+          ],
+          "createdAt": "2026-06-05T15:00:29.000Z",
+          "updatedAt": "2026-06-05T15:00:29.000Z",
+          "uid": "35240-0f3eb6f1-72c0-44d0-b6a1-2aeaa1a37cfb"
+        }
+      ],
+      "id": "8191179e-d44c-4ff4-872b-6e710606d381",
+      "createdAt": "2026-06-05T15:00:29.000Z",
+      "updatedAt": "2026-06-05T15:00:29.000Z",
+      "uid": "35240-8191179e-d44c-4ff4-872b-6e710606d381"
+    },
+    {
+      "name": "#CreateEndpoint",
+      "item": [
+        {
+          "name": "Amazon SageMaker Create an Endpoint",
+          "id": "c00c7ed9-5a95-49b2-a039-4020cd08b693",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.1"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"EndpointName\": \"<string>\",\n  \"EndpointConfigName\": \"<string>\",\n  \"Tags\": [\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    },\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/#CreateEndpoint",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "hash": "CreateEndpoint"
+            },
+            "description": "Creates an endpoint using the endpoint configuration specified in the request. SageMaker uses the endpoint to provision resources and deploy models."
+          },
+          "response": [
+            {
+              "id": "f5ca7a18-3c7f-4b5e-b317-51e4473bb59f",
+              "name": "Successful response.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-amz-json-1.1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"EndpointName\": \"<string>\",\n  \"EndpointConfigName\": \"<string>\",\n  \"Tags\": [\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    },\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/#CreateEndpoint",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "hash": "CreateEndpoint"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"EndpointArn\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:00:29.000Z",
+              "updatedAt": "2026-06-05T15:00:29.000Z",
+              "uid": "35240-f5ca7a18-3c7f-4b5e-b317-51e4473bb59f"
+            }
+          ],
+          "createdAt": "2026-06-05T15:00:29.000Z",
+          "updatedAt": "2026-06-05T15:00:29.000Z",
+          "uid": "35240-c00c7ed9-5a95-49b2-a039-4020cd08b693"
+        }
+      ],
+      "id": "d679a506-20c7-4a0a-862e-95b2cf41667a",
+      "createdAt": "2026-06-05T15:00:29.000Z",
+      "updatedAt": "2026-06-05T15:00:29.000Z",
+      "uid": "35240-d679a506-20c7-4a0a-862e-95b2cf41667a"
+    },
+    {
+      "name": "#DescribeEndpoint",
+      "item": [
+        {
+          "name": "Amazon SageMaker Describe an Endpoint",
+          "id": "9ddd0a97-d920-424f-a352-cb8e36763597",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.1"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"EndpointName\": \"<string>\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/#DescribeEndpoint",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "hash": "DescribeEndpoint"
+            },
+            "description": "Returns the description of an endpoint."
+          },
+          "response": [
+            {
+              "id": "51281a69-8eca-48f9-9a13-d038bb29d1de",
+              "name": "Successful response.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-amz-json-1.1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"EndpointName\": \"<string>\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/#DescribeEndpoint",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "hash": "DescribeEndpoint"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"EndpointName\": \"<string>\",\n  \"EndpointArn\": \"<string>\",\n  \"EndpointConfigName\": \"<string>\",\n  \"EndpointStatus\": \"Deleting\",\n  \"ProductionVariants\": [\n    {\n      \"VariantName\": \"<string>\",\n      \"DeployedImages\": [\n        {\n          \"SpecifiedImage\": \"<string>\",\n          \"ResolvedImage\": \"<string>\"\n        },\n        {\n          \"SpecifiedImage\": \"<string>\",\n          \"ResolvedImage\": \"<string>\"\n        }\n      ],\n      \"CurrentWeight\": \"<number>\",\n      \"DesiredWeight\": \"<number>\",\n      \"CurrentInstanceCount\": \"<integer>\",\n      \"DesiredInstanceCount\": \"<integer>\"\n    },\n    {\n      \"VariantName\": \"<string>\",\n      \"DeployedImages\": [\n        {\n          \"SpecifiedImage\": \"<string>\",\n          \"ResolvedImage\": \"<string>\"\n        },\n        {\n          \"SpecifiedImage\": \"<string>\",\n          \"ResolvedImage\": \"<string>\"\n        }\n      ],\n      \"CurrentWeight\": \"<number>\",\n      \"DesiredWeight\": \"<number>\",\n      \"CurrentInstanceCount\": \"<integer>\",\n      \"DesiredInstanceCount\": \"<integer>\"\n    }\n  ],\n  \"CreationTime\": \"<dateTime>\",\n  \"LastModifiedTime\": \"<dateTime>\",\n  \"FailureReason\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:00:29.000Z",
+              "updatedAt": "2026-06-05T15:00:29.000Z",
+              "uid": "35240-51281a69-8eca-48f9-9a13-d038bb29d1de"
+            }
+          ],
+          "createdAt": "2026-06-05T15:00:29.000Z",
+          "updatedAt": "2026-06-05T15:00:29.000Z",
+          "uid": "35240-9ddd0a97-d920-424f-a352-cb8e36763597"
+        }
+      ],
+      "id": "49a3956d-e8a7-4d17-b300-0053c29e968a",
+      "createdAt": "2026-06-05T15:00:29.000Z",
+      "updatedAt": "2026-06-05T15:00:29.000Z",
+      "uid": "35240-49a3956d-e8a7-4d17-b300-0053c29e968a"
+    },
+    {
+      "name": "#ListEndpoints",
+      "item": [
+        {
+          "name": "Amazon SageMaker List Endpoints",
+          "id": "b8851fc5-86fa-4dc7-b02b-0983a40a9116",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.1"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"MaxResults\": \"<integer>\",\n  \"NextToken\": \"<string>\",\n  \"SortBy\": \"Status\",\n  \"SortOrder\": \"Ascending\",\n  \"StatusEquals\": \"Failed\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/#ListEndpoints",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "hash": "ListEndpoints"
+            },
+            "description": "Lists endpoints."
+          },
+          "response": [
+            {
+              "id": "dcf18078-2ed6-4bde-bc0c-243da7d1d4c6",
+              "name": "Successful response.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-amz-json-1.1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"MaxResults\": \"<integer>\",\n  \"NextToken\": \"<string>\",\n  \"SortBy\": \"Status\",\n  \"SortOrder\": \"Ascending\",\n  \"StatusEquals\": \"Failed\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/#ListEndpoints",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "hash": "ListEndpoints"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"Endpoints\": [\n    {\n      \"EndpointName\": \"<string>\",\n      \"EndpointArn\": \"<string>\",\n      \"EndpointConfigName\": \"<string>\",\n      \"EndpointStatus\": \"SystemUpdating\",\n      \"ProductionVariants\": [\n        {\n          \"VariantName\": \"<string>\",\n          \"DeployedImages\": [\n            {\n              \"SpecifiedImage\": \"<string>\",\n              \"ResolvedImage\": \"<string>\"\n            },\n            {\n              \"SpecifiedImage\": \"<string>\",\n              \"ResolvedImage\": \"<string>\"\n            }\n          ],\n          \"CurrentWeight\": \"<number>\",\n          \"DesiredWeight\": \"<number>\",\n          \"CurrentInstanceCount\": \"<integer>\",\n          \"DesiredInstanceCount\": \"<integer>\"\n        },\n        {\n          \"VariantName\": \"<string>\",\n          \"DeployedImages\": [\n            {\n              \"SpecifiedImage\": \"<string>\",\n              \"ResolvedImage\": \"<string>\"\n            },\n            {\n              \"SpecifiedImage\": \"<string>\",\n              \"ResolvedImage\": \"<string>\"\n            }\n          ],\n          \"CurrentWeight\": \"<number>\",\n          \"DesiredWeight\": \"<number>\",\n          \"CurrentInstanceCount\": \"<integer>\",\n          \"DesiredInstanceCount\": \"<integer>\"\n        }\n      ],\n      \"CreationTime\": \"<dateTime>\",\n      \"LastModifiedTime\": \"<dateTime>\",\n      \"FailureReason\": \"<string>\"\n    },\n    {\n      \"EndpointName\": \"<string>\",\n      \"EndpointArn\": \"<string>\",\n      \"EndpointConfigName\": \"<string>\",\n      \"EndpointStatus\": \"Failed\",\n      \"ProductionVariants\": [\n        {\n          \"VariantName\": \"<string>\",\n          \"DeployedImages\": [\n            {\n              \"SpecifiedImage\": \"<string>\",\n              \"ResolvedImage\": \"<string>\"\n            },\n            {\n              \"SpecifiedImage\": \"<string>\",\n              \"ResolvedImage\": \"<string>\"\n            }\n          ],\n          \"CurrentWeight\": \"<number>\",\n          \"DesiredWeight\": \"<number>\",\n          \"CurrentInstanceCount\": \"<integer>\",\n          \"DesiredInstanceCount\": \"<integer>\"\n        },\n        {\n          \"VariantName\": \"<string>\",\n          \"DeployedImages\": [\n            {\n              \"SpecifiedImage\": \"<string>\",\n              \"ResolvedImage\": \"<string>\"\n            },\n            {\n              \"SpecifiedImage\": \"<string>\",\n              \"ResolvedImage\": \"<string>\"\n            }\n          ],\n          \"CurrentWeight\": \"<number>\",\n          \"DesiredWeight\": \"<number>\",\n          \"CurrentInstanceCount\": \"<integer>\",\n          \"DesiredInstanceCount\": \"<integer>\"\n        }\n      ],\n      \"CreationTime\": \"<dateTime>\",\n      \"LastModifiedTime\": \"<dateTime>\",\n      \"FailureReason\": \"<string>\"\n    }\n  ],\n  \"NextToken\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:00:29.000Z",
+              "updatedAt": "2026-06-05T15:00:29.000Z",
+              "uid": "35240-dcf18078-2ed6-4bde-bc0c-243da7d1d4c6"
+            }
+          ],
+          "createdAt": "2026-06-05T15:00:29.000Z",
+          "updatedAt": "2026-06-05T15:00:29.000Z",
+          "uid": "35240-b8851fc5-86fa-4dc7-b02b-0983a40a9116"
+        }
+      ],
+      "id": "ac2eee32-dd2d-4885-8b13-a26f6347a8cf",
+      "createdAt": "2026-06-05T15:00:29.000Z",
+      "updatedAt": "2026-06-05T15:00:29.000Z",
+      "uid": "35240-ac2eee32-dd2d-4885-8b13-a26f6347a8cf"
+    },
+    {
+      "name": "#CreateEndpointConfig",
+      "item": [
+        {
+          "name": "Amazon SageMaker Create an Endpoint Configuration",
+          "id": "451cfb8c-7350-49e9-a019-254aae781b0e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.1"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"EndpointConfigName\": \"<string>\",\n  \"ProductionVariants\": [\n    {\n      \"VariantName\": \"<string>\",\n      \"ModelName\": \"<string>\",\n      \"InitialInstanceCount\": \"<integer>\",\n      \"InstanceType\": \"<string>\",\n      \"InitialVariantWeight\": \"<number>\"\n    },\n    {\n      \"VariantName\": \"<string>\",\n      \"ModelName\": \"<string>\",\n      \"InitialInstanceCount\": \"<integer>\",\n      \"InstanceType\": \"<string>\",\n      \"InitialVariantWeight\": \"<number>\"\n    }\n  ],\n  \"Tags\": [\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    },\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/#CreateEndpointConfig",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "hash": "CreateEndpointConfig"
+            },
+            "description": "Creates an endpoint configuration that SageMaker hosting services uses to deploy models. The configuration identifies the ML compute instances and the model variants to deploy."
+          },
+          "response": [
+            {
+              "id": "9357f19e-8395-46f3-8e46-13e478f4547a",
+              "name": "Successful response.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                    "key": "X-Amz-Target",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-amz-json-1.1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"EndpointConfigName\": \"<string>\",\n  \"ProductionVariants\": [\n    {\n      \"VariantName\": \"<string>\",\n      \"ModelName\": \"<string>\",\n      \"InitialInstanceCount\": \"<integer>\",\n      \"InstanceType\": \"<string>\",\n      \"InitialVariantWeight\": \"<number>\"\n    },\n    {\n      \"VariantName\": \"<string>\",\n      \"ModelName\": \"<string>\",\n      \"InitialInstanceCount\": \"<integer>\",\n      \"InstanceType\": \"<string>\",\n      \"InitialVariantWeight\": \"<number>\"\n    }\n  ],\n  \"Tags\": [\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    },\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/#CreateEndpointConfig",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "hash": "CreateEndpointConfig"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"EndpointConfigArn\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:00:29.000Z",
+              "updatedAt": "2026-06-05T15:00:29.000Z",
+              "uid": "35240-9357f19e-8395-46f3-8e46-13e478f4547a"
+            }
+          ],
+          "createdAt": "2026-06-05T15:00:29.000Z",
+          "updatedAt": "2026-06-05T15:00:29.000Z",
+          "uid": "35240-451cfb8c-7350-49e9-a019-254aae781b0e"
+        }
+      ],
+      "id": "73c5214d-223f-41de-ba85-248215634afd",
+      "createdAt": "2026-06-05T15:00:29.000Z",
+      "updatedAt": "2026-06-05T15:00:29.000Z",
+      "uid": "35240-73c5214d-223f-41de-ba85-248215634afd"
+    }
+  ],
+  "variable": [
+    {
+      "key": "region",
+      "value": "us-east-1"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://api.sagemaker.{{region}}.amazonaws.com"
+    }
+  ]
+}
