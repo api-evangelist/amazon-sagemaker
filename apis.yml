@@ -41,7 +41,7 @@ apis:
     url: json-schema/amazon-sagemaker-model-schema.json
   - type: JSONSchema
     url: json-schema/amazon-sagemaker-endpoint-schema.json
-  - type: SDK
+  - type: SDKs
     url: https://pypi.org/project/sagemaker/
     title: Python SDK
   - type: CodeExamples
@@ -112,39 +112,30 @@ apis:
 common:
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/amazon-sagemaker/overview
-- type: ArazzoWorkflows
-  url: arazzo/
-  workflows:
-  - url: arazzo/amazon-sagemaker-audit-endpoint-fleet-workflow.yml
-    name: Amazon SageMaker Audit Endpoint Fleet
-    summary: List hosted endpoints and describe the most recently created one in detail.
-  - url: arazzo/amazon-sagemaker-deploy-existing-model-workflow.yml
-    name: Amazon SageMaker Deploy Existing Model
-    summary: Verify an existing model, build an endpoint configuration for it, create
-      an endpoint, and poll it to service.
-  - url: arazzo/amazon-sagemaker-deploy-model-to-endpoint-workflow.yml
-    name: Amazon SageMaker Deploy Model to Endpoint
-    summary: Create a model, build an endpoint configuration, launch an endpoint,
-      and poll it until it is in service.
-  - url: arazzo/amazon-sagemaker-inventory-models-workflow.yml
-    name: Amazon SageMaker Inventory Models
-    summary: List registered models and describe the most recently created one in
-      detail.
-  - url: arazzo/amazon-sagemaker-provision-notebook-instance-workflow.yml
-    name: Amazon SageMaker Provision Notebook Instance
-    summary: Create a SageMaker notebook instance and poll it until it is in service.
-  - url: arazzo/amazon-sagemaker-register-latest-completed-training-workflow.yml
-    name: Amazon SageMaker Register Latest Completed Training
-    summary: Find the most recent completed training job, read its artifacts, and
-      register a model from them.
-  - url: arazzo/amazon-sagemaker-train-and-poll-job-workflow.yml
-    name: Amazon SageMaker Train Model and Poll Job
-    summary: Start a SageMaker training job and poll its status until it reaches a
-      terminal state.
-  - url: arazzo/amazon-sagemaker-train-then-deploy-workflow.yml
-    name: Amazon SageMaker Train Then Deploy
-    summary: Train a model to completion, then register it from the produced artifacts
-      and stand up a hosted endpoint.
+- type: Arazzo
+  url: arazzo/amazon-sagemaker-audit-endpoint-fleet-workflow.yml
+  name: Amazon SageMaker Audit Endpoint Fleet
+- type: Arazzo
+  url: arazzo/amazon-sagemaker-deploy-existing-model-workflow.yml
+  name: Amazon SageMaker Deploy Existing Model
+- type: Arazzo
+  url: arazzo/amazon-sagemaker-deploy-model-to-endpoint-workflow.yml
+  name: Amazon SageMaker Deploy Model to Endpoint
+- type: Arazzo
+  url: arazzo/amazon-sagemaker-inventory-models-workflow.yml
+  name: Amazon SageMaker Inventory Models
+- type: Arazzo
+  url: arazzo/amazon-sagemaker-provision-notebook-instance-workflow.yml
+  name: Amazon SageMaker Provision Notebook Instance
+- type: Arazzo
+  url: arazzo/amazon-sagemaker-register-latest-completed-training-workflow.yml
+  name: Amazon SageMaker Register Latest Completed Training
+- type: Arazzo
+  url: arazzo/amazon-sagemaker-train-and-poll-job-workflow.yml
+  name: Amazon SageMaker Train Model and Poll Job
+- type: Arazzo
+  url: arazzo/amazon-sagemaker-train-then-deploy-workflow.yml
+  name: Amazon SageMaker Train Then Deploy
 - type: Portal
   url: https://aws.amazon.com/
 - type: GettingStarted
@@ -155,7 +146,7 @@ common:
   url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/
 - type: Console
   url: https://console.aws.amazon.com/sagemaker/
-- type: SignUp
+- type: Signup
   url: https://portal.aws.amazon.com/billing/signup
 - type: Pricing
   url: https://aws.amazon.com/sagemaker/pricing/
@@ -188,7 +179,7 @@ common:
 - type: CLI
   url: https://github.com/aws/sagemaker-hyperpod-cli
   title: SageMaker HyperPod CLI
-- type: SDK
+- type: SDKs
   url: https://github.com/aws/sagemaker-python-sdk
   title: Python SDK (GitHub)
 - type: GitHubRepository
@@ -302,15 +293,15 @@ common:
   url: json-structure/amazon-sagemaker-tag-structure.json
 - type: JSONStructure
   url: json-structure/amazon-sagemaker-training-job-structure.json
-- type: Example
+- type: Examples
   url: examples/amazon-sagemaker-endpoint-example.json
-- type: Example
+- type: Examples
   url: examples/amazon-sagemaker-model-example.json
-- type: Example
+- type: Examples
   url: examples/amazon-sagemaker-notebook-instance-example.json
-- type: Example
+- type: Examples
   url: examples/amazon-sagemaker-tag-example.json
-- type: Example
+- type: Examples
   url: examples/amazon-sagemaker-training-job-example.json
 - type: Integrations
   url: https://aws.amazon.com/partners/
