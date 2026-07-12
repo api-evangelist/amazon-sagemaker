@@ -110,6 +110,12 @@ apis:
   - type: Documentation
     url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_Sagemaker_Edge.html
 common:
+- type: TrustCenter
+  url: security/amazon-sagemaker-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/amazon-sagemaker-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/amazon-sagemaker-domain-security.yml
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/amazon-sagemaker/overview
 - type: Arazzo
