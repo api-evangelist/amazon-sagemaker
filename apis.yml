@@ -110,6 +110,8 @@ apis:
   - type: Documentation
     url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_Sagemaker_Edge.html
 common:
+- type: AgenticAccess
+  url: agentic-access/amazon-sagemaker-agentic-access.yml
 - type: TrustCenter
   url: security/amazon-sagemaker-trust-center.yml
 - type: VulnerabilityDisclosure
