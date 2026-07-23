@@ -1,0 +1,247 @@
+openapi: 3.1.0
+info:
+  title: Amazon SageMaker Endpoints Notebook Instances API
+  description: Amazon SageMaker is a fully managed machine learning platform that enables developers and data scientists to build, train, and deploy machine learning models at scale. This API provides programmatic access to SageMaker resources including notebook instances, training jobs, models, and endpoints.
+  version: 2017-07-24
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/sagemaker/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.sagemaker.{region}.amazonaws.com
+  variables:
+    region:
+      default: us-east-1
+      description: The AWS region.
+tags:
+- name: Notebook Instances
+  description: Operations for managing SageMaker notebook instances.
+paths:
+  /#CreateNotebookInstance:
+    post:
+      operationId: CreateNotebookInstance
+      summary: Amazon SageMaker Create a Notebook Instance
+      description: Creates an ML compute instance with a Jupyter notebook for exploring data and developing ML models.
+      tags:
+      - Notebook Instances
+      parameters:
+      - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              required:
+              - NotebookInstanceName
+              - InstanceType
+              - RoleArn
+              properties:
+                NotebookInstanceName:
+                  type: string
+                  description: The name of the notebook instance.
+                InstanceType:
+                  type: string
+                  description: The type of ML compute instance to launch.
+                RoleArn:
+                  type: string
+                  description: The Amazon Resource Name (ARN) of the IAM role.
+                SubnetId:
+                  type: string
+                  description: The ID of the subnet in a VPC.
+                SecurityGroupIds:
+                  type: array
+                  items:
+                    type: string
+                  description: The VPC security group IDs.
+                VolumeSizeInGB:
+                  type: integer
+                  description: The size of the ML storage volume in GB.
+                Tags:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Tag'
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  NotebookInstanceArn:
+                    type: string
+              examples:
+                CreateNotebookInstance200Example:
+                  summary: Default CreateNotebookInstance 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /#DescribeNotebookInstance:
+    post:
+      operationId: DescribeNotebookInstance
+      summary: Amazon SageMaker Describe a Notebook Instance
+      description: Returns information about a notebook instance.
+      tags:
+      - Notebook Instances
+      parameters:
+      - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              required:
+              - NotebookInstanceName
+              properties:
+                NotebookInstanceName:
+                  type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotebookInstance'
+              examples:
+                DescribeNotebookInstance200Example:
+                  summary: Default DescribeNotebookInstance 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /#ListNotebookInstances:
+    post:
+      operationId: ListNotebookInstances
+      summary: Amazon SageMaker List Notebook Instances
+      description: Returns a list of the notebook instances in the requester's account.
+      tags:
+      - Notebook Instances
+      parameters:
+      - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              properties:
+                MaxResults:
+                  type: integer
+                NextToken:
+                  type: string
+                SortBy:
+                  type: string
+                  enum:
+                  - Name
+                  - CreationTime
+                  - Status
+                  - LastModifiedTime
+                SortOrder:
+                  type: string
+                  enum:
+                  - Ascending
+                  - Descending
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  NotebookInstances:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NotebookInstance'
+                  NextToken:
+                    type: string
+              examples:
+                ListNotebookInstances200Example:
+                  summary: Default ListNotebookInstances 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    NotebookInstance:
+      type: object
+      properties:
+        NotebookInstanceArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the notebook instance.
+        NotebookInstanceName:
+          type: string
+          description: The name of the notebook instance.
+        NotebookInstanceStatus:
+          type: string
+          description: The status of the notebook instance.
+          enum:
+          - Pending
+          - InService
+          - Stopping
+          - Stopped
+          - Failed
+          - Deleting
+          - Updating
+        InstanceType:
+          type: string
+          description: The type of ML compute instance running the notebook.
+        RoleArn:
+          type: string
+          description: The ARN of the IAM role associated with the instance.
+        SubnetId:
+          type: string
+          description: The ID of the VPC subnet.
+        SecurityGroups:
+          type: array
+          items:
+            type: string
+          description: The security groups associated with the instance.
+        Url:
+          type: string
+          description: The URL that you use to connect to the Jupyter notebook.
+        VolumeSizeInGB:
+          type: integer
+          description: The size of the ML storage volume in GB.
+        CreationTime:
+          type: string
+          format: date-time
+          description: A timestamp indicating when the notebook instance was created.
+        LastModifiedTime:
+          type: string
+          format: date-time
+          description: A timestamp indicating when the notebook instance was last modified.
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
+  parameters:
+    XAmzTarget:
+      name: X-Amz-Target
+      in: header
+      required: true
+      schema:
+        type: string
+        example: SageMaker.CreateNotebookInstance
+      description: The target action for the request, in the format SageMaker.<operation>.

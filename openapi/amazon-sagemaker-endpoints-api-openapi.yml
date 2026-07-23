@@ -1,0 +1,318 @@
+openapi: 3.1.0
+info:
+  title: Amazon SageMaker Endpoints API
+  description: Amazon SageMaker is a fully managed machine learning platform that enables developers and data scientists to build, train, and deploy machine learning models at scale. This API provides programmatic access to SageMaker resources including notebook instances, training jobs, models, and endpoints.
+  version: 2017-07-24
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/sagemaker/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.sagemaker.{region}.amazonaws.com
+  variables:
+    region:
+      default: us-east-1
+      description: The AWS region.
+tags:
+- name: Endpoints
+  description: Operations for managing SageMaker endpoints.
+paths:
+  /#CreateEndpoint:
+    post:
+      operationId: CreateEndpoint
+      summary: Amazon SageMaker Create an Endpoint
+      description: Creates an endpoint using the endpoint configuration specified in the request. SageMaker uses the endpoint to provision resources and deploy models.
+      tags:
+      - Endpoints
+      parameters:
+      - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              required:
+              - EndpointName
+              - EndpointConfigName
+              properties:
+                EndpointName:
+                  type: string
+                EndpointConfigName:
+                  type: string
+                Tags:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Tag'
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  EndpointArn:
+                    type: string
+              examples:
+                CreateEndpoint200Example:
+                  summary: Default CreateEndpoint 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /#DescribeEndpoint:
+    post:
+      operationId: DescribeEndpoint
+      summary: Amazon SageMaker Describe an Endpoint
+      description: Returns the description of an endpoint.
+      tags:
+      - Endpoints
+      parameters:
+      - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              required:
+              - EndpointName
+              properties:
+                EndpointName:
+                  type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Endpoint'
+              examples:
+                DescribeEndpoint200Example:
+                  summary: Default DescribeEndpoint 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /#ListEndpoints:
+    post:
+      operationId: ListEndpoints
+      summary: Amazon SageMaker List Endpoints
+      description: Lists endpoints.
+      tags:
+      - Endpoints
+      parameters:
+      - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              properties:
+                MaxResults:
+                  type: integer
+                NextToken:
+                  type: string
+                SortBy:
+                  type: string
+                  enum:
+                  - Name
+                  - CreationTime
+                  - Status
+                SortOrder:
+                  type: string
+                  enum:
+                  - Ascending
+                  - Descending
+                StatusEquals:
+                  type: string
+                  enum:
+                  - OutOfService
+                  - Creating
+                  - Updating
+                  - SystemUpdating
+                  - RollingBack
+                  - InService
+                  - Deleting
+                  - Failed
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Endpoints:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Endpoint'
+                  NextToken:
+                    type: string
+              examples:
+                ListEndpoints200Example:
+                  summary: Default ListEndpoints 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /#CreateEndpointConfig:
+    post:
+      operationId: CreateEndpointConfig
+      summary: Amazon SageMaker Create an Endpoint Configuration
+      description: Creates an endpoint configuration that SageMaker hosting services uses to deploy models. The configuration identifies the ML compute instances and the model variants to deploy.
+      tags:
+      - Endpoints
+      parameters:
+      - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              required:
+              - EndpointConfigName
+              - ProductionVariants
+              properties:
+                EndpointConfigName:
+                  type: string
+                ProductionVariants:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - VariantName
+                    - ModelName
+                    - InitialInstanceCount
+                    - InstanceType
+                    properties:
+                      VariantName:
+                        type: string
+                      ModelName:
+                        type: string
+                      InitialInstanceCount:
+                        type: integer
+                      InstanceType:
+                        type: string
+                      InitialVariantWeight:
+                        type: number
+                Tags:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Tag'
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  EndpointConfigArn:
+                    type: string
+              examples:
+                CreateEndpointConfig200Example:
+                  summary: Default CreateEndpointConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
+    Endpoint:
+      type: object
+      properties:
+        EndpointName:
+          type: string
+          description: The name of the endpoint.
+        EndpointArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the endpoint.
+        EndpointConfigName:
+          type: string
+          description: The name of the endpoint configuration.
+        EndpointStatus:
+          type: string
+          description: The status of the endpoint.
+          enum:
+          - OutOfService
+          - Creating
+          - Updating
+          - SystemUpdating
+          - RollingBack
+          - InService
+          - Deleting
+          - Failed
+        ProductionVariants:
+          type: array
+          items:
+            type: object
+            properties:
+              VariantName:
+                type: string
+              DeployedImages:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    SpecifiedImage:
+                      type: string
+                    ResolvedImage:
+                      type: string
+              CurrentWeight:
+                type: number
+              DesiredWeight:
+                type: number
+              CurrentInstanceCount:
+                type: integer
+              DesiredInstanceCount:
+                type: integer
+          description: An array of production variants.
+        CreationTime:
+          type: string
+          format: date-time
+          description: A timestamp indicating when the endpoint was created.
+        LastModifiedTime:
+          type: string
+          format: date-time
+          description: A timestamp indicating when the endpoint was last modified.
+        FailureReason:
+          type: string
+          description: If the status is Failed, the reason it failed.
+  parameters:
+    XAmzTarget:
+      name: X-Amz-Target
+      in: header
+      required: true
+      schema:
+        type: string
+        example: SageMaker.CreateNotebookInstance
+      description: The target action for the request, in the format SageMaker.<operation>.

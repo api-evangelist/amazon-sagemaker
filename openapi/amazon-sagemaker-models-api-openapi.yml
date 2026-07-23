@@ -1,0 +1,221 @@
+openapi: 3.1.0
+info:
+  title: Amazon SageMaker Endpoints Models API
+  description: Amazon SageMaker is a fully managed machine learning platform that enables developers and data scientists to build, train, and deploy machine learning models at scale. This API provides programmatic access to SageMaker resources including notebook instances, training jobs, models, and endpoints.
+  version: 2017-07-24
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/sagemaker/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.sagemaker.{region}.amazonaws.com
+  variables:
+    region:
+      default: us-east-1
+      description: The AWS region.
+tags:
+- name: Models
+  description: Operations for managing SageMaker models.
+paths:
+  /#CreateModel:
+    post:
+      operationId: CreateModel
+      summary: Amazon SageMaker Create a Model
+      description: Creates a model in SageMaker. In the request, you specify a name for the model and describe a primary container that contains the inference code, model artifacts, and environment variables.
+      tags:
+      - Models
+      parameters:
+      - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              required:
+              - ModelName
+              - ExecutionRoleArn
+              properties:
+                ModelName:
+                  type: string
+                PrimaryContainer:
+                  type: object
+                  properties:
+                    Image:
+                      type: string
+                    ModelDataUrl:
+                      type: string
+                    Environment:
+                      type: object
+                      additionalProperties:
+                        type: string
+                ExecutionRoleArn:
+                  type: string
+                Tags:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Tag'
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ModelArn:
+                    type: string
+              examples:
+                CreateModel200Example:
+                  summary: Default CreateModel 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /#DescribeModel:
+    post:
+      operationId: DescribeModel
+      summary: Amazon SageMaker Describe a Model
+      description: Describes a model that you created using the CreateModel API.
+      tags:
+      - Models
+      parameters:
+      - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              required:
+              - ModelName
+              properties:
+                ModelName:
+                  type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model'
+              examples:
+                DescribeModel200Example:
+                  summary: Default DescribeModel 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /#ListModels:
+    post:
+      operationId: ListModels
+      summary: Amazon SageMaker List Models
+      description: Lists models created with the CreateModel API.
+      tags:
+      - Models
+      parameters:
+      - $ref: '#/components/parameters/XAmzTarget'
+      requestBody:
+        required: true
+        content:
+          application/x-amz-json-1.1:
+            schema:
+              type: object
+              properties:
+                MaxResults:
+                  type: integer
+                NextToken:
+                  type: string
+                SortBy:
+                  type: string
+                  enum:
+                  - Name
+                  - CreationTime
+                SortOrder:
+                  type: string
+                  enum:
+                  - Ascending
+                  - Descending
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Models:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Model'
+                  NextToken:
+                    type: string
+              examples:
+                ListModels200Example:
+                  summary: Default ListModels 200 response
+                  x-microcks-default: true
+                  value:
+                    Status: Success
+                    RequestId: abc12345-def6-7890-ghij-klmnopqrstuv
+                    RoleArn: arn:aws:iam::123456789012:role/SageMakerRole
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Model:
+      type: object
+      properties:
+        ModelName:
+          type: string
+          description: The name of the model.
+        ModelArn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the model.
+        PrimaryContainer:
+          type: object
+          properties:
+            Image:
+              type: string
+              description: The inference image URI.
+            ModelDataUrl:
+              type: string
+              description: The S3 path where the model artifacts are stored.
+            Environment:
+              type: object
+              additionalProperties:
+                type: string
+              description: Environment variables to set in the container.
+        ExecutionRoleArn:
+          type: string
+          description: The ARN of the IAM role.
+        CreationTime:
+          type: string
+          format: date-time
+          description: A timestamp indicating when the model was created.
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
+  parameters:
+    XAmzTarget:
+      name: X-Amz-Target
+      in: header
+      required: true
+      schema:
+        type: string
+        example: SageMaker.CreateNotebookInstance
+      description: The target action for the request, in the format SageMaker.<operation>.
