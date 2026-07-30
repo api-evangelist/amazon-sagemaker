@@ -1,3 +1,16 @@
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/amazon-sagemaker.png
 name: Amazon SageMaker
 description: Amazon SageMaker is a fully managed machine learning platform that enables
   developers and data scientists to build, train, and deploy machine learning models
@@ -17,41 +30,10 @@ tags:
 - MLOps
 - Training
 apis:
-- name: Amazon SageMaker API
-  description: The Amazon SageMaker control plane API for creating and managing SageMaker
-    resources including notebook instances, training jobs, models, endpoints, pipelines,
-    experiments, feature groups, and monitoring schedules.
-  humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html
-  baseURL: https://api.sagemaker.{region}.amazonaws.com
-  tags:
-  - Machine Learning
-  - AI
-  - Training
-  - Inference
-  properties:
-  - type: Documentation
-    url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html
-  - type: OpenAPI
-    url: openapi/amazon-sagemaker-openapi.yml
-  - type: JSONSchema
-    url: json-schema/amazon-sagemaker-notebook-instance-schema.json
-  - type: JSONSchema
-    url: json-schema/amazon-sagemaker-training-job-schema.json
-  - type: JSONSchema
-    url: json-schema/amazon-sagemaker-model-schema.json
-  - type: JSONSchema
-    url: json-schema/amazon-sagemaker-endpoint-schema.json
-  - type: SDKs
-    url: https://pypi.org/project/sagemaker/
-    title: Python SDK
-  - type: CodeExamples
-    url: https://github.com/aws/amazon-sagemaker-examples
-    title: Jupyter Notebook Examples
-  - url: graphql/amazon-sagemaker-graphql.md
-    type: GraphQL
 - name: Amazon SageMaker Runtime API
-  description: The Amazon SageMaker AI runtime API for invoking deployed model endpoints
-    to get real-time inference predictions.
+  description: >-
+    The Amazon SageMaker AI runtime API for invoking deployed model endpoints to get real-time inference
+    predictions.
   humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
   baseURL: https://runtime.sagemaker.{region}.amazonaws.com
   tags:
@@ -62,9 +44,11 @@ apis:
   - type: Documentation
     url: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
 - name: Amazon SageMaker Feature Store Runtime API
-  description: Data plane API operations for the Amazon SageMaker Feature Store supporting
-    put, delete, and retrieve operations for ML features.
-  humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Feature_Store_Runtime.html
+  description: >-
+    Data plane API operations for the Amazon SageMaker Feature Store supporting put, delete, and retrieve
+    operations for ML features.
+  humanURL: >-
+    https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Feature_Store_Runtime.html
   baseURL: https://featurestore-runtime.sagemaker.{region}.amazonaws.com
   tags:
   - Feature Store
@@ -72,11 +56,14 @@ apis:
   - Data
   properties:
   - type: Documentation
-    url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Feature_Store_Runtime.html
+    url: >-
+      https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Feature_Store_Runtime.html
 - name: Amazon SageMaker Metrics Service API
-  description: Data plane API operations for Amazon SageMaker Metrics for putting
-    and retrieving metrics related to training runs.
-  humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Metrics_Service.html
+  description: >-
+    Data plane API operations for Amazon SageMaker Metrics for putting and retrieving metrics related
+    to training runs.
+  humanURL: >-
+    https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Metrics_Service.html
   baseURL: https://metrics.sagemaker.{region}.amazonaws.com
   tags:
   - Metrics
@@ -84,11 +71,14 @@ apis:
   - Machine Learning
   properties:
   - type: Documentation
-    url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Metrics_Service.html
+    url: >-
+      https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Metrics_Service.html
 - name: Amazon SageMaker Geospatial API
-  description: APIs for creating and managing Amazon SageMaker geospatial capabilities
-    including earth observation jobs and vector enrichment jobs.
-  humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_geospatial_capabilities.html
+  description: >-
+    APIs for creating and managing Amazon SageMaker geospatial capabilities including earth observation
+    jobs and vector enrichment jobs.
+  humanURL: >-
+    https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_geospatial_capabilities.html
   baseURL: https://sagemaker-geospatial.{region}.amazonaws.com
   tags:
   - Geospatial
@@ -96,11 +86,14 @@ apis:
   - AWS
   properties:
   - type: Documentation
-    url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_geospatial_capabilities.html
+    url: >-
+      https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_geospatial_capabilities.html
 - name: Amazon SageMaker Edge Manager API
-  description: SageMaker Edge Manager dataplane service for communicating with active
-    edge agents running ML models on edge devices.
-  humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_Sagemaker_Edge.html
+  description: >-
+    SageMaker Edge Manager dataplane service for communicating with active edge agents running ML models
+    on edge devices.
+  humanURL: >-
+    https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_Sagemaker_Edge.html
   baseURL: https://edge.sagemaker.{region}.amazonaws.com
   tags:
   - Edge
@@ -108,7 +101,112 @@ apis:
   - Machine Learning
   properties:
   - type: Documentation
-    url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_Sagemaker_Edge.html
+    url: >-
+      https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_Sagemaker_Edge.html
+- aid: amazon-sagemaker:amazon-sagemaker-endpoints-api
+  name: Amazon SageMaker Endpoints API
+  description: Operations for managing SageMaker endpoints.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html
+  baseURL: https://api.sagemaker.{region}.amazonaws.com
+  tags:
+  - Endpoints
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-endpoints-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-notebook-instance-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-training-job-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-model-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-endpoint-schema.json
+  - type: SDKs
+    url: https://pypi.org/project/sagemaker/
+  - type: CodeExamples
+    url: https://github.com/aws/amazon-sagemaker-examples
+  - type: GraphQL
+    url: graphql/amazon-sagemaker-graphql.md
+- aid: amazon-sagemaker:amazon-sagemaker-models-api
+  name: Amazon SageMaker Models API
+  description: Operations for managing SageMaker models.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html
+  baseURL: https://api.sagemaker.{region}.amazonaws.com
+  tags:
+  - Models
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-models-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-notebook-instance-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-training-job-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-model-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-endpoint-schema.json
+  - type: SDKs
+    url: https://pypi.org/project/sagemaker/
+  - type: CodeExamples
+    url: https://github.com/aws/amazon-sagemaker-examples
+  - type: GraphQL
+    url: graphql/amazon-sagemaker-graphql.md
+- aid: amazon-sagemaker:amazon-sagemaker-notebook-instances-api
+  name: Amazon SageMaker Notebook Instances API
+  description: Operations for managing SageMaker notebook instances.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html
+  baseURL: https://api.sagemaker.{region}.amazonaws.com
+  tags:
+  - Notebook Instances
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-notebook-instances-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-notebook-instance-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-training-job-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-model-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-endpoint-schema.json
+  - type: SDKs
+    url: https://pypi.org/project/sagemaker/
+  - type: CodeExamples
+    url: https://github.com/aws/amazon-sagemaker-examples
+  - type: GraphQL
+    url: graphql/amazon-sagemaker-graphql.md
+- aid: amazon-sagemaker:amazon-sagemaker-training-jobs-api
+  name: Amazon SageMaker Training Jobs API
+  description: Operations for managing SageMaker training jobs.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html
+  baseURL: https://api.sagemaker.{region}.amazonaws.com
+  tags:
+  - Training Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-training-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-notebook-instance-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-training-job-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-model-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-endpoint-schema.json
+  - type: SDKs
+    url: https://pypi.org/project/sagemaker/
+  - type: CodeExamples
+    url: https://github.com/aws/amazon-sagemaker-examples
+  - type: GraphQL
+    url: graphql/amazon-sagemaker-graphql.md
 common:
 - type: AgenticAccess
   url: agentic-access/amazon-sagemaker-agentic-access.yml
