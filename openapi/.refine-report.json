@@ -1,0 +1,20 @@
+{
+  "provider": "amazon-sagemaker",
+  "sources": [
+    "amazon-sagemaker-endpoints-api-openapi.yml",
+    "amazon-sagemaker-models-api-openapi.yml",
+    "amazon-sagemaker-notebook-instances-api-openapi.yml",
+    "amazon-sagemaker-training-jobs-api-openapi.yml"
+  ],
+  "outputs": [
+    "amazon-sagemaker-endpoints-api-openapi.yml",
+    "amazon-sagemaker-models-api-openapi.yml",
+    "amazon-sagemaker-notebook-instances-api-openapi.yml",
+    "amazon-sagemaker-training-jobs-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
