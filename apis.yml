@@ -208,6 +208,17 @@ apis:
   - type: GraphQL
     url: graphql/amazon-sagemaker-graphql.md
 common:
+- type: IssueTracker
+  url: https://github.com/aws/sagemaker-core/issues
+- type: Releases
+  url: https://github.com/aws/sagemaker-core/releases
+- type: CodeOfConduct
+  url: https://github.com/aws/.github/blob/master/CODE_OF_CONDUCT.md
+- type: ContributionGuide
+  url: https://github.com/aws/sagemaker-core/blob/main/CONTRIBUTING.md
+- type: License
+  name: Apache-2.0
+  url: https://github.com/aws/sagemaker-core/blob/main/LICENSE
 - type: AgenticAccess
   url: agentic-access/amazon-sagemaker-agentic-access.yml
 - type: TrustCenter
