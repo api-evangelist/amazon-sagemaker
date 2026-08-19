@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon SageMaker Endpoints API",
+    "version": "2017-07-24"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Endpoints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon SageMaker Create an Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sagemaker.{region}.amazonaws.com/#CreateEndpoint",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an endpoint using the endpoint configuration specified in the request. SageMaker uses the endpoint to provision resources and deploy models."
+        },
+        {
+          "info": {
+            "name": "Amazon SageMaker Describe an Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sagemaker.{region}.amazonaws.com/#DescribeEndpoint",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the description of an endpoint."
+        },
+        {
+          "info": {
+            "name": "Amazon SageMaker List Endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sagemaker.{region}.amazonaws.com/#ListEndpoints",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Lists endpoints."
+        },
+        {
+          "info": {
+            "name": "Amazon SageMaker Create an Endpoint Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sagemaker.{region}.amazonaws.com/#CreateEndpointConfig",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an endpoint configuration that SageMaker hosting services uses to deploy models. The configuration identifies the ML compute instances and the model variants to deploy."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

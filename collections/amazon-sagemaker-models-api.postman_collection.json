@@ -1,0 +1,368 @@
+{
+  "item": [
+    {
+      "id": "b12eb275-97a3-42b3-b6e7-46591471a62d",
+      "name": "Models",
+      "description": {
+        "content": "Operations for managing SageMaker models.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cdf49566-c40a-46a1-b077-b4e883b8f97b",
+          "name": "Amazon SageMaker Create a Model",
+          "request": {
+            "name": "Amazon SageMaker Create a Model",
+            "description": {
+              "content": "Creates a model in SageMaker. In the request, you specify a name for the model and describe a primary container that contains the inference code, model artifacts, and environment variables.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "hash": "CreateModel",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The AWS region.",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.1"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ModelName\": \"<string>\",\n  \"ExecutionRoleArn\": \"<string>\",\n  \"PrimaryContainer\": {\n    \"Image\": \"<string>\",\n    \"ModelDataUrl\": \"<string>\",\n    \"Environment\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  },\n  \"Tags\": [\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    },\n    {\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\"\n    }\n  ]\n}"
+            }
+          },
+          "response": [
+            {
+              "id": "9fa33c9b-9726-4505-a316-53236b99c3ea",
+              "name": "Successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "CreateModel",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The AWS region.",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                    "key": "X-Amz-Target",
+                    "value": "SageMaker.CreateNotebookInstance"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ModelName\": \"<string>\",\n  \"ExecutionRoleArn\": \"<string>\",\n  \"PrimaryContainer\": {\n    \"Image\": \"<string>\",\n    \"ModelDataUrl\": \"<string>\",\n    \"Environment\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  },\n  \"Tags\": [\n    {\n      \"Key\": \"string\",\n      \"Value\": \"string\"\n    },\n    {\n      \"Key\": \"string\",\n      \"Value\": \"string\"\n    }\n  ]\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Status\": \"Success\",\n  \"RequestId\": \"abc12345-def6-7890-ghij-klmnopqrstuv\",\n  \"RoleArn\": \"arn:aws:iam::123456789012:role/SageMakerRole\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f708a3ea-5087-496d-b034-9b1b06c6b8dc",
+          "name": "Amazon SageMaker Describe a Model",
+          "request": {
+            "name": "Amazon SageMaker Describe a Model",
+            "description": {
+              "content": "Describes a model that you created using the CreateModel API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "hash": "DescribeModel",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The AWS region.",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.1"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ModelName\": \"<string>\"\n}"
+            }
+          },
+          "response": [
+            {
+              "id": "118ccd6f-fefb-4ae1-bf15-24f36df7d66a",
+              "name": "Successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "DescribeModel",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The AWS region.",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                    "key": "X-Amz-Target",
+                    "value": "SageMaker.CreateNotebookInstance"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ModelName\": \"<string>\"\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Status\": \"Success\",\n  \"RequestId\": \"abc12345-def6-7890-ghij-klmnopqrstuv\",\n  \"RoleArn\": \"arn:aws:iam::123456789012:role/SageMakerRole\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a958dcb7-9de9-4f04-b3c8-4e1bf87356ae",
+          "name": "Amazon SageMaker List Models",
+          "request": {
+            "name": "Amazon SageMaker List Models",
+            "description": {
+              "content": "Lists models created with the CreateModel API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "hash": "ListModels",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The AWS region.",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                "key": "X-Amz-Target",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-amz-json-1.1"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"MaxResults\": \"<integer>\",\n  \"NextToken\": \"<string>\",\n  \"SortBy\": \"<string>\",\n  \"SortOrder\": \"<string>\"\n}"
+            }
+          },
+          "response": [
+            {
+              "id": "47bc59e0-093b-498b-8ac4-368d01992d08",
+              "name": "Successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "hash": "ListModels",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The AWS region.",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The target action for the request, in the format SageMaker.<operation>.",
+                    "key": "X-Amz-Target",
+                    "value": "SageMaker.CreateNotebookInstance"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"MaxResults\": \"<integer>\",\n  \"NextToken\": \"<string>\",\n  \"SortBy\": \"<string>\",\n  \"SortOrder\": \"<string>\"\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Status\": \"Success\",\n  \"RequestId\": \"abc12345-def6-7890-ghij-klmnopqrstuv\",\n  \"RoleArn\": \"arn:aws:iam::123456789012:role/SageMakerRole\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The AWS region.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "us-east-1",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://api.sagemaker.{{region}}.amazonaws.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a24e4ce5-f1ca-47c8-b450-41022bfed78b",
+    "name": "Amazon SageMaker Endpoints Models API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Amazon SageMaker is a fully managed machine learning platform that enables developers and data scientists to build, train, and deploy machine learning models at scale. This API provides programmatic access to SageMaker resources including notebook instances, training jobs, models, and endpoints.\n\nContact Support:\n Name: Amazon Web Services",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon SageMaker Endpoints Notebook Instances API",
+    "version": "2017-07-24"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Notebook Instances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon SageMaker Create a Notebook Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sagemaker.{region}.amazonaws.com/#CreateNotebookInstance",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an ML compute instance with a Jupyter notebook for exploring data and developing ML models."
+        },
+        {
+          "info": {
+            "name": "Amazon SageMaker Describe a Notebook Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sagemaker.{region}.amazonaws.com/#DescribeNotebookInstance",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns information about a notebook instance."
+        },
+        {
+          "info": {
+            "name": "Amazon SageMaker List Notebook Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sagemaker.{region}.amazonaws.com/#ListNotebookInstances",
+            "headers": [
+              {
+                "name": "X-Amz-Target",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a list of the notebook instances in the requester's account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
