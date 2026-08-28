@@ -1,0 +1,45 @@
+slug: amazon-sagemaker
+provider: Amazon SageMaker
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Models
+  spec_file: amazon-sagemaker-models-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.88
+  evidence: CreateModel / DescribeModel / ListModels, schema Model; 'build, train, and deploy machine
+    learning models at scale'
+  reason: Registration and inspection of machine learning models on SageMaker — directly AI/ML model lifecycle
+    (MLOps) management.
+- tag: Training Jobs
+  spec_file: amazon-sagemaker-training-jobs-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.85
+  evidence: CreateTrainingJob — 'Amazon SageMaker Create a Training Job'; schema 'TrainingJob'
+  reason: Operations create and inspect machine-learning model training jobs, which is squarely AI/ML
+    model lifecycle (MLOps) management.
+- tag: Endpoints
+  spec_file: amazon-sagemaker-endpoints-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.82
+  evidence: CreateEndpoint / CreateEndpointConfig — 'one-click deployment to production endpo[ints]' for
+    machine learning models
+  reason: Endpoints here are ML model inference deployment targets on a managed ML platform, which is
+    model lifecycle / MLOps work under Artificial Intelligence Management.

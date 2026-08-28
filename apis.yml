@@ -1,3 +1,17 @@
+deliveryModel:
+  model: open-core
+  license: Apache-2.0
+  open_source: true
+  commercial: true
+  callable_host: true
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: high
+  source:
+  - license
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 specificationVersion: '0.23'
 accessModel:
   pricing: freemium
@@ -237,6 +251,9 @@ apis:
   - type: GraphQL
     url: graphql/amazon-sagemaker-graphql.md
 common:
+- type: CapabilityMap
+  url: capabilities/amazon-sagemaker-capability-edges.yml
+  name: Amazon SageMaker Business Capability Map
 - type: IssueTracker
   url: https://github.com/aws/sagemaker-core/issues
 - type: Releases
