@@ -12,8 +12,8 @@ info:
     underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: sagemakerApi
-  url: ../openapi/amazon-sagemaker-openapi.yml
+- name: notebookInstancesApi
+  url: ../openapi/amazon-sagemaker-notebook-instances-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: provision-notebook-instance

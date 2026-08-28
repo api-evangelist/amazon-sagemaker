@@ -11,8 +11,11 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: sagemakerApi
-  url: ../openapi/amazon-sagemaker-openapi.yml
+- name: endpointsApi
+  url: ../openapi/amazon-sagemaker-endpoints-api-openapi.yml
+  type: openapi
+- name: modelsApi
+  url: ../openapi/amazon-sagemaker-models-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: deploy-existing-model
