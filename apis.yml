@@ -27,16 +27,16 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/amazon-sagemaker.png
 name: Amazon SageMaker
-description: Amazon SageMaker is a fully managed machine learning platform that enables
-  developers and data scientists to build, train, and deploy machine learning models
-  at scale. SageMaker removes the heavy lifting from each step of the machine learning
-  process, providing built-in algorithms, managed Jupyter notebooks, distributed training,
-  automatic model tuning, and one-click deployment to production endpoints with auto-scaling.
+description: Amazon SageMaker is a fully managed machine learning platform that enables developers and
+  data scientists to build, train, and deploy machine learning models at scale. SageMaker removes the
+  heavy lifting from each step of the machine learning process, providing built-in algorithms, managed
+  Jupyter notebooks, distributed training, automatic model tuning, and one-click deployment to production
+  endpoints with auto-scaling.
 url: https://aws.amazon.com/sagemaker/
 baseURL: https://api.sagemaker.amazonaws.com
 kind: company
 created: '2024-01-01'
-modified: '2026-05-19'
+modified: '2026-09-16'
 tags:
 - Artificial Intelligence
 - AWS
@@ -53,9 +53,8 @@ tags_raw:
 - Training
 apis:
 - name: Amazon SageMaker Runtime API
-  description: >-
-    The Amazon SageMaker AI runtime API for invoking deployed model endpoints to get real-time inference
-    predictions.
+  description: The Amazon SageMaker AI runtime API for invoking deployed model endpoints to get real-time
+    inference predictions.
   humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
   baseURL: https://runtime.sagemaker.{region}.amazonaws.com
   tags:
@@ -70,11 +69,9 @@ apis:
   - type: Documentation
     url: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
 - name: Amazon SageMaker Feature Store Runtime API
-  description: >-
-    Data plane API operations for the Amazon SageMaker Feature Store supporting put, delete, and retrieve
-    operations for ML features.
-  humanURL: >-
-    https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Feature_Store_Runtime.html
+  description: Data plane API operations for the Amazon SageMaker Feature Store supporting put, delete,
+    and retrieve operations for ML features.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Feature_Store_Runtime.html
   baseURL: https://featurestore-runtime.sagemaker.{region}.amazonaws.com
   tags:
   - Feature Store
@@ -86,14 +83,11 @@ apis:
   - Data
   properties:
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Feature_Store_Runtime.html
+    url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Feature_Store_Runtime.html
 - name: Amazon SageMaker Metrics Service API
-  description: >-
-    Data plane API operations for Amazon SageMaker Metrics for putting and retrieving metrics related
-    to training runs.
-  humanURL: >-
-    https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Metrics_Service.html
+  description: Data plane API operations for Amazon SageMaker Metrics for putting and retrieving metrics
+    related to training runs.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Metrics_Service.html
   baseURL: https://metrics.sagemaker.{region}.amazonaws.com
   tags:
   - Metrics
@@ -105,14 +99,11 @@ apis:
   - Machine Learning
   properties:
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Metrics_Service.html
+    url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Metrics_Service.html
 - name: Amazon SageMaker Geospatial API
-  description: >-
-    APIs for creating and managing Amazon SageMaker geospatial capabilities including earth observation
-    jobs and vector enrichment jobs.
-  humanURL: >-
-    https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_geospatial_capabilities.html
+  description: APIs for creating and managing Amazon SageMaker geospatial capabilities including earth
+    observation jobs and vector enrichment jobs.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_geospatial_capabilities.html
   baseURL: https://sagemaker-geospatial.{region}.amazonaws.com
   tags:
   - Geospatial
@@ -124,14 +115,11 @@ apis:
   - AWS
   properties:
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_geospatial_capabilities.html
+    url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_geospatial_capabilities.html
 - name: Amazon SageMaker Edge Manager API
-  description: >-
-    SageMaker Edge Manager dataplane service for communicating with active edge agents running ML models
-    on edge devices.
-  humanURL: >-
-    https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_Sagemaker_Edge.html
+  description: SageMaker Edge Manager dataplane service for communicating with active edge agents running
+    ML models on edge devices.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_Sagemaker_Edge.html
   baseURL: https://edge.sagemaker.{region}.amazonaws.com
   tags:
   - Edge
@@ -143,8 +131,7 @@ apis:
   - Machine Learning
   properties:
   - type: Documentation
-    url: >-
-      https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_Sagemaker_Edge.html
+    url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_Sagemaker_Edge.html
 - aid: amazon-sagemaker:amazon-sagemaker-endpoints-api
   name: Amazon SageMaker Endpoints API
   description: Operations for managing SageMaker endpoints.
@@ -251,6 +238,8 @@ apis:
   - type: GraphQL
     url: graphql/amazon-sagemaker-graphql.md
 common:
+- type: Website
+  url: https://amazon.com
 - type: CapabilityMap
   url: capabilities/amazon-sagemaker-capability-edges.yml
   name: Amazon SageMaker Business Capability Map
@@ -358,14 +347,13 @@ common:
 - type: Features
   data:
   - name: SageMaker Studio
-    description: Fully integrated development environment for ML work with notebooks,
-      debugging, and experiment tracking.
+    description: Fully integrated development environment for ML work with notebooks, debugging, and experiment
+      tracking.
   - name: SageMaker HyperPod
-    description: Purpose-built infrastructure for distributed training that reduces
-      foundation model training time by up to 40%.
+    description: Purpose-built infrastructure for distributed training that reduces foundation model training
+      time by up to 40%.
   - name: SageMaker JumpStart
-    description: Hub providing access to foundation models, pre-built algorithms,
-      and one-click deployment.
+    description: Hub providing access to foundation models, pre-built algorithms, and one-click deployment.
   - name: SageMaker Autopilot
     description: Automated model creation with complete visibility and transparency.
   - name: SageMaker Canvas
@@ -375,69 +363,57 @@ common:
   - name: SageMaker Data Wrangler
     description: Data preparation tool that reduces transformation workflow time significantly.
   - name: SageMaker Ground Truth
-    description: Incorporates human feedback throughout the ML lifecycle for data
-      labeling.
+    description: Incorporates human feedback throughout the ML lifecycle for data labeling.
   - name: SageMaker Pipelines
     description: Purpose-built CI/CD service for machine learning workflows.
   - name: SageMaker Model Monitor
-    description: Automatically detects concept drift and data quality issues in deployed
-      models.
+    description: Automatically detects concept drift and data quality issues in deployed models.
   - name: SageMaker Clarify
     description: Provides machine learning explainability and bias detection.
   - name: SageMaker Experiments
     description: Streamlines tracking and management of ML experiments.
   - name: ML Governance
-    description: Access controls and transparency across the full ML lifecycle with
-      audit trails.
+    description: Access controls and transparency across the full ML lifecycle with audit trails.
 - type: UseCases
   data:
   - name: Generative AI Applications
-    description: Build custom generative AI applications using proprietary data with
-      foundation model fine-tuning.
+    description: Build custom generative AI applications using proprietary data with foundation model
+      fine-tuning.
   - name: ML Model Development
-    description: Train and deploy ML models across the entire machine learning lifecycle
-      from exploration to production.
+    description: Train and deploy ML models across the entire machine learning lifecycle from exploration
+      to production.
   - name: Data Analytics
-    description: Query and analyze data across unified sources with built-in SQL analytics
-      and data processing.
+    description: Query and analyze data across unified sources with built-in SQL analytics and data processing.
   - name: Enterprise AI Governance
-    description: Manage data and AI artifacts with fine-grained security controls
-      and compliance tooling.
+    description: Manage data and AI artifacts with fine-grained security controls and compliance tooling.
   - name: Computer Vision
-    description: Build and deploy computer vision models for image classification,
-      object detection, and segmentation.
+    description: Build and deploy computer vision models for image classification, object detection, and
+      segmentation.
   - name: Natural Language Processing
-    description: Train and deploy NLP models for text classification, entity recognition,
-      and language generation.
+    description: Train and deploy NLP models for text classification, entity recognition, and language
+      generation.
   - name: Fraud Detection
-    description: Build real-time fraud detection models with low-latency inference
-      endpoints.
+    description: Build real-time fraud detection models with low-latency inference endpoints.
   - name: Predictive Maintenance
     description: Deploy ML models on edge devices for predictive maintenance use cases.
 - type: Integrations
   data:
   - name: Amazon S3
-    description: Store training data, model artifacts, and inference outputs in Amazon
-      S3 data lakes.
+    description: Store training data, model artifacts, and inference outputs in Amazon S3 data lakes.
   - name: Amazon Redshift
-    description: Zero-ETL integration for near real-time data ingestion from Redshift
-      warehouses.
+    description: Zero-ETL integration for near real-time data ingestion from Redshift warehouses.
   - name: Amazon ECR
-    description: Store and manage Docker containers for custom training and inference
-      environments.
+    description: Store and manage Docker containers for custom training and inference environments.
   - name: AWS Lambda
-    description: Trigger ML inference pipelines and post-processing workflows with
-      Lambda functions.
+    description: Trigger ML inference pipelines and post-processing workflows with Lambda functions.
   - name: Amazon EventBridge
     description: Trigger SageMaker pipelines and workflows based on events.
   - name: AWS Step Functions
     description: Orchestrate multi-step ML workflows using Step Functions state machines.
   - name: Apache Iceberg
-    description: Lakehouse architecture supporting Apache Iceberg-compatible data
-      tools.
+    description: Lakehouse architecture supporting Apache Iceberg-compatible data tools.
   - name: Amazon DataZone
-    description: SageMaker Catalog built on Amazon DataZone for data discovery and
-      governance.
+    description: SageMaker Catalog built on Amazon DataZone for data discovery and governance.
   - name: Amazon Q Developer
     description: Natural language assistance integrated into SageMaker Unified Studio.
   - name: Hugging Face
