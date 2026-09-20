@@ -238,6 +238,8 @@ apis:
   - type: GraphQL
     url: graphql/amazon-sagemaker-graphql.md
 common:
+- type: Plans
+  url: plans/amazon-sagemaker-plans-pricing.yml
 - type: Website
   url: https://amazon.com
 - type: CapabilityMap
