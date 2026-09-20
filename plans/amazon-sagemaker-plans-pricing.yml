@@ -10,6 +10,10 @@ provenance:
   grounding: every price_text was found verbatim in the fetched page text
 audience: developer-api
 pricing_basis: per-call
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-09-20'
 published: true
 note: Pay-as-you-go page; many components defer to other AWS service pricing pages. Notebook storage price
   rendered as an unresolved template token. Free Tier mentions 250 hours of sc.t3.medium for first 2 months.
