@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon SageMaker Endpoints Training Jobs API
+  title: Amazon SageMaker Training Jobs API
   description: Amazon SageMaker is a fully managed machine learning platform that enables developers and data scientists to build, train, and deploy machine learning models at scale. This API provides programmatic access to SageMaker resources including notebook instances, training jobs, models, and endpoints.
   version: 2017-07-24
   contact:
