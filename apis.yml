@@ -41,7 +41,7 @@ tags:
 - Artificial Intelligence
 - AWS
 - Inference
-- Machine-Learning
+- Machine Learning
 - MLOps
 - Training
 tags_raw:
@@ -51,6 +51,7 @@ tags_raw:
 - Machine Learning
 - MLOps
 - Training
+- Machine-Learning
 apis:
 - name: Amazon SageMaker Runtime API
   description: The Amazon SageMaker AI runtime API for invoking deployed model endpoints to get real-time
@@ -60,11 +61,12 @@ apis:
   tags:
   - Inference
   - Runtime
-  - Machine-Learning
+  - Machine Learning
   tags_raw:
   - Inference
   - Runtime
   - Machine Learning
+  - Machine-Learning
   properties:
   - type: Documentation
     url: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
@@ -75,12 +77,13 @@ apis:
   baseURL: https://featurestore-runtime.sagemaker.{region}.amazonaws.com
   tags:
   - Feature Store
-  - Machine-Learning
+  - Machine Learning
   - Data
   tags_raw:
   - Feature Store
   - Machine Learning
   - Data
+  - Machine-Learning
   properties:
   - type: Documentation
     url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Feature_Store_Runtime.html
@@ -92,11 +95,12 @@ apis:
   tags:
   - Metrics
   - Training
-  - Machine-Learning
+  - Machine Learning
   tags_raw:
   - Metrics
   - Training
   - Machine Learning
+  - Machine-Learning
   properties:
   - type: Documentation
     url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Metrics_Service.html
@@ -107,12 +111,13 @@ apis:
   baseURL: https://sagemaker-geospatial.{region}.amazonaws.com
   tags:
   - Geospatial
-  - Machine-Learning
+  - Machine Learning
   - AWS
   tags_raw:
   - Geospatial
   - Machine Learning
   - AWS
+  - Machine-Learning
   properties:
   - type: Documentation
     url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_geospatial_capabilities.html
@@ -124,11 +129,12 @@ apis:
   tags:
   - Edge
   - IoT
-  - Machine-Learning
+  - Machine Learning
   tags_raw:
   - Edge
   - IoT
   - Machine Learning
+  - Machine-Learning
   properties:
   - type: Documentation
     url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_Sagemaker_Edge.html
@@ -157,8 +163,6 @@ apis:
     url: https://pypi.org/project/sagemaker/
   - type: CodeExamples
     url: https://github.com/aws/amazon-sagemaker-examples
-  - type: GraphQL
-    url: graphql/amazon-sagemaker-graphql.md
 - aid: amazon-sagemaker:amazon-sagemaker-models-api
   name: Amazon SageMaker Models API
   description: Operations for managing SageMaker models.
@@ -183,8 +187,6 @@ apis:
     url: https://pypi.org/project/sagemaker/
   - type: CodeExamples
     url: https://github.com/aws/amazon-sagemaker-examples
-  - type: GraphQL
-    url: graphql/amazon-sagemaker-graphql.md
 - aid: amazon-sagemaker:amazon-sagemaker-notebook-instances-api
   name: Amazon SageMaker Notebook Instances API
   description: Operations for managing SageMaker notebook instances.
@@ -209,8 +211,6 @@ apis:
     url: https://pypi.org/project/sagemaker/
   - type: CodeExamples
     url: https://github.com/aws/amazon-sagemaker-examples
-  - type: GraphQL
-    url: graphql/amazon-sagemaker-graphql.md
 - aid: amazon-sagemaker:amazon-sagemaker-training-jobs-api
   name: Amazon SageMaker Training Jobs API
   description: Operations for managing SageMaker training jobs.
@@ -235,13 +235,11 @@ apis:
     url: https://pypi.org/project/sagemaker/
   - type: CodeExamples
     url: https://github.com/aws/amazon-sagemaker-examples
-  - type: GraphQL
-    url: graphql/amazon-sagemaker-graphql.md
 common:
 - type: Plans
   url: plans/amazon-sagemaker-plans-pricing.yml
 - type: Website
-  url: https://amazon.com
+  url: https://aws.amazon.com/sagemaker/
 - type: CapabilityMap
   url: capabilities/amazon-sagemaker-capability-edges.yml
   name: Amazon SageMaker Business Capability Map
@@ -456,5 +454,5 @@ integrations:
 - name: AWS Partner Central
 - name: Partner Paths
 - name: co-sell with AWS
-x-parent: aws
+x-parent: amazon-web-services
 x-relationship: product
