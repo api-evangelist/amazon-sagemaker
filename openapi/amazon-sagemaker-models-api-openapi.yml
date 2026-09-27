@@ -173,13 +173,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Tag:
-      type: object
-      properties:
-        Key:
-          type: string
-        Value:
-          type: string
     Model:
       type: object
       properties:
@@ -210,6 +203,13 @@ components:
           type: string
           format: date-time
           description: A timestamp indicating when the model was created.
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
   parameters:
     XAmzTarget:
       name: X-Amz-Target
