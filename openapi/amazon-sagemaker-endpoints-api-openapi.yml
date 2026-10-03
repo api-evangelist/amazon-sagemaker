@@ -240,13 +240,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Tag:
-      type: object
-      properties:
-        Key:
-          type: string
-        Value:
-          type: string
     Endpoint:
       type: object
       properties:
@@ -307,6 +300,13 @@ components:
         FailureReason:
           type: string
           description: If the status is Failed, the reason it failed.
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
   parameters:
     XAmzTarget:
       name: X-Amz-Target
