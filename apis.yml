@@ -44,6 +44,7 @@ tags:
 - Machine Learning
 - MLOps
 - Training
+- Model Training
 tags_raw:
 - AI
 - AWS
@@ -52,6 +53,7 @@ tags_raw:
 - MLOps
 - Training
 - Machine-Learning
+- Model Training
 apis:
 - name: Amazon SageMaker Runtime API
   description: The Amazon SageMaker AI runtime API for invoking deployed model endpoints to get real-time
