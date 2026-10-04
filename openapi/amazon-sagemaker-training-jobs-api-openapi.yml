@@ -232,14 +232,16 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    XAmzTarget:
+      name: X-Amz-Target
+      in: header
+      required: true
+      schema:
+        type: string
+        example: SageMaker.CreateNotebookInstance
+      description: The target action for the request, in the format SageMaker.<operation>.
   schemas:
-    Tag:
-      type: object
-      properties:
-        Key:
-          type: string
-        Value:
-          type: string
     TrainingJob:
       type: object
       properties:
@@ -330,12 +332,10 @@ components:
           type: integer
         FailureReason:
           type: string
-  parameters:
-    XAmzTarget:
-      name: X-Amz-Target
-      in: header
-      required: true
-      schema:
-        type: string
-        example: SageMaker.CreateNotebookInstance
-      description: The target action for the request, in the format SageMaker.<operation>.
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
