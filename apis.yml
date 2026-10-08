@@ -238,6 +238,10 @@ apis:
   - type: CodeExamples
     url: https://github.com/aws/amazon-sagemaker-examples
 common:
+- type: RateLimits
+  url: rate-limits/amazon-sagemaker-rate-limits.yml
+- type: FinOps
+  url: finops/amazon-sagemaker-finops.yml
 - type: Plans
   url: plans/amazon-sagemaker-plans-pricing.yml
 - type: Website
