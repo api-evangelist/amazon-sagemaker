@@ -62,3 +62,63 @@ plans:
   period: per-use
   unit: 1,000 output tokens
   included_quota: No free usage
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - hybrid
+  - subscription
+  units:
+  - credit
+  - data
+  - request
+  - token
+  plans:
+  - name: Data Agent Credit
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - other
+  - name: SageMaker Catalog - Requests
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    periods:
+    - other
+  - name: SageMaker Catalog - Metadata storage
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - data
+    periods:
+    - month
+  - name: SageMaker Catalog - Compute
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: SageMaker Catalog - Recommendations (input)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - token
+    periods:
+    - other
+  - name: SageMaker Catalog - Recommendations (output)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - token
+    periods:
+    - other
