@@ -1,0 +1,1261 @@
+deliveryModel:
+  model: open-core
+  license: Apache-2.0
+  open_source: true
+  commercial: true
+  callable_host: true
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: high
+  source:
+  - license
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
+specificationVersion: '0.23'
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/amazon-sagemaker.png
+name: Amazon SageMaker
+description: Amazon SageMaker is a fully managed machine learning platform that enables developers and
+  data scientists to build, train, and deploy machine learning models at scale. SageMaker removes the
+  heavy lifting from each step of the machine learning process, providing built-in algorithms, managed
+  Jupyter notebooks, distributed training, automatic model tuning, and one-click deployment to production
+  endpoints with auto-scaling.
+url: https://aws.amazon.com/sagemaker/
+baseURL: https://api.sagemaker.amazonaws.com
+kind: company
+created: '2024-01-01'
+modified: '2026-09-16'
+tags:
+- Artificial Intelligence
+- Amazon Web Services
+- Inference
+- Machine Learning
+- MLOps
+- Training
+- Model Training
+tags_raw:
+- AI
+- AWS
+- Inference
+- Machine Learning
+- MLOps
+- Training
+- Machine-Learning
+- Model Training
+apis:
+- name: Amazon SageMaker Runtime API
+  description: >-
+    The Amazon SageMaker AI runtime API for invoking deployed model endpoints to get real-time inference
+    predictions.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Inference
+  - Runtime
+  - Machine Learning
+  tags_raw:
+  - Inference
+  - Runtime
+  - Machine Learning
+  - Machine-Learning
+  properties:
+  - type: Documentation
+    url: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+- name: Amazon SageMaker Feature Store Runtime API
+  description: >-
+    Data plane API operations for the Amazon SageMaker Feature Store supporting put, delete, and retrieve
+    operations for ML features.
+  humanURL: >-
+    https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Feature_Store_Runtime.html
+  baseURL: https://featurestore-runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Feature Store
+  - Machine Learning
+  - Data
+  tags_raw:
+  - Feature Store
+  - Machine Learning
+  - Data
+  - Machine-Learning
+  properties:
+  - type: Documentation
+    url: >-
+      https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Feature_Store_Runtime.html
+- name: Amazon SageMaker Metrics Service API
+  description: >-
+    Data plane API operations for Amazon SageMaker Metrics for putting and retrieving metrics related
+    to training runs.
+  humanURL: >-
+    https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Metrics_Service.html
+  baseURL: https://metrics.sagemaker.{region}.amazonaws.com
+  tags:
+  - Metrics
+  - Training
+  - Machine Learning
+  tags_raw:
+  - Metrics
+  - Training
+  - Machine Learning
+  - Machine-Learning
+  properties:
+  - type: Documentation
+    url: >-
+      https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_Metrics_Service.html
+- name: Amazon SageMaker Geospatial API
+  description: >-
+    APIs for creating and managing Amazon SageMaker geospatial capabilities including earth observation
+    jobs and vector enrichment jobs.
+  humanURL: >-
+    https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_geospatial_capabilities.html
+  baseURL: https://sagemaker-geospatial.{region}.amazonaws.com
+  tags:
+  - Geospatial
+  - Machine Learning
+  - Amazon Web Services
+  tags_raw:
+  - Geospatial
+  - Machine Learning
+  - AWS
+  - Machine-Learning
+  properties:
+  - type: Documentation
+    url: >-
+      https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_SageMaker_geospatial_capabilities.html
+- name: Amazon SageMaker Edge Manager API
+  description: >-
+    SageMaker Edge Manager dataplane service for communicating with active edge agents running ML models
+    on edge devices.
+  humanURL: >-
+    https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_Sagemaker_Edge.html
+  baseURL: https://edge.sagemaker.{region}.amazonaws.com
+  tags:
+  - Edge
+  - IoT
+  - Machine Learning
+  tags_raw:
+  - Edge
+  - IoT
+  - Machine Learning
+  - Machine-Learning
+  properties:
+  - type: Documentation
+    url: >-
+      https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Operations_Amazon_Sagemaker_Edge.html
+- aid: amazon-sagemaker:amazon-sagemaker-endpoints-api
+  name: Amazon SageMaker Endpoints API
+  description: Operations for managing SageMaker endpoints.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html
+  baseURL: https://api.sagemaker.{region}.amazonaws.com
+  tags: []
+  tags_raw:
+  - Endpoints
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-endpoints-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-notebook-instance-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-training-job-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-model-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-endpoint-schema.json
+  - type: SDKs
+    url: https://pypi.org/project/sagemaker/
+  - type: CodeExamples
+    url: https://github.com/aws/amazon-sagemaker-examples
+- aid: amazon-sagemaker:amazon-sagemaker-models-api
+  name: Amazon SageMaker Models API
+  description: Operations for managing SageMaker models.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html
+  baseURL: https://api.sagemaker.{region}.amazonaws.com
+  tags:
+  - Models
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-models-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-notebook-instance-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-training-job-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-model-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-endpoint-schema.json
+  - type: SDKs
+    url: https://pypi.org/project/sagemaker/
+  - type: CodeExamples
+    url: https://github.com/aws/amazon-sagemaker-examples
+- aid: amazon-sagemaker:amazon-sagemaker-notebook-instances-api
+  name: Amazon SageMaker Notebook Instances API
+  description: Operations for managing SageMaker notebook instances.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html
+  baseURL: https://api.sagemaker.{region}.amazonaws.com
+  tags:
+  - Notebook Instances
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-notebook-instances-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-notebook-instance-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-training-job-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-model-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-endpoint-schema.json
+  - type: SDKs
+    url: https://pypi.org/project/sagemaker/
+  - type: CodeExamples
+    url: https://github.com/aws/amazon-sagemaker-examples
+- aid: amazon-sagemaker:amazon-sagemaker-training-jobs-api
+  name: Amazon SageMaker Training Jobs API
+  description: Operations for managing SageMaker training jobs.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html
+  baseURL: https://api.sagemaker.{region}.amazonaws.com
+  tags:
+  - Training Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-training-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-notebook-instance-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-training-job-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-model-schema.json
+  - type: JSONSchema
+    url: json-schema/amazon-sagemaker-endpoint-schema.json
+  - type: SDKs
+    url: https://pypi.org/project/sagemaker/
+  - type: CodeExamples
+    url: https://github.com/aws/amazon-sagemaker-examples
+- aid: amazon-sagemaker:amazon-sagemaker-action-api
+  name: Amazon SageMaker Sagemaker Action API
+  description: The Sagemaker Action API from Amazon SageMaker — 5 operation(s) for sagemaker action.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Action
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-action-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-ai-benchmark-job-api
+  name: Amazon SageMaker Sagemaker Ai Benchmark Job API
+  description: >-
+    The Sagemaker Ai Benchmark Job API from Amazon SageMaker — 5 operation(s) for sagemaker ai benchmark
+    job.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Ai Benchmark Job
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-ai-benchmark-job-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-ai-recommendation-job-api
+  name: Amazon SageMaker Sagemaker Ai Recommendation Job API
+  description: >-
+    The Sagemaker Ai Recommendation Job API from Amazon SageMaker — 5 operation(s) for sagemaker ai recommendation
+    job.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Ai Recommendation Job
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-ai-recommendation-job-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-ai-workload-config-api
+  name: Amazon SageMaker Sagemaker Ai Workload Config API
+  description: >-
+    The Sagemaker Ai Workload Config API from Amazon SageMaker — 4 operation(s) for sagemaker ai workload
+    config.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Ai Workload Config
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-ai-workload-config-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-algorithm-api
+  name: Amazon SageMaker Sagemaker Algorithm API
+  description: >-
+    The Sagemaker Algorithm API from Amazon SageMaker — 4 operation(s) for sagemaker algorithm.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Algorithm
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-algorithm-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-app-api
+  name: Amazon SageMaker Sagemaker App API
+  description: The Sagemaker App API from Amazon SageMaker — 4 operation(s) for sagemaker app.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker App
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-app-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-app-image-config-api
+  name: Amazon SageMaker Sagemaker App Image Config API
+  description: >-
+    The Sagemaker App Image Config API from Amazon SageMaker — 5 operation(s) for sagemaker app image
+    config.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker App Image Config
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-app-image-config-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-artifact-api
+  name: Amazon SageMaker Sagemaker Artifact API
+  description: >-
+    The Sagemaker Artifact API from Amazon SageMaker — 5 operation(s) for sagemaker artifact.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Artifact
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-artifact-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-association-api
+  name: Amazon SageMaker Sagemaker Association API
+  description: >-
+    The Sagemaker Association API from Amazon SageMaker — 3 operation(s) for sagemaker association.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Association
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-association-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-auto-ml-job-api
+  name: Amazon SageMaker Sagemaker Auto Ml Job API
+  description: >-
+    The Sagemaker Auto Ml Job API from Amazon SageMaker — 4 operation(s) for sagemaker auto ml job.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Auto Ml Job
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-auto-ml-job-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-cluster-api
+  name: Amazon SageMaker Sagemaker Cluster API
+  description: The Sagemaker Cluster API from Amazon SageMaker — 5 operation(s) for sagemaker cluster.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Cluster
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-cluster-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-cluster-node-api
+  name: Amazon SageMaker Sagemaker Cluster Node API
+  description: >-
+    The Sagemaker Cluster Node API from Amazon SageMaker — 4 operation(s) for sagemaker cluster node.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Cluster Node
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-cluster-node-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-cluster-scheduler-config-api
+  name: Amazon SageMaker Sagemaker Cluster Scheduler Config API
+  description: >-
+    The Sagemaker Cluster Scheduler Config API from Amazon SageMaker — 5 operation(s) for sagemaker cluster
+    scheduler config.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Cluster Scheduler Config
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-cluster-scheduler-config-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-code-repository-api
+  name: Amazon SageMaker Sagemaker Code Repository API
+  description: >-
+    The Sagemaker Code Repository API from Amazon SageMaker — 5 operation(s) for sagemaker code repository.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Code Repository
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-code-repository-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-compilation-job-api
+  name: Amazon SageMaker Sagemaker Compilation Job API
+  description: >-
+    The Sagemaker Compilation Job API from Amazon SageMaker — 5 operation(s) for sagemaker compilation
+    job.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Compilation Job
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-compilation-job-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-compute-quota-api
+  name: Amazon SageMaker Sagemaker Compute Quota API
+  description: >-
+    The Sagemaker Compute Quota API from Amazon SageMaker — 5 operation(s) for sagemaker compute quota.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Compute Quota
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-compute-quota-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-context-api
+  name: Amazon SageMaker Sagemaker Context API
+  description: The Sagemaker Context API from Amazon SageMaker — 5 operation(s) for sagemaker context.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Context
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-context-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-data-quality-job-definition-api
+  name: Amazon SageMaker Sagemaker Data Quality Job Definition API
+  description: >-
+    The Sagemaker Data Quality Job Definition API from Amazon SageMaker — 4 operation(s) for sagemaker
+    data quality job definition.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Data Quality Job Definition
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-data-quality-job-definition-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-device-api
+  name: Amazon SageMaker Sagemaker Device API
+  description: The Sagemaker Device API from Amazon SageMaker — 5 operation(s) for sagemaker device.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Device
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-device-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-device-fleet-api
+  name: Amazon SageMaker Sagemaker Device Fleet API
+  description: >-
+    The Sagemaker Device Fleet API from Amazon SageMaker — 5 operation(s) for sagemaker device fleet.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Device Fleet
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-device-fleet-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-domain-api
+  name: Amazon SageMaker Sagemaker Domain API
+  description: The Sagemaker Domain API from Amazon SageMaker — 5 operation(s) for sagemaker domain.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Domain
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-domain-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-edge-deployment-plan-api
+  name: Amazon SageMaker Sagemaker Edge Deployment Plan API
+  description: >-
+    The Sagemaker Edge Deployment Plan API from Amazon SageMaker — 4 operation(s) for sagemaker edge deployment
+    plan.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Edge Deployment Plan
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-edge-deployment-plan-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-edge-deployment-stage-api
+  name: Amazon SageMaker Sagemaker Edge Deployment Stage API
+  description: >-
+    The Sagemaker Edge Deployment Stage API from Amazon SageMaker — 4 operation(s) for sagemaker edge
+    deployment stage.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Edge Deployment Stage
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-edge-deployment-stage-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-edge-packaging-job-api
+  name: Amazon SageMaker Sagemaker Edge Packaging Job API
+  description: >-
+    The Sagemaker Edge Packaging Job API from Amazon SageMaker — 4 operation(s) for sagemaker edge packaging
+    job.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Edge Packaging Job
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-edge-packaging-job-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-endpoint-config-api
+  name: Amazon SageMaker Sagemaker Endpoint Config API
+  description: >-
+    The Sagemaker Endpoint Config API from Amazon SageMaker — 4 operation(s) for sagemaker endpoint config.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Endpoint Config
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-endpoint-config-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-experiment-api
+  name: Amazon SageMaker Sagemaker Experiment API
+  description: >-
+    The Sagemaker Experiment API from Amazon SageMaker — 5 operation(s) for sagemaker experiment.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Experiment
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-experiment-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-feature-group-api
+  name: Amazon SageMaker Sagemaker Feature Group API
+  description: >-
+    The Sagemaker Feature Group API from Amazon SageMaker — 5 operation(s) for sagemaker feature group.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Feature Group
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-feature-group-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-flow-definition-api
+  name: Amazon SageMaker Sagemaker Flow Definition API
+  description: >-
+    The Sagemaker Flow Definition API from Amazon SageMaker — 4 operation(s) for sagemaker flow definition.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Flow Definition
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-flow-definition-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-hub-api
+  name: Amazon SageMaker Sagemaker Hub API
+  description: The Sagemaker Hub API from Amazon SageMaker — 5 operation(s) for sagemaker hub.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Hub
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-hub-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-hub-content-api
+  name: Amazon SageMaker Sagemaker Hub Content API
+  description: >-
+    The Sagemaker Hub Content API from Amazon SageMaker — 5 operation(s) for sagemaker hub content.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Hub Content
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-hub-content-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-hub-content-reference-api
+  name: Amazon SageMaker Sagemaker Hub Content Reference API
+  description: >-
+    The Sagemaker Hub Content Reference API from Amazon SageMaker — 3 operation(s) for sagemaker hub content
+    reference.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Hub Content Reference
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-hub-content-reference-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-human-task-ui-api
+  name: Amazon SageMaker Sagemaker Human Task Ui API
+  description: >-
+    The Sagemaker Human Task Ui API from Amazon SageMaker — 4 operation(s) for sagemaker human task ui.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Human Task Ui
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-human-task-ui-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-hyper-parameter-tuning-job-api
+  name: Amazon SageMaker Sagemaker Hyper Parameter Tuning Job API
+  description: >-
+    The Sagemaker Hyper Parameter Tuning Job API from Amazon SageMaker — 5 operation(s) for sagemaker
+    hyper parameter tuning job.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Hyper Parameter Tuning Job
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-hyper-parameter-tuning-job-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-image-api
+  name: Amazon SageMaker Sagemaker Image API
+  description: The Sagemaker Image API from Amazon SageMaker — 5 operation(s) for sagemaker image.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Image
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-image-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-image-version-api
+  name: Amazon SageMaker Sagemaker Image Version API
+  description: >-
+    The Sagemaker Image Version API from Amazon SageMaker — 5 operation(s) for sagemaker image version.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Image Version
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-image-version-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-inference-component-api
+  name: Amazon SageMaker Sagemaker Inference Component API
+  description: >-
+    The Sagemaker Inference Component API from Amazon SageMaker — 5 operation(s) for sagemaker inference
+    component.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Inference Component
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-inference-component-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-inference-experiment-api
+  name: Amazon SageMaker Sagemaker Inference Experiment API
+  description: >-
+    The Sagemaker Inference Experiment API from Amazon SageMaker — 7 operation(s) for sagemaker inference
+    experiment.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Inference Experiment
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-inference-experiment-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-inference-recommendations-job-api
+  name: Amazon SageMaker Sagemaker Inference Recommendations Job API
+  description: >-
+    The Sagemaker Inference Recommendations Job API from Amazon SageMaker — 4 operation(s) for sagemaker
+    inference recommendations job.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Inference Recommendations Job
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-inference-recommendations-job-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-job-api
+  name: Amazon SageMaker Sagemaker Job API
+  description: The Sagemaker Job API from Amazon SageMaker — 5 operation(s) for sagemaker job.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Job
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-job-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-labeling-job-api
+  name: Amazon SageMaker Sagemaker Labeling Job API
+  description: >-
+    The Sagemaker Labeling Job API from Amazon SageMaker — 5 operation(s) for sagemaker labeling job.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Labeling Job
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-labeling-job-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-mlflow-app-api
+  name: Amazon SageMaker Sagemaker Mlflow App API
+  description: >-
+    The Sagemaker Mlflow App API from Amazon SageMaker — 5 operation(s) for sagemaker mlflow app.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Mlflow App
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-mlflow-app-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-mlflow-tracking-server-api
+  name: Amazon SageMaker Sagemaker Mlflow Tracking Server API
+  description: >-
+    The Sagemaker Mlflow Tracking Server API from Amazon SageMaker — 7 operation(s) for sagemaker mlflow
+    tracking server.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Mlflow Tracking Server
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-mlflow-tracking-server-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-model-bias-job-definition-api
+  name: Amazon SageMaker Sagemaker Model Bias Job Definition API
+  description: >-
+    The Sagemaker Model Bias Job Definition API from Amazon SageMaker — 4 operation(s) for sagemaker model
+    bias job definition.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Model Bias Job Definition
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-model-bias-job-definition-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-model-card-api
+  name: Amazon SageMaker Sagemaker Model Card API
+  description: >-
+    The Sagemaker Model Card API from Amazon SageMaker — 5 operation(s) for sagemaker model card.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Model Card
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-model-card-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-model-card-export-job-api
+  name: Amazon SageMaker Sagemaker Model Card Export Job API
+  description: >-
+    The Sagemaker Model Card Export Job API from Amazon SageMaker — 3 operation(s) for sagemaker model
+    card export job.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Model Card Export Job
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-model-card-export-job-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-model-explainability-job-definition-api
+  name: Amazon SageMaker Sagemaker Model Explainability Job Definition API
+  description: >-
+    The Sagemaker Model Explainability Job Definition API from Amazon SageMaker — 4 operation(s) for sagemaker
+    model explainability job definition.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Model Explainability Job Definition
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-model-explainability-job-definition-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-model-package-api
+  name: Amazon SageMaker Sagemaker Model Package API
+  description: >-
+    The Sagemaker Model Package API from Amazon SageMaker — 6 operation(s) for sagemaker model package.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Model Package
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-model-package-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-model-package-group-api
+  name: Amazon SageMaker Sagemaker Model Package Group API
+  description: >-
+    The Sagemaker Model Package Group API from Amazon SageMaker — 4 operation(s) for sagemaker model package
+    group.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Model Package Group
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-model-package-group-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-model-package-group-policy-api
+  name: Amazon SageMaker Sagemaker Model Package Group Policy API
+  description: >-
+    The Sagemaker Model Package Group Policy API from Amazon SageMaker — 3 operation(s) for sagemaker
+    model package group policy.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Model Package Group Policy
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-model-package-group-policy-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-model-quality-job-definition-api
+  name: Amazon SageMaker Sagemaker Model Quality Job Definition API
+  description: >-
+    The Sagemaker Model Quality Job Definition API from Amazon SageMaker — 4 operation(s) for sagemaker
+    model quality job definition.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Model Quality Job Definition
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-model-quality-job-definition-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-monitoring-schedule-api
+  name: Amazon SageMaker Sagemaker Monitoring Schedule API
+  description: >-
+    The Sagemaker Monitoring Schedule API from Amazon SageMaker — 7 operation(s) for sagemaker monitoring
+    schedule.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Monitoring Schedule
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-monitoring-schedule-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-notebook-instance-lifecycle-config-api
+  name: Amazon SageMaker Sagemaker Notebook Instance Lifecycle Config API
+  description: >-
+    The Sagemaker Notebook Instance Lifecycle Config API from Amazon SageMaker — 5 operation(s) for sagemaker
+    notebook instance lifecycle config.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Notebook Instance Lifecycle Config
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-notebook-instance-lifecycle-config-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-operations-api
+  name: Amazon SageMaker Sagemaker Operations API
+  description: >-
+    The Sagemaker Operations API from Amazon SageMaker — 63 operation(s) for sagemaker operations.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Operations
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-operations-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-optimization-job-api
+  name: Amazon SageMaker Sagemaker Optimization Job API
+  description: >-
+    The Sagemaker Optimization Job API from Amazon SageMaker — 5 operation(s) for sagemaker optimization
+    job.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Optimization Job
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-optimization-job-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-partner-app-api
+  name: Amazon SageMaker Sagemaker Partner App API
+  description: >-
+    The Sagemaker Partner App API from Amazon SageMaker — 5 operation(s) for sagemaker partner app.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Partner App
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-partner-app-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-pipeline-api
+  name: Amazon SageMaker Sagemaker Pipeline API
+  description: >-
+    The Sagemaker Pipeline API from Amazon SageMaker — 5 operation(s) for sagemaker pipeline.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Pipeline
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-pipeline-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-pipeline-execution-api
+  name: Amazon SageMaker Sagemaker Pipeline Execution API
+  description: >-
+    The Sagemaker Pipeline Execution API from Amazon SageMaker — 5 operation(s) for sagemaker pipeline
+    execution.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Pipeline Execution
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-pipeline-execution-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-processing-job-api
+  name: Amazon SageMaker Sagemaker Processing Job API
+  description: >-
+    The Sagemaker Processing Job API from Amazon SageMaker — 5 operation(s) for sagemaker processing job.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Processing Job
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-processing-job-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-project-api
+  name: Amazon SageMaker Sagemaker Project API
+  description: The Sagemaker Project API from Amazon SageMaker — 5 operation(s) for sagemaker project.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Project
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-project-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-space-api
+  name: Amazon SageMaker Sagemaker Space API
+  description: The Sagemaker Space API from Amazon SageMaker — 5 operation(s) for sagemaker space.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Space
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-space-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-studio-lifecycle-config-api
+  name: Amazon SageMaker Sagemaker Studio Lifecycle Config API
+  description: >-
+    The Sagemaker Studio Lifecycle Config API from Amazon SageMaker — 4 operation(s) for sagemaker studio
+    lifecycle config.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Studio Lifecycle Config
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-studio-lifecycle-config-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-tag-api
+  name: Amazon SageMaker Sagemaker Tag API
+  description: The Sagemaker Tag API from Amazon SageMaker — 3 operation(s) for sagemaker tag.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Tag
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-tag-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-training-plan-api
+  name: Amazon SageMaker Sagemaker Training Plan API
+  description: >-
+    The Sagemaker Training Plan API from Amazon SageMaker — 3 operation(s) for sagemaker training plan.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Training Plan
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-training-plan-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-training-session-api
+  name: Amazon SageMaker Sagemaker Training Session API
+  description: >-
+    The Sagemaker Training Session API from Amazon SageMaker — 5 operation(s) for sagemaker training session.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Training Session
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-training-session-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-transform-job-api
+  name: Amazon SageMaker Sagemaker Transform Job API
+  description: >-
+    The Sagemaker Transform Job API from Amazon SageMaker — 4 operation(s) for sagemaker transform job.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Transform Job
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-transform-job-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-trial-api
+  name: Amazon SageMaker Sagemaker Trial API
+  description: The Sagemaker Trial API from Amazon SageMaker — 5 operation(s) for sagemaker trial.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Trial
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-trial-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-trial-component-api
+  name: Amazon SageMaker Sagemaker Trial Component API
+  description: >-
+    The Sagemaker Trial Component API from Amazon SageMaker — 7 operation(s) for sagemaker trial component.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Trial Component
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-trial-component-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-user-profile-api
+  name: Amazon SageMaker Sagemaker User Profile API
+  description: >-
+    The Sagemaker User Profile API from Amazon SageMaker — 5 operation(s) for sagemaker user profile.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker User Profile
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-user-profile-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-workforce-api
+  name: Amazon SageMaker Sagemaker Workforce API
+  description: >-
+    The Sagemaker Workforce API from Amazon SageMaker — 5 operation(s) for sagemaker workforce.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Workforce
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-workforce-api-openapi.yml
+- aid: amazon-sagemaker:amazon-sagemaker-workteam-api
+  name: Amazon SageMaker Sagemaker Workteam API
+  description: >-
+    The Sagemaker Workteam API from Amazon SageMaker — 5 operation(s) for sagemaker workteam.
+  humanURL: https://docs.aws.amazon.com/sagemaker/latest/dg/API_runtime_InvokeEndpoint.html
+  baseURL: https://runtime.sagemaker.{region}.amazonaws.com
+  tags:
+  - Sagemaker Workteam
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-sagemaker-workteam-api-openapi.yml
+common:
+- type: RateLimits
+  url: rate-limits/amazon-sagemaker-rate-limits.yml
+- type: FinOps
+  url: finops/amazon-sagemaker-finops.yml
+- type: Plans
+  url: plans/amazon-sagemaker-plans-pricing.yml
+- type: Website
+  url: https://aws.amazon.com/sagemaker/
+- type: CapabilityMap
+  url: capabilities/amazon-sagemaker-capability-edges.yml
+  name: Amazon SageMaker Business Capability Map
+- type: IssueTracker
+  url: https://github.com/aws/sagemaker-core/issues
+- type: Releases
+  url: https://github.com/aws/sagemaker-core/releases
+- type: CodeOfConduct
+  url: https://github.com/aws/.github/blob/master/CODE_OF_CONDUCT.md
+- type: ContributionGuide
+  url: https://github.com/aws/sagemaker-core/blob/main/CONTRIBUTING.md
+- type: License
+  name: Apache-2.0
+  url: https://github.com/aws/sagemaker-core/blob/main/LICENSE
+- type: AgenticAccess
+  url: agentic-access/amazon-sagemaker-agentic-access.yml
+- type: TrustCenter
+  url: security/amazon-sagemaker-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/amazon-sagemaker-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/amazon-sagemaker-domain-security.yml
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/amazon-sagemaker/overview
+- type: Arazzo
+  url: arazzo/amazon-sagemaker-audit-endpoint-fleet-workflow.yml
+  name: Amazon SageMaker Audit Endpoint Fleet
+- type: Arazzo
+  url: arazzo/amazon-sagemaker-deploy-existing-model-workflow.yml
+  name: Amazon SageMaker Deploy Existing Model
+- type: Arazzo
+  url: arazzo/amazon-sagemaker-deploy-model-to-endpoint-workflow.yml
+  name: Amazon SageMaker Deploy Model to Endpoint
+- type: Arazzo
+  url: arazzo/amazon-sagemaker-inventory-models-workflow.yml
+  name: Amazon SageMaker Inventory Models
+- type: Arazzo
+  url: arazzo/amazon-sagemaker-provision-notebook-instance-workflow.yml
+  name: Amazon SageMaker Provision Notebook Instance
+- type: Arazzo
+  url: arazzo/amazon-sagemaker-register-latest-completed-training-workflow.yml
+  name: Amazon SageMaker Register Latest Completed Training
+- type: Arazzo
+  url: arazzo/amazon-sagemaker-train-and-poll-job-workflow.yml
+  name: Amazon SageMaker Train Model and Poll Job
+- type: Arazzo
+  url: arazzo/amazon-sagemaker-train-then-deploy-workflow.yml
+  name: Amazon SageMaker Train Then Deploy
+- type: Portal
+  url: https://aws.amazon.com/
+- type: GettingStarted
+  url: https://aws.amazon.com/sagemaker/getting-started/
+- type: Documentation
+  url: https://docs.aws.amazon.com/sagemaker/latest/dg/
+- type: APIReference
+  url: https://docs.aws.amazon.com/sagemaker/latest/APIReference/
+- type: Console
+  url: https://console.aws.amazon.com/sagemaker/
+- type: Signup
+  url: https://portal.aws.amazon.com/billing/signup
+- type: Pricing
+  url: https://aws.amazon.com/sagemaker/pricing/
+- type: FAQ
+  url: https://aws.amazon.com/sagemaker/faqs/
+- type: Blog
+  url: https://aws.amazon.com/blogs/machine-learning/
+- type: StatusPage
+  url: https://status.aws.amazon.com/
+- type: Support
+  url: https://aws.amazon.com/support/
+- type: TermsOfService
+  url: https://aws.amazon.com/service-terms/
+- type: PrivacyPolicy
+  url: https://aws.amazon.com/privacy/
+- type: Security
+  url: https://docs.aws.amazon.com/sagemaker/latest/dg/security.html
+- type: Compliance
+  url: https://aws.amazon.com/compliance/
+- type: GitHubOrganization
+  url: https://github.com/aws
+- type: YouTube
+  url: https://www.youtube.com/user/AmazonWebServices
+- type: StackOverflow
+  url: https://stackoverflow.com/questions/tagged/amazon-sagemaker
+- type: KnowledgeCenter
+  url: https://repost.aws/knowledge-center
+- type: CLI
+  url: https://docs.aws.amazon.com/cli/latest/reference/sagemaker/
+- type: CLI
+  url: https://github.com/aws/sagemaker-hyperpod-cli
+  title: SageMaker HyperPod CLI
+- type: SDKs
+  url: https://github.com/aws/sagemaker-python-sdk
+  title: Python SDK (GitHub)
+- type: GitHubRepository
+  url: https://github.com/aws/sagemaker-core
+- type: GitHubRepository
+  url: https://github.com/aws/sagemaker-distribution
+- type: SpectralRules
+  url: rules/amazon-sagemaker-spectral-rules.yml
+- type: Vocabulary
+  url: vocabulary/amazon-sagemaker-vocabulary.yaml
+- type: Training
+  url: https://aws.amazon.com/training/
+- type: Features
+  data:
+  - name: SageMaker Studio
+    description: Fully integrated development environment for ML work with notebooks, debugging, and experiment
+      tracking.
+  - name: SageMaker HyperPod
+    description: Purpose-built infrastructure for distributed training that reduces foundation model training
+      time by up to 40%.
+  - name: SageMaker JumpStart
+    description: Hub providing access to foundation models, pre-built algorithms, and one-click deployment.
+  - name: SageMaker Autopilot
+    description: Automated model creation with complete visibility and transparency.
+  - name: SageMaker Canvas
+    description: No-code visual interface for creating ML models without writing code.
+  - name: SageMaker Feature Store
+    description: Store, share, and manage features for machine learning models.
+  - name: SageMaker Data Wrangler
+    description: Data preparation tool that reduces transformation workflow time significantly.
+  - name: SageMaker Ground Truth
+    description: Incorporates human feedback throughout the ML lifecycle for data labeling.
+  - name: SageMaker Pipelines
+    description: Purpose-built CI/CD service for machine learning workflows.
+  - name: SageMaker Model Monitor
+    description: Automatically detects concept drift and data quality issues in deployed models.
+  - name: SageMaker Clarify
+    description: Provides machine learning explainability and bias detection.
+  - name: SageMaker Experiments
+    description: Streamlines tracking and management of ML experiments.
+  - name: ML Governance
+    description: Access controls and transparency across the full ML lifecycle with audit trails.
+- type: UseCases
+  data:
+  - name: Generative AI Applications
+    description: Build custom generative AI applications using proprietary data with foundation model
+      fine-tuning.
+  - name: ML Model Development
+    description: Train and deploy ML models across the entire machine learning lifecycle from exploration
+      to production.
+  - name: Data Analytics
+    description: Query and analyze data across unified sources with built-in SQL analytics and data processing.
+  - name: Enterprise AI Governance
+    description: Manage data and AI artifacts with fine-grained security controls and compliance tooling.
+  - name: Computer Vision
+    description: Build and deploy computer vision models for image classification, object detection, and
+      segmentation.
+  - name: Natural Language Processing
+    description: Train and deploy NLP models for text classification, entity recognition, and language
+      generation.
+  - name: Fraud Detection
+    description: Build real-time fraud detection models with low-latency inference endpoints.
+  - name: Predictive Maintenance
+    description: Deploy ML models on edge devices for predictive maintenance use cases.
+- type: Integrations
+  data:
+  - name: Amazon S3
+    description: Store training data, model artifacts, and inference outputs in Amazon S3 data lakes.
+  - name: Amazon Redshift
+    description: Zero-ETL integration for near real-time data ingestion from Redshift warehouses.
+  - name: Amazon ECR
+    description: Store and manage Docker containers for custom training and inference environments.
+  - name: AWS Lambda
+    description: Trigger ML inference pipelines and post-processing workflows with Lambda functions.
+  - name: Amazon EventBridge
+    description: Trigger SageMaker pipelines and workflows based on events.
+  - name: AWS Step Functions
+    description: Orchestrate multi-step ML workflows using Step Functions state machines.
+  - name: Apache Iceberg
+    description: Lakehouse architecture supporting Apache Iceberg-compatible data tools.
+  - name: Amazon DataZone
+    description: SageMaker Catalog built on Amazon DataZone for data discovery and governance.
+  - name: Amazon Q Developer
+    description: Natural language assistance integrated into SageMaker Unified Studio.
+  - name: Hugging Face
+    description: Deploy Hugging Face models directly via SageMaker JumpStart.
+- type: JSONLD
+  url: json-ld/amazon-sagemaker-context.jsonld
+- type: JSONSchema
+  url: json-schema/amazon-sagemaker-tag-schema.json
+- type: JSONStructure
+  url: json-structure/amazon-sagemaker-endpoint-structure.json
+- type: JSONStructure
+  url: json-structure/amazon-sagemaker-model-structure.json
+- type: JSONStructure
+  url: json-structure/amazon-sagemaker-notebook-instance-structure.json
+- type: JSONStructure
+  url: json-structure/amazon-sagemaker-tag-structure.json
+- type: JSONStructure
+  url: json-structure/amazon-sagemaker-training-job-structure.json
+- type: Examples
+  url: examples/amazon-sagemaker-endpoint-example.json
+- type: Examples
+  url: examples/amazon-sagemaker-model-example.json
+- type: Examples
+  url: examples/amazon-sagemaker-notebook-instance-example.json
+- type: Examples
+  url: examples/amazon-sagemaker-tag-example.json
+- type: Examples
+  url: examples/amazon-sagemaker-training-job-example.json
+- type: Integrations
+  url: https://aws.amazon.com/partners/
+maintainer: Kin Lane
+integrations:
+- name: Partner Programs
+- name: Resources
+- name: Success Stories
+- name: Work with an AWS Partner
+- name: AWS Marketplace
+- name: AWS Partner Central
+- name: Partner Paths
+- name: co-sell with AWS
+x-parent: amazon-web-services
+x-relationship: product
